@@ -44,8 +44,8 @@ For a multi-language website, you can manage different content for each language
 - **Code Block**: Add multiple lines of code. 
 - **Pricing Table Block**: Add a pricing table for your products or services.
 
-### Widget blocks (dynamic content:
-Add a widget bloc on any page or slider with dynamic content from any section of wour website.
+### Widget blocks (dynamic content):
+Add a widget block on any page or sidebar with dynamic content from any section of wour website.
 - **Posts Widget Block**: add content from posts (latest posts, top posts, posts categories and more).
 - **E-Commerce Widget Block**: add content from e-commerce section (latest products, top products, feature products or categories).
 - **Forum Widget Block**: add content from community (latest topics, latest posts, top content and more).
