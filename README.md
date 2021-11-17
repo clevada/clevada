@@ -43,6 +43,7 @@ For a multi-language website, you can manage different content for each language
 - **Reviews Block**: Add a reviews section with clients feedback, star rating and more.
 - **Code Block**: Add multiple lines of code. 
 - **Pricing Table Block**: Add a pricing table for your products or services.
+- **Custom Block**: Add a custom block with custom code (developer mode).
 
 ### Widget blocks (dynamic content):
 Add a widget block on any page or sidebar with dynamic content from any section of wour website.
