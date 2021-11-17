@@ -1,4 +1,4 @@
-# Clevada: #1 Free Website Builder for Business, Communities, Teams and Personal Websites
+# Clevada: #1 Free Website Builder for Businesses, Communities, Teams and Personal Websites
 
 ### [Clevada](https://clevada.com) is a free suite for businesses, communities, teams, collaboration or personal websites. Create a free and professional website in minutes.
 
