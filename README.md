@@ -1,7 +1,5 @@
 
 <p align="center">
-    <img src="https://img.shields.io/github/stars/clevada/clevada" alt="forks">
-    <img src="https://img.shields.io/github/downloads/clevada/clevada/total" alt="downloads">
     <img src="https://img.shields.io/github/license/clevada/clevada" alt="license">
 </p>
 
