@@ -58,5 +58,39 @@ Add a widget block on any page or sidebar with dynamic content from any section 
 - **E-Commerce Widget Block**: add content from e-commerce section (latest products, top products, feature products or categories).
 - **Forum Widget Block**: add content from community (latest topics, latest posts, top content and more).
 
+---
+
+## Installation
+Your hosting must have Composer and give you shell access (SSH) and ftp access outside your "public" folder.
+
+1. ``composer create-project clevada/clevada clevada``
+
+This will **download latest version** of Clevada Suite on your server.
+The last argument ("clevada") is the root folder where application will be installed. You can use any folder name (must not exists).
+**It is strongly recommended to install the suite in a folder outside your public folder**.
+
+2. Go to "clevada' (or folder name where you download thge suite). **Edit '.env' file and set your app name, app url and database credentials**.
+
+3. ``cd clevada``
+
+(change directorty to your folder where you download the suite)
+
+4. ``php artisan install``
+
+This will **install and setup** your suite: create tables, add core data into tables, create administrator account.
+You will be prompted to set administrator credentials (name, email and password).
+
+5. **Move folders and files inside "public" folder to your server public folder** (for example: "public_html" if you use Apache Web Server).
+
+*Note: If you have access to server configuration, you can keep "public" folder inside your application folder but you must configure your web server to directs all requests to your application's public/index.php file.*
+
+6. **Give write access** (chmod 777) to this folders:
+- Inside your application folder: "**/bootstrap/cache**" and all folders inside "**/storage**" folder.
+- Inside your public folder: "**/uploads**" folder.
+
+7. (optional). If you have modules that require cron jobs (eCommerce module for example), you must setup cron job in your hosting account to run every minute. More details:  [Setup Laravel Cron](https://laravel.com/docs/8.x/scheduling#running-the-scheduler).
+
+**Note: You can use our hosted service to host your domain and Clevada Suite. We install and configure Clevada Suite for free unsing your own domain. More details: [Clevada Cloud Hosted](https://clevada.com/hosted). **. 
+
 ## License
 Clevada is open-sourced software licensed under the [GPL-3.0 License](https://opensource.org/licenses/GPL-3.0).
