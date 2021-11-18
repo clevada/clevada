@@ -1,3 +1,10 @@
+
+<p align="center">
+    <img src="https://img.shields.io/github/stars/clevada/clevada" alt="forks">
+    <img src="https://img.shields.io/badge/downloads-1.2k-brightgreen" alt="downloads">
+    <img src="https://img.shields.io/github/license/clevada/clevada" alt="license">
+</p>
+
 # Clevada: #1 Free Website Builder for Businesses, Communities, Teams and Personal Websites
 
 ### [Clevada](https://clevada.com) is a free suite for businesses, communities, teams, collaboration or personal websites. Create a free and professional website in minutes.
