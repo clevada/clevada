@@ -61,7 +61,7 @@ Add a widget block on any page or sidebar with dynamic content from any section 
 ---
 
 ## Clevada Hosted
-**Note: You can use our hosting service to host your domain and Clevada Suite. We install and configure Clevada Suite for free unsing your own domain. You will have full access to hosting account. More details: [Clevada Cloud Hosted](https://clevada.com/hosted).**. 
+**You can use our hosting service to host your domain and Clevada Suite. We install and configure Clevada Suite for free unsing your own domain. You will have full access to hosting account. More details: [Clevada Cloud Hosted](https://clevada.com/hosted).**. 
 
 ## Installation
 Your hosting must have Composer and give you shell access (SSH) and ftp access outside your "public" folder.
