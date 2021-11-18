@@ -7,6 +7,8 @@
 
 ### [Clevada](https://clevada.com) is a free suite for businesses, communities, teams, collaboration or personal websites. Create a free and professional website in minutes.
 
+Clevada software intends to be **the best free alternative** to popular CMS and Business suites like Wordpress, Joomla, Drupal, WooCommerce, Shopify, Magento...
+
 ### Core features:
 - **Template Builder**: You don't need to install or buy any template. Build your own template without any development knowledge. Manage navigation menus, sidebars, footer, homepage content and more. Manage fonts, colors, content blocks, layout style and more.
 - **Multi-lingual**: Create a multi-lingual website with unlimited languages. Make translations directly in admin area. Each language will have own site version with different content, permalinks, SEO settings, locale settings, currencies and more.
@@ -95,3 +97,7 @@ You will be prompted to set administrator credentials (name, email and password)
 
 ## License
 Clevada is open-sourced software licensed under the [GPL-3.0 License](https://opensource.org/licenses/GPL-3.0).
+
+## Author
+Clevada is owned and developed by Chimilevschi Iosif-Gabriel
+
