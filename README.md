@@ -69,6 +69,7 @@ Advantages tor use hosted service:
 - Fastest DNS: We provide high speed, low latency and DDOS protected nameservers with 100% uptime.
 - Free backup
 - Full access to your hosting account (cPanel  and FTP access)
+
 More details: [Clevada Cloud Hosted](https://clevada.com/hosted).**. 
 
 ## Installation
