@@ -22,11 +22,11 @@
 
 ### Modules:
 - **CMS (Content Management)**: blog, posts, pages, content blocks, sliders...
-- **E-Commerce**: Sell downloadable products, services, phisical products.
 - **Community Forum**: Create a community for your website
 - **Help Desk**: Support Tickets, Knowledge Base, FAQ page, Contact Page Manager...
-- **CRM / Productivity**: Tasks and Projects management
-- **Email Marketing**: Create email campaigns and send bulk emails to customers
+- **E-Commerce**: Sell downloadable products, services, phisical products. (will be released in December, 2021)
+- **CRM / Productivity**: Tasks and Projects management (will be released in December, 2021)
+- **Email Marketing**: Create email campaigns and send bulk emails to customers (will be released in December, 2021)
 - **Landing pages**: Create landing pages for your services or products and integrate in email marketing campaigns.
 - many other modules in development (Live Chat, Bookings, Intranet...)
 
