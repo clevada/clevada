@@ -7,7 +7,7 @@
 
 ### [Clevada](https://clevada.com) is a free suite for businesses, communities, teams, collaboration or personal websites. Create a free and professional website in minutes.
 
-Clevada software intends to be **the best free alternative** to popular CMS and Business suites like Wordpress, Joomla, Drupal, WooCommerce, Shopify, Magento...
+Clevada Suite intends to be **the best free alternative** to popular CMS and Business suites like Wordpress, Joomla, Drupal, WooCommerce, Shopify, Magento...
 
 ### Core features:
 - **Template Builder**: You don't need to install or buy any template. Build your own template without any development knowledge. Manage navigation menus, sidebars, footer, homepage content and more. Manage fonts, colors, content blocks, layout style and more.
@@ -20,7 +20,7 @@ Clevada software intends to be **the best free alternative** to popular CMS and 
 - **User Management**: Manage internal (staff) users of your site, create departments, assign internal users to roles (to manage only assigned modules content).
 - **Flexible**: Activate only needed modules to create any type of website, from a simple blog, to a complex business website, intranet or community website.
 - **Responsive**: Clevada uses latest Bootstrap framework for clean and responsive designs. Template builder will generate a full responsive template, optimized for speed.
-- **Developer friendly**: Clevada follows the best development practices, code is optimised for SEO, security and performance. Clevada backend is build using the latest Laravel framework.
+- **Developer friendly**: Clevada follows the best development practices, code is optimised for SEO, security and performance. Clevada Suite is build using the latest Laravel framework. Clevada use Bootstrap framework to build clean and full responsive templates.
 
 ### Modules:
 - **CMS (Content Management)**: blog, posts, pages, content blocks, sliders...
