@@ -1,7 +1,7 @@
 
 <p align="center">
-    /*<img src="https://img.shields.io/github/stars/clevada/clevada" alt="forks">*/
-    <img src="https://img.shields.io/badge/downloads-1.2k-brightgreen" alt="downloads">
+    <img src="https://img.shields.io/github/stars/clevada/clevada" alt="forks">
+    ![GitHub all releases](https://img.shields.io/github/downloads/clevada/clevada/total)
     <img src="https://img.shields.io/github/license/clevada/clevada" alt="license">
 </p>
 
