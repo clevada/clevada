@@ -61,7 +61,15 @@ Add a widget block on any page or sidebar with dynamic content from any section 
 ---
 
 ## Clevada Hosted
-**You can use our hosting service to host your domain and Clevada Suite. We install and configure Clevada Suite for free unsing your own domain. You will have full access to hosting account. More details: [Clevada Cloud Hosted](https://clevada.com/hosted).**. 
+**You can use our hosting service to host your domain and Clevada Suite. We install and configure Clevada Suite for free using your own domain. You will have full access to hosting account.** 
+Advantages tor use hosted service:
+- We install and configure Clevada Suite for free
+- Free automatic updates with one click, from your Admin area.
+- Superior Performance: Our scalable servers provides 3x faster performance and reliability compared to major hosting companies.
+- Fastest DNS: We provide high speed, low latency and DDOS protected nameservers with 100% uptime.
+- Free backup
+- Full access to your hosting account (cPanel  and FTP access)
+More details: [Clevada Cloud Hosted](https://clevada.com/hosted).**. 
 
 ## Installation
 Your hosting must have Composer and give you shell access (SSH) and ftp access outside your "public" folder.
