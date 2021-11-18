@@ -70,7 +70,7 @@ Advantages tor use hosted service:
 - Free backup
 - Full access to your hosting account (cPanel  and FTP access)
 
-More details: [Clevada Cloud Hosted](https://clevada.com/hosted).**. 
+More details: **[Clevada Cloud Hosted](https://clevada.com/hosted).**. 
 
 ## Installation
 Your hosting must have Composer and give you shell access (SSH) and ftp access outside your "public" folder.
