@@ -42,6 +42,7 @@ class Core extends Model
      */
     public static function config()
     {
+        
         $results = Cache::remember('config', 60 * 60 * 24, function () {
             return DB::table('sys_config')->pluck('value', 'name')->toArray();
         });
