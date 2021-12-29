@@ -19,8 +19,6 @@
 
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Models\Core;
-use App\Models\Upload;
 
 if (!function_exists('get_config_value')) {
 	function get_config_value($varname = null)
