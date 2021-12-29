@@ -8,6 +8,11 @@
         "website builder",
         "business suite"
     ],
+    "author": [{
+        "name": "Chimilevschi Iosif-Gabriel",
+        "email": "office@clevada.com",
+        "role": "Founder and developer"
+    }],
     "license": "GPL-3.0",
     "require": {
         "php": ">8",
