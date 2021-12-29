@@ -70,7 +70,7 @@ Advantages tor use hosted service:
 - Free backup
 - Full access to your hosting account (cPanel  and FTP access)
 
-More details: **[Clevada Cloud Hosted](https://clevada.com/hosted).**.
+More details: **[Clevada Cloud Hosted](https://clevada.com/cloud)**.
 
 ## Installation
 Your hosting must have Composer and give you shell access (SSH) and ftp access outside your "public" folder.
@@ -102,11 +102,11 @@ You will be prompted to set administrator credentials (name, email and password)
 
 7. (optional). If you have modules that require cron jobs (eCommerce module for example), you must setup cron job in your hosting account to run every minute. More details:  [Setup Laravel Cron](https://laravel.com/docs/8.x/scheduling#running-the-scheduler).
 
-**Note: You can use our hosted service to host your domain and Clevada Suite. We install and configure Clevada Suite for free unsing your own domain. More details: [Clevada Cloud Hosted](https://clevada.com/hosted).**.
+**Note: You can use our hosted service to host your domain and Clevada Suite. We install and configure Clevada Suite for free unsing your own domain. More details: [Clevada Cloud Hosted](https://clevada.com/cloud)**.
 
 ## License
 Clevada is open-sourced software licensed under the [GPL-3.0 License](https://opensource.org/licenses/GPL-3.0).
 
 ## Author
-Clevada is owned and developed by Chimilevschi Iosif-Gabriel
+Clevada is owned and developed by Chimilevschi Iosif-Gabriel (office@clevada.com)
 
