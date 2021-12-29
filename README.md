@@ -45,10 +45,10 @@ For a multi-language website, you can manage different content for each language
 - **Accordion Block**: Build vertically collapsing accordions with different content.
 - **Allert Block**: Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
 - **Maps Block**: Add a Google Map section in any page.
-- **Blockquote Block**: Add quoting blocks of content from another source within your document. 
+- **Blockquote Block**: Add quoting blocks of content from another source within your document.
 - **Download Block**: Add a file download. Manage file versions, count downloads and more.
 - **Reviews Block**: Add a reviews section with clients feedback, star rating and more.
-- **Code Block**: Add multiple lines of code. 
+- **Code Block**: Add multiple lines of code.
 - **Pricing Table Block**: Add a pricing table for your products or services.
 - **Custom Block**: Add a custom block with custom code (developer mode).
 
@@ -61,7 +61,7 @@ Add a widget block on any page or sidebar with dynamic content from any section 
 ---
 
 ## Clevada Hosted
-**You can use our hosting service to host your domain and Clevada Suite.** 
+**You can use our hosting service to host your domain and Clevada Suite.**
 Advantages tor use hosted service:
 - We install and configure Clevada Suite for free
 - Free automatic updates with one click, from your Admin area.
@@ -70,7 +70,7 @@ Advantages tor use hosted service:
 - Free backup
 - Full access to your hosting account (cPanel  and FTP access)
 
-More details: **[Clevada Cloud Hosted](https://clevada.com/hosted).**. 
+More details: **[Clevada Cloud Hosted](https://clevada.com/hosted).**.
 
 ## Installation
 Your hosting must have Composer and give you shell access (SSH) and ftp access outside your "public" folder.
@@ -102,7 +102,7 @@ You will be prompted to set administrator credentials (name, email and password)
 
 7. (optional). If you have modules that require cron jobs (eCommerce module for example), you must setup cron job in your hosting account to run every minute. More details:  [Setup Laravel Cron](https://laravel.com/docs/8.x/scheduling#running-the-scheduler).
 
-**Note: You can use our hosted service to host your domain and Clevada Suite. We install and configure Clevada Suite for free unsing your own domain. More details: [Clevada Cloud Hosted](https://clevada.com/hosted).**. 
+**Note: You can use our hosted service to host your domain and Clevada Suite. We install and configure Clevada Suite for free unsing your own domain. More details: [Clevada Cloud Hosted](https://clevada.com/hosted).**.
 
 ## License
 Clevada is open-sourced software licensed under the [GPL-3.0 License](https://opensource.org/licenses/GPL-3.0).

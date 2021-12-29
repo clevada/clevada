@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+			<url>
+				<loc>http://localhost</loc>
+				<changefreq>daily</changefreq>
+				<priority>1</priority>
+			</url>
+
+				<url>
+					<loc>http://localhost/contact</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/ro/contact</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/how-does-cors-work</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/ro/title-ro-20</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/title-en</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/ro/title-ro</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/cp-en2</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/ro/title-ro1</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/root-en/child-2-en</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/ro/root-ro/child-2-ro</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/root-en/child-en</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/ro/root-ro/child-ro</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/root-en</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+				<url>
+					<loc>http://localhost/ro/root-ro</loc>
+					<changefreq>monthly</changefreq>
+					<priority>0.8</priority>
+				</url>
+
+					<url>
+						<loc>http://localhost/blog</loc>
+						<changefreq>daily</changefreq>
+						<priority>0.8</priority>
+					</url>
+
+					<url>
+						<loc>http://localhost/ro/blog/test-ro</loc>
+						<changefreq>weekly</changefreq>
+						<priority>0.8</priority>
+					</url>
+
+					<url>
+						<loc>http://localhost/ro/blog/smartphones</loc>
+						<changefreq>weekly</changefreq>
+						<priority>0.8</priority>
+					</url>
+
+					<url>
+						<loc>http://localhost/ro/blog/technology</loc>
+						<changefreq>weekly</changefreq>
+						<priority>0.8</priority>
+					</url>
+
+					<url>
+						<loc>http://localhost/blog/travel</loc>
+						<changefreq>weekly</changefreq>
+						<priority>0.8</priority>
+					</url>
+
+					<url>
+						<loc>http://localhost/blog/travel/praesent-at-sapien-sit-amet-risus-lobortis-ultrices-sed-purus-risus-viverra-eu-posuere-sed</loc>
+						<changefreq>weekly</changefreq>
+						<priority>0.7</priority>
+					</url>
+
+					<url>
+						<loc>http://localhost/blog/travel/vivamus-ultricies-nisl-porta-ex-aliquet-eu-dictum-enim-cursus</loc>
+						<changefreq>weekly</changefreq>
+						<priority>0.7</priority>
+					</url>
+
+					<url>
+						<loc>http://localhost/ro/blog/technology/etiam-eleifend-lectus-rutrum-dolor-aliquet-non-aliquet-neque-luctus-3</loc>
+						<changefreq>weekly</changefreq>
+						<priority>0.7</priority>
+					</url>
+
+					<url>
+						<loc>http://localhost/ro/blog/smartphones/etiam-eleifend-lectus-rutrum-dolor-aliquet-non-aliquet-neque-luctus</loc>
+						<changefreq>weekly</changefreq>
+						<priority>0.7</priority>
+					</url>
+
+					<url>
+						<loc>http://localhost/blog/travel/etiam-eleifend-lectus-rutrum-dolor-aliquet-non-aliquet-neque-luctus-1</loc>
+						<changefreq>weekly</changefreq>
+						<priority>0.7</priority>
+					</url>
+</urlset>
