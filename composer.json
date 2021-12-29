@@ -1,6 +1,6 @@
 {
     "name": "clevada/clevada",
-    "type": "project",
+    "type": "package",
     "description": "Free Business Suite and Website Builder.",
     "keywords": [
         "framework",
