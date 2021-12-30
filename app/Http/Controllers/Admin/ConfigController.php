@@ -417,6 +417,7 @@ class ConfigController extends Controller
     {
         return view('admin/account', [
             'view_file' => 'core.tools-backup',
+            'active_menu' => 'config',
             'active_submenu' => 'config.tools',
             'menu_section' => 'tools.backup',
         ]);
