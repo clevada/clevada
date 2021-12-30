@@ -829,3 +829,42 @@ if (!function_exists('get_block_css_style')) {
 	}
 	
 }
+
+
+
+if (!function_exists('recurseCopy')) {
+
+	function recurseCopy($src,$dst, $childFolder='') { 
+
+		$dir = opendir($src); 
+		if(! is_dir($dst)) mkdir($dst);
+		if ($childFolder!='') {
+			if(! is_dir($dst.'/'.$childFolder)) mkdir($dst.'/'.$childFolder);
+
+			while(false !== ( $file = readdir($dir)) ) { 
+				if (( $file != '.' ) && ( $file != '..' )) { 
+					if ( is_dir($src . '/' . $file) ) { 
+						recurseCopy($src . '/' . $file,$dst.'/'.$childFolder . '/' . $file); 
+					} 
+					else { 
+						copy($src . '/' . $file, $dst.'/'.$childFolder . '/' . $file); 
+					}  
+				} 
+			}
+		}else{
+				// return $cc; 
+			while(false !== ( $file = readdir($dir)) ) { 
+				if (( $file != '.' ) && ( $file != '..' )) { 
+					if ( is_dir($src . '/' . $file) ) { 
+						recurseCopy($src . '/' . $file,$dst . '/' . $file); 
+					} 
+					else { 
+						copy($src . '/' . $file, $dst . '/' . $file); 
+					}  
+				} 
+			} 
+		}
+    
+    	closedir($dir); 
+	}
+}

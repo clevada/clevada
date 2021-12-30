@@ -50,7 +50,15 @@
                 </div>
             @endif
 
-            <div class="mb-3">{{ __('Your Clevada software version') }}: <b>{{ $config->clevada_version ?? null }}</b></div>
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger">
+                    @if ($message == 'zip')
+                        {{ __('Error extracting archive. Please check if your server hosting have enabled PHP ZIP extension.') }}
+                    @endif
+                </div>
+            @endif
+
+            <div class="mb-3">{{ __('Your Clevada software version') }}: <b>{{ config('clevada.clevada_version') ?? null }}</b></div>
 
             <form method="POST" action="{{ route('admin.tools.update.check') }}">
                 {{ csrf_field() }}

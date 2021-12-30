@@ -28,7 +28,7 @@ class CreateUsersPermissionsTable extends Migration
                 if (! Schema::hasColumn('users_permissions', 'id')) 
                     $table->id();
 
-                if (! Schema::hasColumn('users_permissions', 'module_id')) 
+                if (! Schema::hasColumn('users_permissions', 'module')) 
                     $table->string('module', 100);
                     
                 if (! Schema::hasColumn('users_permissions', 'permission_id')) 

@@ -19,7 +19,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;
 use Auth;
@@ -66,7 +65,7 @@ class UpdateController extends Controller
 
         Core::update_config('last_update_check', now());
 
-        if ($checked_version == config('clevada.clevada_version')) return redirect(route('admin.tools.update'))->with('success', 'update_not_available');
+        if ($checked_version != config('clevada.clevada_version')) return redirect(route('admin.tools.update'))->with('success', 'update_not_available');
         else return redirect(route('admin.tools.update'))->with('success', 'update_available');
     }
 
@@ -74,28 +73,19 @@ class UpdateController extends Controller
     public function update()
     {
 
-        //dd(base_path());
-
         $updatesFolder = storage_path() . '/updates';
-
         
         // get latest update file                           
         $url  = 'https://version.clevada.com/updates/clevada-latest.zip';
-        $zip_file = $updatesFolder . '/clevada-latest.zip';
-
-        /*
-
+        $zip_file = $updatesFolder . '/clevada-latest.zip';        
+        
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $data = curl_exec($ch);
         curl_close($ch);
         file_put_contents($zip_file, $data);       
       
-
         // unzip
-        $fnNoExt = basename($zip_file, ".zip");
-        $destinationFolder = storage_path() . '/updates';
-
         $zip = new \ZipArchive;
         if ($zip->open($zip_file, \ZipArchive::CREATE) === TRUE) {
             if (!is_dir($updatesFolder)) {
@@ -104,24 +94,24 @@ class UpdateController extends Controller
             $zip->extractTo($updatesFolder);
             $zip->close();
         } else {
-            return FALSE;
+            return redirect(route('admin.tools.update'))->with('error', 'zip');;
         }
-        */
-
-        exit;
+        
         // move migration file
-        $migration_filename = date("Y_m_d_") . Carbon::now()->timestamp . '_latest.php';
-        copy($updatesFolder . "/migrations/latest.php", database_path() . "/migrations/update/" . $migration_filename);
+        $migration_folder = date("Y_m_d_") . Carbon::now()->timestamp;        
+        if (!is_dir(database_path().'/migrations/update/'.$migration_folder)) mkdir(database_path().'/migrations/update/'.$migration_folder,  0755);
 
-        // update database tables
-        //Artisan::call('migrate --force --path=database/migrations/update/'.$migration_filename);
-
+        recurseCopy($updatesFolder . "/migrations", database_path().'/migrations/update/'.$migration_folder);
+                
+        // update database tables        
+        Artisan::call('migrate --force --path=database/migrations/update/'.$migration_folder);
+        
         // copy public folders and files
         recurseCopy($updatesFolder . "/public", public_path());
 
         // copy app folders and files
         recurseCopy($updatesFolder . "/clevada", base_path());
 
-        return redirect(route('admin.config.tools.update'))->with('success', 'updated');
+        return redirect(route('admin.tools.update'))->with('success', 'updated');
     }
 }
