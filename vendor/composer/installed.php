@@ -745,6 +745,51 @@
         0 => '4.2.3',
       ),
     ),
+    'spatie/db-dumper' => 
+    array (
+      'pretty_version' => '3.1.1',
+      'version' => '3.1.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '6cbd2b89a902f220def445030050f2f09c2c9176',
+    ),
+    'spatie/laravel-backup' => 
+    array (
+      'pretty_version' => '7.7.3',
+      'version' => '7.7.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd1e3070649d4b1f41e1d606c67b8b7d91e494c3d',
+    ),
+    'spatie/laravel-package-tools' => 
+    array (
+      'pretty_version' => '1.10.0',
+      'version' => '1.10.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '97c24d0bc58e04d55e4a6a7b6d6102cb45b75789',
+    ),
+    'spatie/laravel-signal-aware-command' => 
+    array (
+      'pretty_version' => '1.1.1',
+      'version' => '1.1.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8c605808028943da9f6c0064d3fd16358526bcad',
+    ),
+    'spatie/temporary-directory' => 
+    array (
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '06fe0f10d068fdf145c9b2235030e568c913bb61',
+    ),
     'swiftmailer/swiftmailer' => 
     array (
       'pretty_version' => 'v6.3.0',

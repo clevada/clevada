@@ -40,9 +40,14 @@
                     @if ($message == 'update_available')
                         <h4>{{ __('A new version is available') }}</h4>
                         <div class='fw-bold mb-3'>{{ __('You MUST make a backup before upgrading. Go to backup tab to generate a backup of your database and files') }}</div>
+
+                        @if ($config->last_backup ?? null)
+                        <div class="small mt-3 mb-3">{{ __('Latest backup') }}: {{ date_locale($config->last_backup, 'datetime') }}</div>
+                        @endif
+
                         <form method="POST" action="{{ route('admin.tools.update.process') }}">
                             {{ csrf_field() }}
-                            <button type="submit" class="btn btn-success"><i class="fas fa-download"></i> {{ __('Update to latest version') }}</button>
+                            <button type="submit" class="btn btn-light"><i class="bi bi-download"></i> {{ __('Update to latest version') }}</button>
                         </form>
                     @endif
                     @if ($message == 'update_not_available') {{ __('Your software already use latest version') }} @endif

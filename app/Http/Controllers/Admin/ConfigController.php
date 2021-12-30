@@ -412,4 +412,26 @@ class ConfigController extends Controller
         if ($site_maintenance) return redirect(route('homepage') . '/' . $token);
         else return redirect(route('admin.config.site_offline'))->with('success', 'updated');
     }
+
+    public function backup()
+    {
+        return view('admin/account', [
+            'view_file' => 'core.tools-backup',
+            'active_submenu' => 'config.tools',
+            'menu_section' => 'tools.backup',
+        ]);
+    }
+
+    public function process_backup(Request $request)
+    {
+
+        $option = $request->option;
+
+        if ($option == 'db') Artisan::call('backup:run --only-db --only-to-disk=backups');
+        if ($option == 'full') Artisan::call('backup:run --only-to-disk=backups');
+
+        Core::update_config('last_backup', now());
+
+        return redirect(route('admin.tools.backup'))->with('success', 'updated');
+    }
 }

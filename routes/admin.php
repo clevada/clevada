@@ -136,8 +136,10 @@ Route::group([
         ->parameters(['langs' => 'id']);
 
     Route::get('/tools/update', 'Admin\ConfigController@update')->name('admin.tools');
+    Route::get('/tools/backup', 'Admin\ConfigController@backup')->name('admin.tools.backup');
     Route::get('/tools/sitemap', 'Admin\ConfigController@sitemap')->name('admin.tools.sitemap');
     Route::post('/tools/sitemap', 'Admin\ConfigController@process_sitemap');
+    Route::post('/tools/backup', 'Admin\ConfigController@process_backup');
     Route::get('/tools/system', 'Admin\ConfigController@system')->name('admin.tools.system');
     Route::get('/tools/clear-cache/{section}', 'Admin\ConfigController@clear_cache')->where(['section' => '[a-z0-9_-]+'])->name('admin.tools.clear_cache');
     Route::get('/tools/clear-logs/{section}', 'Admin\ConfigController@clear_logs')->where(['section' => '[a-z0-9_-]+'])->name('admin.tools.clear_logs');

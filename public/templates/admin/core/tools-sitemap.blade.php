@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="col-12 col-sm-5 col-md-6 order-md-1 order-first">
-                    <h4 class="card-title">{{ __('System') }}</h4>
+                    <h4 class="card-title">{{ __('Sitemap') }}</h4>
                 </div>
 
             </div>

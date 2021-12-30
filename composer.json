@@ -1,7 +1,7 @@
 {
     "name": "clevada/clevada",
     "type": "project",
-    "description": "Free Business Suite and Website Builder.",
+    "description": "#1 Free Business Suite and Website Builder.",
     "keywords": [
         "framework",
         "clevada",
@@ -22,7 +22,8 @@
         "intervention/image": "^2.6",
         "laravel/framework": "^8.7",
         "laravel/tinker": "^2.6",
-        "laravel/ui": "^3.3"
+        "laravel/ui": "^3.3",
+        "spatie/laravel-backup": "^7.7"
     },
     "require-dev": {
         "facade/ignition": "^2.17",

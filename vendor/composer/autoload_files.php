@@ -33,6 +33,7 @@ return array(
     '9cdd7b9056abc3081735233ba9dd9c7f' => $vendorDir . '/facade/flare-client-php/src/helpers.php',
     'b6b991a57620e2fb6b2f66f03fe9ddc2' => $vendorDir . '/symfony/string/Resources/functions.php',
     'ed962a97bd972bc82007176b647d4e36' => $vendorDir . '/facade/ignition/src/helpers.php',
+    '0c3c22e27afa83be19b4c938f4c6e9ea' => $vendorDir . '/spatie/laravel-backup/src/Helpers/functions.php',
     'acf7f5d2a3b9436c869432335b135649' => $baseDir . '/app/Helpers/custom.php',
     '120fb27f9882567714e09d671ed4c20a' => $baseDir . '/app/Helpers/core.php',
     '8003ba6798882d76c2fcc10bbe676546' => $baseDir . '/app/Helpers/template.php',

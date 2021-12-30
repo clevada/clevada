@@ -65,7 +65,7 @@ class UpdateController extends Controller
 
         Core::update_config('last_update_check', now());
 
-        if ($checked_version != config('clevada.clevada_version')) return redirect(route('admin.tools.update'))->with('success', 'update_not_available');
+        if ($checked_version <= config('clevada.clevada_version')) return redirect(route('admin.tools.update'))->with('success', 'update_not_available');
         else return redirect(route('admin.tools.update'))->with('success', 'update_available');
     }
 
