@@ -10,4 +10,4 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /public/uploads/20*
-/storage/backups/*
+/storage/backups/clevada/*
