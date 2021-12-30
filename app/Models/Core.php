@@ -356,7 +356,6 @@ class Core extends Model
                 'blocks.created_at as block_created_at',
                 'blocks.updated_at as block_updated_at',
                 'blocks.extra as block_extra',
-                DB::raw("(SELECT content FROM blocks_content WHERE block_id = blocks.id AND lang_id = " . active_lang()->id . ") as block_content_default_lang")
             )
             ->where('blocks.module', $module)
             ->where('blocks.content_id', $content_id)

@@ -514,8 +514,7 @@ if (!function_exists('content_blocks')) {
 				'blocks_types.label as type_label',
 				'blocks.created_at as block_created_at',
 				'blocks.updated_at as block_updated_at',
-				'blocks.extra as block_extra',
-				DB::raw("(SELECT content FROM blocks_content WHERE block_id = blocks.id AND lang_id = " . active_lang()->id . ") as block_content_default_lang")
+				'blocks.extra as block_extra',				
 			)
 			->where('blocks.template_id', $template_id)
 			->where('blocks.module', $module)
@@ -546,7 +545,6 @@ if (!function_exists('template_blocks')) {
 				'blocks.created_at as block_created_at',
 				'blocks.updated_at as block_updated_at',
 				'blocks.extra as block_extra',
-				DB::raw("(SELECT content FROM blocks_content WHERE block_id = blocks.id AND lang_id = " . active_lang()->id . ") as block_content_default_lang")
 			)
 			->where('blocks.template_id', $template_id)
 			->where('blocks.module', $module);
@@ -576,7 +574,6 @@ if (!function_exists('global_blocks')) {
 				'blocks.created_at as block_created_at',
 				'blocks.updated_at as block_updated_at',
 				'blocks.extra as block_extra',
-				DB::raw("(SELECT content FROM blocks_content WHERE block_id = blocks.id AND lang_id = " . active_lang()->id . ") as block_content_default_lang")
 			)
 			->where('module', 'global')
 			->where('content_id', $section_id)
@@ -608,7 +605,6 @@ if (!function_exists('footer_blocks')) {
 				'sys_footer_blocks.created_at as block_created_at',
 				'sys_footer_blocks.updated_at as block_updated_at',
 				'sys_footer_blocks.extra as block_extra',
-				DB::raw("(SELECT content FROM sys_footer_blocks_content WHERE block_id = sys_footer_blocks.id AND lang_id = " . active_lang()->id . ") as block_content_default_lang")
 			)
 			->where('template_id', $template_id)
 			->where('footer', $footer)

@@ -34,8 +34,7 @@
                     </div>
                 </div>
                 <b>{{ __($block->type_label) }}</b>
-                @if ($block->updated_at) <div class="small text-muted">{{ __('Updated at') }}: {{ date_locale($block->updated_at, 'datetime') }}</div>@endif
-                @if (!($block->type == 'map' || $block->type == 'blockquote' || $block->type == 'spacer'))@if (!$block->block_content_default_lang)<div class="text-danger">{{ __('Content not added.') }}</div>@endif @endif
+                @if ($block->updated_at) <div class="small text-muted">{{ __('Updated at') }}: {{ date_locale($block->updated_at, 'datetime') }}</div>@endif                
 
             </div>
         @endforeach

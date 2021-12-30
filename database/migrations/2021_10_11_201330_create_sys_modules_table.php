@@ -21,7 +21,7 @@ class CreateSysModulesTable extends Migration
                 $table->string('label', 100);
                 $table->string('status', 25);
                 $table->string('route_web', 100)->nullable();
-                $table->string('route_admine', 100)->nullable();
+                $table->string('route_admin', 100)->nullable();
                 $table->tinyInteger('hidden')->default(0);
             });
         } else {

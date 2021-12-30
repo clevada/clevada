@@ -362,7 +362,8 @@ if (!function_exists('estimated_reading_time')) {
 		$blocks = unserialize($post->blocks);
 
 		foreach ($blocks as $block) {
-			$words_block = str_word_count(strip_tags($block->block_content_default_lang));
+			$block_content = DB::table('blocks_content')->where('block_id', $block->id)->where($lang_id, active_lang()->id)->value('content');
+			$words_block = str_word_count(strip_tags(unserialize($block_content)));
 			$words = $words + $words_block;
 		}
 

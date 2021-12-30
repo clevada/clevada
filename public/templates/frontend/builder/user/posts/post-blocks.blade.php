@@ -44,9 +44,7 @@
 
                         <div class="small text-muted">
                             ID: {{ $block->id }}. @if ($block->updated_at) {{ __('Updated at') }}: {{ date_locale($block->updated_at, 'datetime') }}@endif
-                        </div>
-
-                        @if (!($block->type == 'map' || $block->type == 'blockquote' || $block->type == 'spacer'))@if (!$block->block_content_default_lang)<div class="text-danger">{{ __('Content not added.') }}</div>@endif @endif
+                        </div>                       
 
                     </div>
                 @endforeach

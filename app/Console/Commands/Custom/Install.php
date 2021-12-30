@@ -19,10 +19,12 @@
 
 namespace App\Console\Commands\Custom;
 
+use Illuminate\Http\Request;
 use Illuminate\Console\Command;
 use DB;
 use Artisan;
 use App\Models\User;
+use App\Models\Core;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -50,7 +52,7 @@ class Install extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(Request $request)
     {
 
         $this->line('Setup database tables');
@@ -70,7 +72,7 @@ class Install extends Command
 
         // language
         if (!DB::table('sys_lang')->where('is_default', 1)->where('status', 'active')->exists())
-            DB::table('sys_lang')->updateOrInsert(['code' => 'en'], ['name' => 'English', 'locale' => 'en_US', 'is_default' => 1, 'status' => 'active', 'timezone' => 'Europe/London', 'date_format' => '%A, %e %B %Y', 'currency_display_style' => 'condensed', 'site_short_title' => 'Clevada website']);
+            DB::table('sys_lang')->updateOrInsert(['code' => 'en'], ['name' => 'English', 'locale' => 'en_US', 'is_default' => 1, 'status' => 'active', 'timezone' => 'Europe/London', 'site_short_title' => 'Clevada website', 'homepage_meta_title' => 'Clevada website', 'homepage_meta_description' => 'Clevada website']);
 
         // Modules
         DB::table('sys_modules')->updateOrInsert(['module' => 'accounts'], ['label' => 'Accounts', 'status' => 'active', 'route_web' => null, 'route_admin' => 'admin.accounts', 'hidden' => 1]);
@@ -97,25 +99,25 @@ class Install extends Command
         DB::table('sys_permissions')->updateOrInsert(['module' => 'translates', 'permission' => 'translator'], ['label' => 'Translator', 'position' => 1, 'description' => 'Translators have access to translates']);
 
         // Block types
-        DB::table('block_types')->updateOrInsert(['type' => 'editor'], ['label' => 'Text / HTML', 'icon' => '<i class="bi bi-textarea-t"></i>', 'position' => 10, 'allow_footer' => 1, 'allow_to_users' => 1]);
-        DB::table('block_types')->updateOrInsert(['type' => 'image'], ['label' => 'Image / Banner', 'icon' => '<i class="bi bi-image"></i>', 'position' => 20, 'allow_footer' => 1, 'allow_to_users' => 1]);
-        DB::table('block_types')->updateOrInsert(['type' => 'gallery'], ['label' => 'Images gallery', 'icon' => '<i class="bi bi-images"></i>', 'position' => 30, 'allow_footer' => 0, 'allow_to_users' => 1]);
-        DB::table('block_types')->updateOrInsert(['type' => 'ads'], ['label' => 'Ads code', 'icon' => '<i class="bi bi-badge-ad"></i>', 'position' => 40, 'allow_footer' => 1, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'hero'], ['label' => 'Hero', 'icon' => '<i class="bi bi-card-heading"></i>', 'position' => 50, 'allow_footer' => 0, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'links'], ['label' => 'Links', 'icon' => '<i class="bi bi-list-ul"></i>', 'position' => 60, 'allow_footer' => 1, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'video'], ['label' => 'Video', 'icon' => '<i class="bi bi-play-btn"></i>', 'position' => 70, 'allow_footer' => 1, 'allow_to_users' => 1]);
-        DB::table('block_types')->updateOrInsert(['type' => 'slider'], ['label' => 'Slider', 'icon' => '<i class="bi bi-collection"></i>', 'position' => 80, 'allow_footer' => 0, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'custom'], ['label' => 'Custom', 'icon' => '<i class="bi bi-code"></i>', 'position' => 90, 'allow_footer' => 1, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'accordion'], ['label' => 'Accordion', 'icon' => '<i class="bi bi-menu-up"></i>', 'position' => 100, 'allow_footer' => 0, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'alert'], ['label' => 'Alert', 'icon' => '<i class="bi bi-exclamation-square"></i>', 'position' => 110, 'allow_footer' => 1, 'allow_to_users' => 1]);
-        DB::table('block_types')->updateOrInsert(['type' => 'map'], ['label' => 'Google map', 'icon' => '<i class="bi bi-geo-alt"></i>', 'position' => 120, 'allow_footer' => 1, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'blockquote'], ['label' => 'Blockquote', 'icon' => '<i class="bi bi-chat-left-quote"></i>', 'position' => 130, 'allow_footer' => 1, 'allow_to_users' => 1]);
-        DB::table('block_types')->updateOrInsert(['type' => 'download'], ['label' => 'Download', 'icon' => '<i class="bi bi-download"></i>', 'position' => 140, 'allow_footer' => 0, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'posts'], ['label' => 'Posts content', 'icon' => '<i class="bi bi-justify"></i>', 'position' => 150, 'allow_footer' => 1, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'forum'], ['label' => 'Forum content', 'icon' => '<i class="bi bi-chat-right-quote"></i>', 'position' => 160, 'allow_footer' => 1, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'form'], ['label' => 'Form', 'icon' => '<i class="bi bi-file-text"></i>', 'position' => 170, 'allow_footer' => 0, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'search'], ['label' => 'Search', 'icon' => '<i class="bi bi-search"></i>', 'position' => 180, 'allow_footer' => 0, 'allow_to_users' => 0]);
-        DB::table('block_types')->updateOrInsert(['type' => 'include'], ['label' => 'Include file', 'icon' => '<i class="bi bi-file-code"></i>', 'position' => 190, 'allow_footer' => 1, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'editor'], ['label' => 'Text / HTML', 'icon' => '<i class="bi bi-textarea-t"></i>', 'position' => 10, 'allow_footer' => 1, 'allow_to_users' => 1]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'image'], ['label' => 'Image / Banner', 'icon' => '<i class="bi bi-image"></i>', 'position' => 20, 'allow_footer' => 1, 'allow_to_users' => 1]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'gallery'], ['label' => 'Images gallery', 'icon' => '<i class="bi bi-images"></i>', 'position' => 30, 'allow_footer' => 0, 'allow_to_users' => 1]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'ads'], ['label' => 'Ads code', 'icon' => '<i class="bi bi-badge-ad"></i>', 'position' => 40, 'allow_footer' => 1, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'hero'], ['label' => 'Hero', 'icon' => '<i class="bi bi-card-heading"></i>', 'position' => 50, 'allow_footer' => 0, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'links'], ['label' => 'Links', 'icon' => '<i class="bi bi-list-ul"></i>', 'position' => 60, 'allow_footer' => 1, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'video'], ['label' => 'Video', 'icon' => '<i class="bi bi-play-btn"></i>', 'position' => 70, 'allow_footer' => 1, 'allow_to_users' => 1]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'slider'], ['label' => 'Slider', 'icon' => '<i class="bi bi-collection"></i>', 'position' => 80, 'allow_footer' => 0, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'custom'], ['label' => 'Custom', 'icon' => '<i class="bi bi-code"></i>', 'position' => 90, 'allow_footer' => 1, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'accordion'], ['label' => 'Accordion', 'icon' => '<i class="bi bi-menu-up"></i>', 'position' => 100, 'allow_footer' => 0, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'alert'], ['label' => 'Alert', 'icon' => '<i class="bi bi-exclamation-square"></i>', 'position' => 110, 'allow_footer' => 1, 'allow_to_users' => 1]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'map'], ['label' => 'Google map', 'icon' => '<i class="bi bi-geo-alt"></i>', 'position' => 120, 'allow_footer' => 1, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'blockquote'], ['label' => 'Blockquote', 'icon' => '<i class="bi bi-chat-left-quote"></i>', 'position' => 130, 'allow_footer' => 1, 'allow_to_users' => 1]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'download'], ['label' => 'Download', 'icon' => '<i class="bi bi-download"></i>', 'position' => 140, 'allow_footer' => 0, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'posts'], ['label' => 'Posts content', 'icon' => '<i class="bi bi-justify"></i>', 'position' => 150, 'allow_footer' => 1, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'forum'], ['label' => 'Forum content', 'icon' => '<i class="bi bi-chat-right-quote"></i>', 'position' => 160, 'allow_footer' => 1, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'form'], ['label' => 'Form', 'icon' => '<i class="bi bi-file-text"></i>', 'position' => 170, 'allow_footer' => 0, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'search'], ['label' => 'Search', 'icon' => '<i class="bi bi-search"></i>', 'position' => 180, 'allow_footer' => 0, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'include'], ['label' => 'Include file', 'icon' => '<i class="bi bi-file-code"></i>', 'position' => 190, 'allow_footer' => 1, 'allow_to_users' => 0]);
 
         // Accounts roles
         DB::table('users_roles')->updateOrInsert(['role' => 'admin'], ['active' => 1, 'registration_enabled' => 0]);
@@ -141,7 +143,7 @@ class Install extends Command
             'active' => 1,
             'email_verified_at' => now(),
             'created_at' => now(),
-            'register_ip' => $_SERVER['REMOTE_ADDR'],
+            'register_ip' => $request->ip(),
         ]);
 
         $default_lang_id = default_lang()->id;
@@ -156,7 +158,7 @@ class Install extends Command
         DB::table('pages_content')->insert(['page_id' => $sample_page_id, 'lang_id' => $default_lang_id, 'title' => 'About', 'slug' => 'about', 'meta_title' => 'About']);
 
         // add a sample block (text / html) to sample page created above
-        $block_type_id = DB::table('block_types')->where('type', 'editor')->value('id');
+        $block_type_id = DB::table('blocks_types')->where('type', 'editor')->value('id');
         DB::table('blocks')->insert(['type_id' => $block_type_id, 'label' => 'About us - text content', 'module' => 'pages', 'content_id' => $sample_page_id, 'position' => 1, 'created_by_user_id' => $admin_user_id, 'created_at' => now()]);
         $block_id = DB::getPdo()->lastInsertId();
         DB::table('blocks_content')->insert(['block_id' => $block_id, 'lang_id' => $default_lang_id, 'content' => '<p><b>This is a sample page</b></p><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>']);

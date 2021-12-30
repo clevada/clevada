@@ -35,8 +35,7 @@
                         </div>
                         <b>{{ __($section->type_label) }}</b>
                         @if ($section->block_updated_at) <div class="small text-muted">{{ __('Updated at') }}: {{ date_locale($section->block_updated_at, 'datetime') }}</div>@endif
-                        @if(! ($section->block_type == 'widget' || $section->slug == 'map' || $section->slug == 'blockquote' || $section->slug == 'spacer'))@if (! $section->block_content_default_lang)<div class="text-danger">{{ __('Content not added.') }}</div>@endif @endif
-
+                       
                     </div>
                 @endforeach
             </div>
