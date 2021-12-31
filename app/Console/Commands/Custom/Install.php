@@ -175,6 +175,9 @@ class Install extends Command
         $page_menu_id = DB::getPdo()->lastInsertId();
         DB::table('sys_menu_langs')->insert(['link_id' => $page_menu_id, 'lang_id' => $default_lang_id, 'label' => 'About']);
 
+        // regenerate menu links for each language and store in cache config
+        Core::generate_langs_menu_links();
+
         $this->info('The install was successful!');
     }
 
