@@ -35,6 +35,10 @@
 
         <div class="card-body">
 
+            @if ($config->last_sitemap_at ?? null)
+			<div class="small mb-3">{{ __('Sitemap was last generated at') }}: {{ date_locale($config->last_sitemap_at, 'datetime') }}</div>
+			@endif
+
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     @if ($message == 'updated') {{ __('Sitemap updated') }} @endif

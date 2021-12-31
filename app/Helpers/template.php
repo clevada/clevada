@@ -336,7 +336,7 @@ if (!function_exists('posts')) {
 
 
 // generate URL for post category, using category ID
-// generate URL for posts area, inf no category ID is passed
+// generate URL for posts area, if no category ID is passed
 if (!function_exists('posts_url')) {
 	function posts_url($categ_id = null)
 	{
@@ -344,10 +344,19 @@ if (!function_exists('posts_url')) {
 			return route('posts', ['lang' => (active_lang()->id == default_lang()->id) ? null : active_lang()->code]);
 		else {
 			$categ = DB::table('posts_categ')
-				->where('id', $categ_id)
+				->leftJoin('sys_lang', 'posts_categ.lang_id', '=', 'sys_lang.id')
+				->select('posts_categ.*', 'sys_lang.permalinks as permalinks')
+				->where('posts_categ.id', $categ_id)
 				->first();
 			if (!$categ) return;
-			return route('posts.categ', ['lang' => (lang($categ->lang_id)->id == default_lang()->id) ? null : lang($categ->lang_id)->code, 'slug' => $categ->slug]);
+
+			$permalinks = unserialize($categ->permalinks);
+			$lang = (lang($categ->lang_id)->id == default_lang()->id) ? null : '/' . lang($categ->lang_id)->code;
+
+			//return route('posts.categ', ['lang' => (lang($categ->lang_id)->id == default_lang()->id) ? null : lang($categ->lang_id)->code, 'slug' => $categ->slug]);
+
+			return route('homepage') . $lang . '/' . $permalinks['posts'] . '/' . $categ->slug;
+
 		}
 	}
 }
@@ -381,7 +390,7 @@ if (!function_exists('post')) {
 		$post = DB::table('posts')
 			->leftJoin('posts_categ', 'posts.categ_id', '=', 'posts_categ.id')
 			->leftJoin('sys_lang', 'posts.lang_id', '=', 'sys_lang.id')
-			->select('posts.lang_id', 'posts.slug', 'posts_categ.slug as categ_slug', 'sys_lang.code as lang_code')
+			->select('posts.lang_id', 'posts.slug', 'posts_categ.slug as categ_slug', 'sys_lang.code as lang_code', 'sys_lang.permalinks as permalinks')
 			->where('posts.id', $id)
 			->where('posts.status', 'active')
 			->first();
@@ -390,7 +399,11 @@ if (!function_exists('post')) {
 		// check if language is active
 		if (!DB::table('sys_lang')->where('id', $post->lang_id)->where('status', 'active')->exists()) return null;
 
-		$post->url = route('post', ['lang' => (lang($post->lang_id)->id == default_lang()->id) ? null : lang($post->lang_id)->code, 'categ_slug' => $post->categ_slug, 'slug' => $post->slug]);
+		$permalinks = unserialize($post->permalinks);
+		$lang = (lang($post->lang_id)->id == default_lang()->id) ? null : '/' . lang($post->lang_id)->code;
+		$post->url = route('homepage') . $lang . '/' . $permalinks['posts'] . '/' . $post->categ_slug . '/' . $post->slug;
+
+		//$post->url = route('post', ['lang' => (lang($post->lang_id)->id == default_lang()->id) ? null : lang($post->lang_id)->code, 'categ_slug' => $post->categ_slug, 'slug' => $post->slug]);
 
 		return $post;
 	}

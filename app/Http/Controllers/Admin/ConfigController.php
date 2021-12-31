@@ -384,7 +384,8 @@ class ConfigController extends Controller
 
     public function process_sitemap()
     {
-        generate_sitemap();
+        Core::generate_sitemap();
+        Core::update_config('last_sitemap_at', now());
 
         return redirect(route('admin.tools.sitemap'))->with('success', 'updated');
     }

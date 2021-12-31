@@ -71,7 +71,7 @@
             </form>
 
             @if ($config->last_update_check ?? null)
-                <div class="small mt-3">{{ __('Latest update check') }}: {{ date_locale($config->last_update_check, 'datetime') }}</div>
+                <div class="small mt-3">{{ __('Last update check') }}: {{ date_locale($config->last_update_check, 'datetime') }}</div>
             @endif
 
         </div>
