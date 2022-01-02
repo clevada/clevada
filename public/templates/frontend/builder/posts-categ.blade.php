@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ $categ->meta_title ?? $categ->title }}</title>
-    <meta name="description" content="{{ $categ->meta_description ?? $categ->description ?? $categ->title }}">
+    <meta name="description" content="{{ $categ->meta_description ?? ($categ->description ?? $categ->title) }}">
 
     @include("{$template_view}.global.head")
 
@@ -13,69 +13,112 @@
 
 <body>
 
-    <div id="all">
+    <div id="wrapper">
 
-        <div id="content-wrap">
+        @include("{$template_view}.global.navigation")        
 
-            @include("{$template_view}.global.navigation")
-            
-            <section>
+        <!-- Main Content -->
+        <div id="content">
 
-                <div class="container-xxl">
+            <div class="container-xxl mt-4">
+
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ site()->url }}">{{ __('Home') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ posts_url() }}">{{ __('Blog') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ posts_url($categ->id) }}">{{ $categ->title }}</a></li>
+                    </ol>
+                </nav>
+
+                <div class="heading">
+                    <div class="title">{{ $categ->title }}</div>
+                </div>
+
+                @if (($template->posts_style ?? null) == 'columns')
+                    @php
+                        if ($template->posts_columns == 2) {
+                            $class = 'col-md-6 col-12';
+                        } elseif ($template->posts_columns == 3) {
+                            $class = 'col-md-4 col-12';
+                        } elseif ($template->posts_columns == 4) {
+                            $class = 'col-md-3 col-12';
+                        } else {
+                            $class = 'col-md-6 col-12';
+                        }
+                    @endphp
 
                     <div class="row">
+                        @foreach ($posts as $post)
+                            <div class="{{ $class }}">
 
-                        <div class="col-12">
+                                <div class="listing-box">
+                                    <a title="{{ $post->title }}" href="{{ post($post->id)->url }}">
+                                        @if ($post->image)<img src="{{ thumb($post->image) }}" class="img-fluid mb-3" alt="{{ $post->title }}">@endif
+                                    </a>
 
-                            <div class="heading">
-                                {{ $categ->title }}
-                            </div>
-
-                            @foreach ($posts as $post)
-
-                            <div class="post-box-listing">
-                                <div class="row">
-
-                                    <div class="col-lg-4 col-md-5 col-sm-12">
-                                        @if($post->image)
-                                        <a title="{{ $post->title }}" href="{{ post($post->id)->url }}">
-                                            <img src="{{ thumb($post->image) }}" alt="{{ $post->title }}" class="img-fluid"></a>
-                                        @endif
+                                    <div class="title">
+                                        <a href="{{ post($post->id)->url }}">{{ $post->title }}</a>
                                     </div>
 
-                                    <div class="col-lg-8 col-md-7 col-sm-12">
-                                        <a class="title" title="{{ $post->title }}" href="{{ post($post->id)->url }}">{{ $post->title }}</a>
-                                        <p class="text-muted text-small">
-                                            {{ date_locale($post->created_at) }} /
-                                            <a href="{{ profile_url($post->user_id) }}">{{ $post->author_name }}</a>
-                                            <br>
+                                    <div class="summary">
+                                        <p>{{ $post->summary }}</p>
+                                    </div>
 
-                                            @foreach(breadcrumb($post->categ_id) as $categ)
-                                            <a href="{{ posts_url($categ->id) }}">{{ $categ->title }}</a> @if(!$loop->last) / @endif
-                                            @endforeach
-                                        </p>
-                                        <div class="summary">
-                                            {{ $post->summary ?? substr(strip_tags($post->content), 0,300).'...' }}
-                                        </div>
+                                    <div class="meta">
+                                        @if ($post->author_avatar) <img src="{{ thumb($post->author_avatar) }}" alt="{{ $post->author_name }}" class="img-fluid rounded-circle float-start me-2">@endif
+                                        <a href="{{ profile_url($post->user_id) }}"> {{ $post->author_name }}</a> <i class="bi bi-calendar ms-3"></i>
+                                        {{ date_locale($post->created_at) }} <i class="bi bi-clock ms-3"></i> {{ $post->minutes_to_read }} {{ __('minutes read') }}
                                     </div>
                                 </div>
-                                <hr>
                             </div>
-
-                            @endforeach
-
-                            {{ $posts->links() }}
-                        </div>
-
+                        @endforeach
                     </div>
-                </div>
-            </section>
+                @else
+
+                    @foreach ($posts as $post)
+                        <div class="listing-box mb-4">
+                            <div class="row">
+
+                                @if (!template('posts_hide_image'))
+                                    <div class="col-xl-3 col-lg-5 col-md-5 col-12">
+                                        <a title="{{ $post->title }}" href="{{ post($post->id)->url }}">
+                                            @if ($post->image)<img src="{{ thumb($post->image) }}" class="img-fluid mb-3" alt="{{ $post->title }}">@endif
+                                        </a>
+                                    </div>
+                                @endif
+
+                                <div class="@if (!template('posts_hide_image')) col-xl-9 col-lg-7 col-md-7 @endif col-12">
+
+                                    <div class="title">
+                                        <a href="{{ post($post->id)->url }}">{{ $post->title }}</a>
+                                    </div>
+
+                                    <div class="summary">
+                                        <p>{{ $post->summary }}</p>
+                                    </div>
+
+                                    <div class="light small">
+                                        @if ($post->author_avatar) <img src="{{ thumb($post->author_avatar) }}" alt="{{ $post->author_name }}" class="avatar rounded-circle float-start me-2">@endif
+                                        <a href="{{ profile_url($post->user_id) }}"> {{ $post->author_name }}</a> <i class="bi bi-calendar ms-3"></i>
+                                        {{ date_locale($post->created_at) }} <i class="bi bi-clock ms-3"></i> {{ $post->minutes_to_read }} {{ __('minutes read') }}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+
+                {{ $posts->links() }}
+            </div>
 
         </div>
+        <!-- End Main Content -->
 
         @include("{$template_view}.global.footer")
 
     </div>
+    <!-- End Wrapper -->
 
 </body>
 

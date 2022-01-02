@@ -57,7 +57,7 @@ h4 {
 }
 
 a {
-    color: #3e81b1;
+    color: #cd2653;
     transition: all 0.2s;
     text-decoration: none;
     text-underline-offset: 0.2em;
@@ -65,7 +65,7 @@ a {
 
 a:focus,
 a:hover {
-    color: #397199;
+    color: #d7446b;
     text-underline-offset: 0.2em;
 }
 

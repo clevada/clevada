@@ -387,12 +387,27 @@ class Template extends Model
 
 
         // 11. POSTS		
+        $posts_title_link_color = get_template_value($template_id, 'posts_title_link_color') ?? config('defaults.link_color');
+        $posts_title_link_color_hover = get_template_value($template_id, 'posts_title_link_color_hover') ?? config('defaults.link_color_hover');
+        $posts_title_link_color_underline = get_template_value($template_id, 'posts_title_link_color_underline') ?? config('defaults.link_color_hover');
+        $posts_title_link_decoration = get_template_value($template_id, 'posts_title_link_decoration') ?? 'none';
+        $posts_title_link_hover_decoration = get_template_value($template_id, 'posts_title_link_hover_decoration') ?? 'none';
+        $posts_titles_font_size = get_template_value($template_id, 'posts_titles_font_size') ?? config('defaults.h4_size');
+
         $post_image_shaddow = get_template_value($template_id, 'post_image_shaddow') ?? 'original';
         $post_image_height = get_template_value($template_id, 'post_image_height') ?? 'original';
         $post_image_force_full_width = get_template_value($template_id, 'post_image_force_full_width');
         $post_tags_style = get_template_value($template_id, 'post_tags_style') ?? 'links';
         $post_tags_box_bg_color = get_template_value($template_id, 'post_tags_box_bg_color') ?? '#999999';
         $post_tags_box_font_color = get_template_value($template_id, 'post_tags_box_font_color') ?? '#ffffff';
+
+        $write = ".listing-box .title {font-size: $posts_titles_font_size !important; } ";
+
+        $write .= ".listing-box .title a {color: $posts_title_link_color !important; text-decoration: $posts_title_link_decoration !important; -webkit-text-decoration-color: $posts_title_link_color_underline; text-decoration-color: $posts_title_link_color_underline !important; } ";
+        
+        $write .= ".listing-box .title a:hover { color: $posts_title_link_color_hover !important; text-decoration: $posts_title_link_hover_decoration !important; -webkit-text-decoration-color: $posts_title_link_color_underline; text-decoration-color: $posts_title_link_color_underline !important; } ";
+
+        fwrite($css_file, $write);
 
         if ($post_image_shaddow == 'on') {
             $write = ".post .main-image img {box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);} ";
