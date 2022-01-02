@@ -36,7 +36,7 @@
                 </div>
             @endif
 
-            <div class="addthis_inline_share_toolbox"></div>
+            <div class="addthis_inline_share_toolbox mb-2"></div>
 
             @if ($post->summary)
                 <div>
