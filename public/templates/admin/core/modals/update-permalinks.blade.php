@@ -19,7 +19,7 @@ debug_backtrace() || die('Direct access not permitted');
                     <div class="form-group">
                         <label for="slug" class="form-label">{{ __('Posts permalink') }}</label>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="slugAddon1">{{ $config->site_url }}/</span>
+                            <span class="input-group-text" id="slugAddon1">{{ config('app.url') }}/</span>
                             <input type="text" class="form-control" id="slug" aria-describedby="slugAddon1" name="posts" value="{{ $permalinks['posts'] ?? 'blog' }}">
                         </div>
                     </div>
@@ -27,7 +27,7 @@ debug_backtrace() || die('Direct access not permitted');
                     <div class="form-group">
                         <label for="slug" class="form-label">{{ __('eCommerce permalink') }}</label>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="slugAddon2">{{ $config->site_url }}/</span>
+                            <span class="input-group-text" id="slugAddon2">{{ config('app.url') }}/</span>
                             <input type="text" class="form-control" id="slug" aria-describedby="slugAddon2" name="cart" value="{{ $permalinks['cart'] ?? 'shop' }}">
                         </div>
                     </div>
@@ -35,7 +35,7 @@ debug_backtrace() || die('Direct access not permitted');
                     <div class="form-group">
                         <label for="slug" class="form-label">{{ __('Forum permalink') }}</label>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="slugAddon3">{{ $config->site_url }}/</span>
+                            <span class="input-group-text" id="slugAddon3">{{ config('app.url') }}/</span>
                             <input type="text" class="form-control" id="slug" aria-describedby="slugAddon3" name="forum" value="{{ $permalinks['forum'] ?? 'forum' }}">
                         </div>
                     </div>
@@ -43,7 +43,7 @@ debug_backtrace() || die('Direct access not permitted');
                     <div class="form-group">
                         <label for="slug" class="form-label">{{ __('Knowledge Base permalink') }}</label>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="slugAddon4">{{ $config->site_url }}/</span>
+                            <span class="input-group-text" id="slugAddon4">{{ config('app.url') }}/</span>
                             <input type="text" class="form-control" id="slug" aria-describedby="slugAddon4" name="docs" value="{{ $permalinks['docs'] ?? 'docs' }}">
                         </div>
                     </div>
@@ -51,7 +51,7 @@ debug_backtrace() || die('Direct access not permitted');
                     <div class="form-group">
                         <label for="slug" class="form-label">{{ __('Contact page permalink') }}</label>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="slugAddon5">{{ $config->site_url }}/</span>
+                            <span class="input-group-text" id="slugAddon5">{{ config('app.url') }}/</span>
                             <input type="text" class="form-control" id="slug" aria-describedby="slugAddon5" name="contact" value="{{ $permalinks['contact'] ?? 'contact' }}">
                         </div>
                     </div>

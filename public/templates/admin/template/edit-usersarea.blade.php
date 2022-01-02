@@ -1,9 +1,3 @@
-@include('admin.includes.import-fonts')
-
-<!-- Color picker -->
-<script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
-
 <div class="page-title">
     <div class="row">
         <div class="col-12">

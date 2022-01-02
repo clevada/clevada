@@ -4,7 +4,7 @@
             <nav aria-label="breadcrumb" class="breadcrumb-header">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('Dashboard') }}</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.posts') }}">{{ __('Blog & Articles') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.posts') }}">{{ __('Posts') }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('admin.posts.categ') }}">{{ __('Categories') }}</a></li>
                 </ol>
             </nav>

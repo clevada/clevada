@@ -64,6 +64,8 @@ class Install extends Command
         if (!DB::table('sys_templates')->where('is_default', 1)->exists())
             DB::table('sys_templates')->insert(['label' => 'Clevada default', 'is_default' => 1, 'is_builder' => 1, 'created_at' => now()]);
 
+        $template_id = DB::table('sys_templates')->where('is_default', 1)->value('id');
+
         DB::table('sys_config')->insertOrIgnore(['name' => 'site_meta_author', 'value' => 'Clevada - https://clevada.com']);
         DB::table('sys_config')->insertOrIgnore(['name' => 'registration_enabled', 'value' => 1]);
         DB::table('sys_config')->insertOrIgnore(['name' => 'favicon', 'value' => '/default/favicon.png']);
@@ -147,9 +149,34 @@ class Install extends Command
         ]);
 
         $default_lang_id = default_lang()->id;
+        $block_type_id_editor = DB::table('blocks_types')->where('type', 'editor')->value('id');
+        $block_type_id_links = DB::table('blocks_types')->where('type', 'links')->value('id');
 
         // admin user id
         $admin_user_id = DB::table('users')->where('role_id', $role_id_admin)->orderBy('id', 'desc')->limit(1)->value('id');
+
+        // Add template styles
+        DB::table('sys_templates_config')->updateOrInsert(['template_id' => $template_id, 'name' => 'footer_columns'], ['value' => 2]);
+        DB::table('sys_templates_config')->updateOrInsert(['template_id' => $template_id, 'name' => 'footer2_show'], ['value' => 'on']);
+        DB::table('sys_templates_config')->updateOrInsert(['template_id' => $template_id, 'name' => 'footer2_columns'], ['value' => 1]);
+
+        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'primary'], ['type_id' => $block_type_id_editor, 'layout' => 2, 'col' => 1, 'position' => 1, 'created_at' => now()]);
+        $block_id_footer_primary_col1 = DB::getPdo()->lastInsertId();
+        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'primary'], ['type_id' => $block_type_id_links, 'layout' => 2, 'col' => 2, 'position' => 1, 'created_at' => now()]);
+        $block_id_footer_primary_col2 = DB::getPdo()->lastInsertId();
+        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'secondary'], ['type_id' => $block_type_id_editor, 'layout' => 1, 'col' => 1, 'position' => 1, 'created_at' => now()]);
+        $block_id_footer_secondary_col1 = DB::getPdo()->lastInsertId();
+
+        DB::table('sys_footer_blocks_content')->insert(['block_id' => $block_id_footer_primary_col1, 'lang_id' => $default_lang_id, 'content' => '<p><a href="https://clevada.com/">Clevada</a> is a free suite for businesses, communities, teams, collaboration or personal websites. Create a free and professional website in minutes.</p>', 'header' => 'a:3:{s:10:"add_header";s:2:"on";s:5:"title";s:15:"About This Site";s:7:"content";N;}']);
+        DB::table('sys_footer_blocks_content')->insert(['block_id' => $block_id_footer_primary_col2, 'lang_id' => $default_lang_id, 'content' => 'a:3:{i:0;a:3:{s:5:"title";s:4:"Home";s:3:"url";s:19:"https://clevada.com";s:4:"icon";N;}i:1;a:3:{s:5:"title";s:4:"Blog";s:3:"url";s:24:"https://clevada.com/blog";s:4:"icon";N;}i:2;a:3:{s:5:"title";s:5:"About";s:3:"url";s:25:"https://clevada.com/about";s:4:"icon";N;}}', 'header' => 'a:3:{s:10:"add_header";s:2:"on";s:5:"title";s:10:"Navigation";s:7:"content";N;}']);
+        DB::table('sys_footer_blocks_content')->insert(['block_id' => $block_id_footer_secondary_col1, 'lang_id' => $default_lang_id, 'content' => '<p>© 2022 Powered by <strong><a target="_blank" href="https://clevada.com">Clevada</a></strong>: #1 Free Business Suite and Website Builder</p>']);
+
+
+        // add a sample homepage block with text
+        $this->line('Adding sample homepage block content');
+        DB::table('blocks')->insert(['type_id' => $block_type_id_editor, 'module' => 'homepage', 'position' => 1, 'created_by_user_id' => $admin_user_id, 'created_at' => now()]);
+        $block_id_homepage = DB::getPdo()->lastInsertId();
+        DB::table('blocks_content')->insert(['block_id' => $block_id_homepage, 'lang_id' => $default_lang_id, 'content' => '<h1>What is Lorem Ipsum?</h1><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>']);
 
         // add a sample page
         $this->line('Adding sample page');
@@ -158,22 +185,43 @@ class Install extends Command
         DB::table('pages_content')->insert(['page_id' => $sample_page_id, 'lang_id' => $default_lang_id, 'title' => 'About', 'slug' => 'about', 'meta_title' => 'About']);
 
         // add a sample block (text / html) to sample page created above
-        $block_type_id = DB::table('blocks_types')->where('type', 'editor')->value('id');
-        DB::table('blocks')->insert(['type_id' => $block_type_id, 'label' => 'About us - text content', 'module' => 'pages', 'content_id' => $sample_page_id, 'position' => 1, 'created_by_user_id' => $admin_user_id, 'created_at' => now()]);
+        DB::table('blocks')->insert(['type_id' => $block_type_id_editor, 'label' => 'About us - text content', 'module' => 'pages', 'content_id' => $sample_page_id, 'position' => 1, 'created_by_user_id' => $admin_user_id, 'created_at' => now()]);
         $block_id = DB::getPdo()->lastInsertId();
         DB::table('blocks_content')->insert(['block_id' => $block_id, 'lang_id' => $default_lang_id, 'content' => '<p><b>This is a sample page</b></p><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>']);
         Core::regenerate_content_blocks('pages', $sample_page_id);
-        
+
         // add homepage in menu
         $this->line('Adding sample menu');
         DB::table('sys_menu')->insert(['parent_id' => null, 'type' => 'homepage', 'label' => 'Home', 'position' => 1]);
         $home_menu_id = DB::getPdo()->lastInsertId();
         DB::table('sys_menu_langs')->insert(['link_id' => $home_menu_id, 'lang_id' => $default_lang_id, 'label' => 'Home']);
 
+        // add blog section in menu
+        DB::table('sys_menu')->insert(['parent_id' => null, 'type' => 'module', 'value' => 'posts', 'position' => 2]);
+        $blog_menu_id = DB::getPdo()->lastInsertId();
+        DB::table('sys_menu_langs')->insert(['link_id' => $blog_menu_id, 'lang_id' => $default_lang_id, 'label' => 'Blog']);
+
         // add sample page in menu
-        DB::table('sys_menu')->insert(['parent_id' => null, 'type' => 'page', 'value' => $sample_page_id, 'position' => 2]);
+        DB::table('sys_menu')->insert(['parent_id' => null, 'type' => 'page', 'value' => $sample_page_id, 'position' => 3]);
         $page_menu_id = DB::getPdo()->lastInsertId();
         DB::table('sys_menu_langs')->insert(['link_id' => $page_menu_id, 'lang_id' => $default_lang_id, 'label' => 'About']);
+
+        // add a sample blog category
+        $this->line('Adding sample blog article');
+        DB::table('posts_categ')->insert(['lang_id' => $default_lang_id, 'parent_id' => null, 'title' => 'Sample category', 'slug' => 'sample-category', 'active' => 1, 'position' => 1]);
+        $sample_posts_categ_id = DB::getPdo()->lastInsertId();
+        DB::table('posts_categ')->where('id', $sample_posts_categ_id)->update(['tree_ids' => $sample_posts_categ_id]);
+
+        // add a sample blog article
+        DB::table('posts')->insert(['categ_id' => $sample_posts_categ_id, 'lang_id' => $default_lang_id, 'title' => 'This is a sample article', 'slug' => 'this-is-a-sample-article', 'image' => 'default/sample-post-image.jpg', 'user_id' => $admin_user_id, 'status' => 'active', 'summary' => 'He swung back the fishing pole and cast the line which ell 25 feet away into the river. The lure landed in the perfect spot and he was sure he would soon get a bite. He never expected that the bite would come from behind in the form of a bear.', 'created_at' => now()]);
+        $sample_posts_id = DB::getPdo()->lastInsertId();
+
+        DB::table('blocks')->insert(['type_id' => $block_type_id_editor, 'label' => 'Sample block content', 'module' => 'posts', 'content_id' => $sample_posts_id, 'position' => 1, 'created_by_user_id' => $admin_user_id, 'created_at' => now()]);
+        $block_id_sample_post = DB::getPdo()->lastInsertId();
+        DB::table('blocks_content')->insert(['block_id' => $block_id_sample_post, 'lang_id' => $default_lang_id, 'content' => '<p><strong>Bryan had made peace with himself and felt comfortable with the choices he made. This had made all the difference in the world. Being alone no longer bothered him and this was essential since there was a good chance he might spend the rest of his life alone in a cell. He was an expert but not in a discipline that anyone could fully appreciate.</strong></p>
+        <p>He knew how to hold the cone just right so that the soft server ice-cream fell into it at the precise angle to form a perfect cone each and every time. It had taken years to perfect and he could now do it without even putting any thought behind it. Nobody seemed to fully understand the beauty of this accomplishment except for the new worker who watched in amazement.</p><p>Time is all relative based on age and experience. When you are a child an hour is a long time to wait but a very short time when that is all the time you are allowed on your iPad. As a teenager time goes faster the more deadlines you have and the more you procrastinate. As a young adult, you think you have forever to live and do not appreciate the time you spend with others. As a middle-aged adult, time flies by as you watch your children grow up. And finally, as you get old and you have fewer responsibilities and fewer demands on you, time slows. You appreciate each day and are thankful you are alive. An hour is the same amount of time for everyone yet it can feel so different in how it goes by.</p>']);        
+        Core::regenerate_content_blocks('posts', $sample_posts_id);
+
 
         // regenerate menu links for each language and store in cache config
         Core::generate_langs_menu_links();

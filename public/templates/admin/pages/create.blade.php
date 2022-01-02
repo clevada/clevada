@@ -76,7 +76,7 @@
 
                         <div class="col-md-3 col-12">
                             <div class="form-group">
-                                <label>{{ __('Top section') }} [<a href="{{ route('admin.template.global_sections') }}"><b>{{ __('Manage sections') }}</b></a>]</label>
+                                <label>{{ __('Top section') }} [<a target="_blank" href="{{ route('admin.template.global_sections') }}"><b>{{ __('Manage sections') }}</b></a>]</label>
                                 <select name="top_section_id" class="form-select">
                                     <option value="">- {{ __('No content') }} -</option>
                                     @foreach ($global_sections as $top_section)
@@ -89,7 +89,7 @@
 
                         <div class="col-md-3 col-12">
                             <div class="form-group">
-                                <label>{{ __('Bottom section') }} [<a href="{{ route('admin.template.global_sections') }}"><b>{{ __('Manage sections') }}</b></a>]</label>
+                                <label>{{ __('Bottom section') }} [<a target="_blank" href="{{ route('admin.template.global_sections') }}"><b>{{ __('Manage sections') }}</b></a>]</label>
                                 <select name="bottom_section_id" class="form-select">
                                     <option value="">- {{ __('No content') }} -</option>
                                     @foreach ($global_sections as $bottom_section)
@@ -127,7 +127,7 @@
                         <div class="col-md-3 col-12">
                             <div id="hidden_div_sidebar" style="display: none">
                                 <div class="form-group">
-                                    <label>{{ __('Select sidebar') }}</label>
+                                    <label>{{ __('Select sidebar') }} [<a target="_blank" href="{{ route('admin.template.sidebars') }}"><b>{{ __('Manage sidebars') }}</b></a>]</label>
                                     <select name="sidebar_id" class="form-select">
                                         <option value="">- {{ __('select') }} -</option>
                                         @foreach ($sidebars as $sidebar)

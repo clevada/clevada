@@ -224,13 +224,6 @@ class TemplateFooterController extends Controller
 
         $inputs = $request->except('_token');
 
-
-        // Extra content ALERT            
-        if ($type == 'alert') {
-            $block_extra = array('type' => $inputs['type'] ?? null);
-            DB::table('sys_footer_blocks')->where('id', $id)->update(['extra' => serialize($block_extra)]);
-        }
-
         // Extra content ALERT 
         if ($type == 'image') {
             $block_extra = array('shaddow' => $inputs['shaddow'] ?? null);
@@ -246,29 +239,6 @@ class TemplateFooterController extends Controller
         // Extra content MAP       
         if ($type == 'map') {
             $block_extra = array('height' => $inputs['height'] ?? 400, 'zoom' => $inputs['zoom'] ?? 16, 'address' => $inputs['address']);
-            DB::table('sys_footer_blocks')->where('id', $id)->update(['extra' => serialize($block_extra)]);
-        }
-
-        // Extra content BLOCKQUOTE       
-        if ($type == 'blockquote') {
-            $block_extra = array('content' => $inputs['content'], 'source' => $inputs['source'], 'use_avatar' => $inputs['use_avatar'] ?? null, 'avatar' => null);
-            if ($inputs['use_avatar'] ?? null) {
-                if ($request->hasFile('avatar')) {
-                    $validator = Validator::make($request->all(), ['avatar' => 'mimes:jpeg,bmp,png,gif,webp']);
-                    if (!$validator->fails()) {
-                        $image_db = $this->UploadModel->avatar($request, 'avatar');
-                        $block_extra['avatar'] = $image_db;
-                    }
-                }
-            }
-            DB::table('sys_footer_blocks')->where('id', $id)->update(['extra' => serialize($block_extra)]);
-        }
-
-        // Extra content SPACER       
-        if ($type == 'spacer') {
-            $block_extra = array('height' => $inputs['height'], 'use_hr' => $inputs['use_hr'] ?? null, 'hr_color' => null);
-            if ($inputs['use_hr'] ?? null) $block_extra['hr_color'] = $inputs['hr_color'];
-
             DB::table('sys_footer_blocks')->where('id', $id)->update(['extra' => serialize($block_extra)]);
         }
 
@@ -289,17 +259,18 @@ class TemplateFooterController extends Controller
         foreach ($langs as $lang) {
             $content = null;
 
-            // EDITOR / ADS / CUSTOM
-            if ($type == 'editor' || $type == 'ads' || $type == 'custom') {
+            // EDITOR / CUSTOM
+            if ($type == 'editor' || $type == 'custom') {
                 $content = $request['content_' . $lang->id];
                 DB::table('sys_footer_blocks_content')->updateOrInsert(['block_id' => $id, 'lang_id' => $lang->id], ['content' => $content]);
-            }
 
-            // VIDEO
-            if ($type == 'video') {
-                $content = array('embed' => $request['embed_' . $lang->id], 'caption' => $request['caption_' . $lang->id]);
-                $content = serialize($content);
-                DB::table('sys_footer_blocks_content')->updateOrInsert(['block_id' => $id, 'lang_id' => $lang->id], ['content' => $content]);
+                // header data
+                $header_array = array();
+                if ($inputs['add_header_' . $lang->id] ?? null) {
+                    $header_array = array('add_header' => 'on', 'title' => $inputs["header_title_$lang->id"], 'content' =>  $inputs["header_content_$lang->id"]);
+                    $header_content = serialize($header_array);
+                    DB::table('sys_footer_blocks_content')->where(['block_id' => $id, 'lang_id' => $lang->id])->update(['header' => $header_content]);
+                }
             }
 
             // IMAGE
@@ -312,6 +283,14 @@ class TemplateFooterController extends Controller
                 $content = array('image' => $image_db ?? $request['existing_image_' . $lang->id] ?? null, 'title' => $request['title_' . $lang->id], 'caption' => $request['caption_' . $lang->id], 'url' => $request['url_' . $lang->id]);
                 $content = serialize($content);
                 DB::table('sys_footer_blocks_content')->updateOrInsert(['block_id' => $id, 'lang_id' => $lang->id], ['content' => $content]);
+
+                // header data
+                $header_array = array();
+                if ($inputs['add_header_' . $lang->id] ?? null) {
+                    $header_array = array('add_header' => 'on', 'title' => $inputs["header_title_$lang->id"], 'content' =>  $inputs["header_content_$lang->id"]);
+                    $header_content = serialize($header_array);
+                    DB::table('sys_footer_blocks_content')->where(['block_id' => $id, 'lang_id' => $lang->id])->update(['header' => $header_content]);
+                }
             }
 
 
@@ -339,16 +318,6 @@ class TemplateFooterController extends Controller
                     $header_content = serialize($header_array);
                     DB::table('sys_footer_blocks_content')->where(['block_id' => $id, 'lang_id' => $lang->id])->update(['header' => $header_content]);
                 }
-            }
-
-
-            // ALERT
-            if ($type == 'alert') {
-                $post_key_title = 'title_' . $lang->id;
-                $post_key_content = 'content_' . $lang->id;
-                $content_array = array('title' => $inputs["$post_key_title"], 'content' => $inputs["$post_key_content"]);
-                $content = serialize($content_array);
-                DB::table('sys_footer_blocks_content')->updateOrInsert(['block_id' => $id, 'lang_id' => $lang->id], ['content' => $content]);
             }
         } // end langs
 

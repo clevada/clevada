@@ -1,9 +1,5 @@
 @include('admin.includes.trumbowyg-assets')
 
-<!-- Color picker -->
-<script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
-
 <div class="page-title">
     <div class="row">
         <div class="col-12">
@@ -57,18 +53,18 @@
                     $block_extra = unserialize($block->extra);
                 @endphp
 
-                <div class="card p-3 bg-light mb-4">                                                       
+                <div class="card p-3 bg-light mb-4">
                     <div class="form-group col-md-4 col-xl-3 mb-3">
                         <label>{{ __('Links display style') }}</label>
                         <select class="form-select" name="display_style">
                             <option @if (($block_extra['display_style'] ?? null) == 'list') selected @endif value="list">{{ __('Ordered list (one link per line)') }}</option>
-                            <option @if (($block_extra['display_style'] ?? null) == 'multiple') selected @endif value="multiple">{{ __('One after another') }}</option>                            
+                            <option @if (($block_extra['display_style'] ?? null) == 'multiple') selected @endif value="multiple">{{ __('One after another') }}</option>
                         </select>
-                    </div>                    
+                    </div>
 
                     <div class="form-group mb-0">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="new_tab" name="new_tab" @if($block_extra['new_tab'] ?? null) checked @endif>
+                            <input class="form-check-input" type="checkbox" id="new_tab" name="new_tab" @if ($block_extra['new_tab'] ?? null) checked @endif>
                             <label class="form-check-label" for="new_tab">{{ __('Open links in new tab') }}</label>
                         </div>
                     </div>
@@ -76,11 +72,13 @@
 
                 <div class="clearfix"></div>
 
+                <h5 class="mb-3">{{ __('Block content') }}:</h5>
+
                 @foreach ($langs as $lang)
 
-                    <h5 class="mb-3">{{ __('Block content') }} 
-                        @if (count(sys_langs()) > 1)- {{ $lang->name }} @if ($lang->is_default) ({{ __('default language') }})@endif @endif
-                    </h5>
+                    @if (count(sys_langs()) > 1 && $block_module != 'posts')
+                        <h5 class="mb-3">{!! flag($lang->code) !!} {{ $lang->name }}</h5>
+                    @endif
 
                     @php
                         $header_array = unserialize($lang->block_header);
@@ -111,9 +109,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label>{{ __('Header description') }} {{ __('optionaln') }}</label>
-                                <textarea class="form-control" rows="2" name="header_content_{{ $lang->id }}">{{ $header_array['content'] ?? null }}</textarea>
-                            </div>                           
+                                <label>{{ __('Header description') }} ({{ __('optional') }})</label>
+                                <textarea class="form-control trumbowyg" rows="2" name="header_content_{{ $lang->id }}">{{ $header_array['content'] ?? null }}</textarea>
+                            </div>
                         </div>
                     </div>
 
@@ -143,7 +141,7 @@
                                         <label>{{ __('Icon code') }} ({{ __('optional') }})</label>
                                         <input type="text" class="form-control" name="a_icon_{{ $lang->id }}[]" value="{{ $content_array[$i]['icon'] ?? null }}">
                                     </div>
-                                </div>                                           
+                                </div>
                             </div>
                         @endfor
                     @endif
@@ -174,7 +172,7 @@
                                     <label>{{ __('Icon code') }} ({{ __('optional') }})</label>
                                     <input type="text" class="form-control" name="a_icon_{{ $lang->id }}[]" />
                                 </div>
-                            </div>                               
+                            </div>
                         </div>
                         <div class="mb-3"></div>
                     </div>
@@ -206,7 +204,7 @@
 
                     <div class="mb-4"></div>
 
-                    @if (count(sys_langs()) > 1 && ! $loop->last)<hr>@endif
+                    @if (count(sys_langs()) > 1 && !$loop->last)<hr>@endif
                 @endforeach
 
                 <div class="form-group">

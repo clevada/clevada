@@ -23,14 +23,16 @@
         <!-- Main Content -->
         <div id="content">
 
-            @if ($sidebar_id && $sidebar_position == 'left')                
-                @include("{$template_view}.layouts.layout-sidebar-left")                
-            @elseif ($sidebar_id && $sidebar_position == 'right')
-                @include("{$template_view}.layouts.layout-sidebar-right")
-            @else            
-                @include("{$template_view}.layouts.layout-content")   
-            @endif         
-
+            <div class="container-xxl">
+                @if ($sidebar_id && $sidebar_position == 'left')
+                    @include("{$template_view}.layouts.layout-sidebar-left")
+                @elseif ($sidebar_id && $sidebar_position == 'right')
+                    @include("{$template_view}.layouts.layout-sidebar-right")
+                @else
+                    @include("{$template_view}.layouts.layout-content")
+                @endif
+            </div>
+            
         </div>
         <!-- End Main Content -->
 

@@ -1,9 +1,5 @@
 @include('admin.includes.trumbowyg-assets')
 
-<!-- Color picker -->
-<script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
-
 <div class="page-title">
     <div class="row">
         <div class="col-12">
@@ -49,20 +45,57 @@
 
                 @php
                     $block_extra = unserialize($block->extra);
-                @endphp                
+                @endphp
+
+                <h5 class="mb-3">{{ __('Block content') }}:</h5>
 
                 @foreach ($langs as $lang)
-                    <h5 class="mb-3">{{ __('Block content') }} 
-                        @if (count(sys_langs()) > 1)- {{ $lang->name }} @if ($lang->is_default) ({{ __('default language') }})@endif @endif
-                    </h5>
+                    @if (count(sys_langs()) > 1 && $block_module != 'posts')
+                        <h5 class="mb-3">{!! flag($lang->code) !!} {{ $lang->name }}</h5>
+                    @endif
+
+                    @php
+                        $header_array = unserialize($lang->block_header);
+                    @endphp
+
+                    <div class="card p-3 bg-light mb-4">
+                        <div class="form-group mb-0">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="add_header_{{ $lang->id }}" name="add_header_{{ $lang->id }}" @if ($header_array['add_header'] ?? null) checked @endif>
+                                <label class="form-check-label" for="add_header_{{ $lang->id }}">{{ __('Add header content') }}</label>
+                            </div>
+                        </div>
+
+                        <script>
+                            $('#add_header_{{ $lang->id }}').change(function() {
+                                select = $(this).prop('checked');
+                                if (select)
+                                    document.getElementById('hidden_div_header_{{ $lang->id }}').style.display = 'block';
+                                else
+                                    document.getElementById('hidden_div_header_{{ $lang->id }}').style.display = 'none';
+                            })
+                        </script>
+
+                        <div id="hidden_div_header_{{ $lang->id }}" style="display: @if ($header_array['add_header'] ?? null) block @else none @endif" class="mt-2">
+                            <div class="form-group">
+                                <label>{{ __('Header title') }}</label>
+                                <input class="form-control" type="text" name="header_title_{{ $lang->id }}" value="{{ $header_array['title'] ?? null }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{ __('Header description') }} ({{ __('optional') }})</label>
+                                <textarea class="form-control trumbowyg" rows="2" name="header_content_{{ $lang->id }}">{{ $header_array['content'] ?? null }}</textarea>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <textarea class="trumbowyg" name="content_{{ $lang->id }}">{{ $lang->block_content }}</textarea>
                     </div>
 
                     <div class="mb-4"></div>
-                  
-                    @if (count(sys_langs()) > 1 && ! $loop->last)<hr>@endif
+
+                    @if (count(sys_langs()) > 1 && !$loop->last)<hr>@endif
 
                 @endforeach
 

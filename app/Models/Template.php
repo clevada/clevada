@@ -114,13 +114,13 @@ class Template extends Model
         $write = "#footer { font-family: $font_family_footer !important;} ";
         fwrite($css_file, $write);
 
-        $write = "h1 { font-size: $h1_size !important;} ";
+        $write = "h1 { font-size: $h1_size !important; line-height: 1.5em; margin-bottom: 20px; } ";
         fwrite($css_file, $write);
 
-        $write = "h2 { font-size: $h2_size !important;} ";
+        $write = "h2 { font-size: $h2_size !important; line-height: 1.2em;} ";
         fwrite($css_file, $write);
 
-        $write = "h3 { font-size: $h3_size !important;} ";
+        $write = "h3 { font-size: $h3_size !important; line-height: 1em;} ";
         fwrite($css_file, $write);
 
         $write = "h4 { font-size: $h4_size !important;} ";
@@ -319,17 +319,37 @@ class Template extends Model
         $footer_bg_color = get_template_value($template_id, 'footer_bg_color') ?? config('defaults.nav_bg_color');
         $footer_font_color = get_template_value($template_id, 'footer_font_color') ?? config('defaults.nav_font_color');
         $footer_link_color = get_template_value($template_id, 'footer_link_color') ?? config('defaults.nav_link_color');
-        $footer_link_color_hover = get_template_value($template_id, 'navbar3_link_color_hover') ?? config('defaults.nav_link_color');
-        $footer_link_decoration = get_template_value($template_id, 'navbar3_link_decoration') ?? 'none';
-        $footer_link_hover_decoration = get_template_value($template_id, 'navbar3_link_hover_decoration') ?? 'none';
+        $footer_link_color_hover = get_template_value($template_id, 'footer_link_color_hover') ?? config('defaults.nav_link_color');
+        $footer_link_color_underline = get_template_value($template_id, 'footer_link_color_underline') ?? config('defaults.nav_link_color');
+        $footer_link_decoration = get_template_value($template_id, 'footer_link_decoration') ?? 'none';
+        $footer_link_hover_decoration = get_template_value($template_id, 'footer_link_hover_decoration') ?? 'none';
 
         $write = ".footer { font-size: $footer_font_size !important; color: $footer_font_color !important; background-color: $footer_bg_color !important;} ";
 
-        $write .= ".footer a { color: $footer_link_color !important; text-decoration: $footer_link_decoration !important;} ";
+        $write .= ".footer a { color: $footer_link_color !important; text-decoration: $footer_link_decoration !important; -webkit-text-decoration-color: $footer_link_color_underline; text-decoration-color: $footer_link_color_underline !important; } ";
 
-        $write .= ".footer a:hover { color: $footer_link_color_hover !important; text-decoration: $footer_link_hover_decoration !important;} ";
+        $write .= ".footer a:hover { color: $footer_link_color_hover !important; text-decoration: $footer_link_hover_decoration !important; -webkit-text-decoration-color: $footer_link_color_underline; text-decoration-color: $footer_link_color_underline !important;} ";
 
         fwrite($css_file, $write);
+
+        // FOOTER SECONDARY)
+        $footer2_font_size = get_template_value($template_id, 'footer2_font_size') ?? config('defaults.font_size');
+        $footer2_bg_color = get_template_value($template_id, 'footer2_bg_color') ?? config('defaults.nav_bg_color');
+        $footer2_font_color = get_template_value($template_id, 'footer2_font_color') ?? config('defaults.nav_font_color');
+        $footer2_link_color = get_template_value($template_id, 'footer2_link_color') ?? config('defaults.nav_link_color');
+        $footer2_link_color_hover = get_template_value($template_id, 'navbar3_link_color_hover') ?? config('defaults.nav_link_color');
+        $footer2_link_color_underline = get_template_value($template_id, 'footer2_link_color_underline') ?? config('defaults.nav_link_color');
+        $footer2_link_decoration = get_template_value($template_id, 'footer2_link_decoration') ?? 'none';
+        $footer2_link_hover_decoration = get_template_value($template_id, 'footer2_link_hover_decoration') ?? 'none';
+
+        $write = ".footer2 { font-size: $footer2_font_size !important; color: $footer2_font_color !important; background-color: $footer2_bg_color !important;} ";
+
+        $write .= ".footer2 a { color: $footer2_link_color !important; text-decoration: $footer2_link_decoration !important; -webkit-text-decoration-color: $footer2_link_color_underline; text-decoration-color: $footer2_link_color_underline !important; } ";
+
+        $write .= ".footer2 a:hover { color: $footer2_link_color_hover !important; text-decoration: $footer2_link_hover_decoration !important; -webkit-text-decoration-color: $footer2_link_color_underline; text-decoration-color: $footer2_link_color_underline !important; } ";
+
+        fwrite($css_file, $write);
+
 
         // 10. COMMUNITY
         $forum_card_header_bg_color = get_template_value($template_id, 'forum_card_header_bg_color') ?? '#16537E';

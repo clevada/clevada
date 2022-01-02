@@ -331,13 +331,13 @@ class PostsController extends Controller
         if (!$post) return redirect(route('homepage'));
 
         // check if global comments is disabled
-        if ($this->config->posts_comments_disabled) return redirect(route('post', ['lang' => $request->lang, 'categ_slug' => $categ_slug, 'slug' => $slug]) . '#comments');
+        if ($this->config->posts_comments_disabled ?? null) return redirect(route('post', ['lang' => $request->lang, 'categ_slug' => $categ_slug, 'slug' => $slug]) . '#comments');
 
         // check if comment is disabled
-        if ($post->disable_comments) return redirect(route('post', ['lang' => $request->lang, 'categ_slug' => $categ_slug, 'slug' => $slug]) . '#comments');
+        if ($post->disable_comments ?? null) return redirect(route('post', ['lang' => $request->lang, 'categ_slug' => $categ_slug, 'slug' => $slug]) . '#comments');
 
         // check if login is required
-        if ($this->config->posts_comments_require_login && !Auth::check()) return redirect(route('post', ['lang' => $request->lang, 'categ_slug' => $categ_slug, 'slug' => $slug]) . '#comments')->with('error', 'login_required');
+        if (($this->config->posts_comments_require_login ?? null) && !Auth::check()) return redirect(route('post', ['lang' => $request->lang, 'categ_slug' => $categ_slug, 'slug' => $slug]) . '#comments')->with('error', 'login_required');
 
         // check antispam 
         if ($this->config->posts_comments_antispam_enabled ?? null) {

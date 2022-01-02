@@ -114,9 +114,9 @@
                                     @if(check_admin_module('posts'))
                                     @if(check_module('posts'))
                                         {{ __('Permalink posts') }}:<br>                                                                           
-                                        <a target="_blank" href="{{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/{{ $permalinks['posts'] ?? 'blog' }}">{{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['posts'] ?? 'blog' }}</b></a>
+                                        <a target="_blank" href="{{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/{{ $permalinks['posts'] ?? 'blog' }}">{{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['posts'] ?? 'blog' }}</b></a>
                                     @else
-                                        {{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['posts'] ?? 'blog' }}</b>
+                                        {{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['posts'] ?? 'blog' }}</b>
                                     @endif                       
                                     <div class="mb-2"></div>
                                     @endif  
@@ -124,9 +124,9 @@
                                     @if(check_admin_module('cart'))
                                     @if(check_module('cart'))
                                         {{ __('Permalink shop') }}:<br>                                                                           
-                                        <a target="_blank" href="{{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/{{ $permalinks['cart'] ?? 'shop' }}">{{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['cart'] ?? 'shop' }}</b></a>
+                                        <a target="_blank" href="{{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/{{ $permalinks['cart'] ?? 'shop' }}">{{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['cart'] ?? 'shop' }}</b></a>
                                     @else
-                                        {{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['cart'] ?? 'shop' }}</b>
+                                        {{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['cart'] ?? 'shop' }}</b>
                                     @endif                       
                                     <div class="mb-2"></div>
                                     @endif 
@@ -134,9 +134,9 @@
                                     @if(check_admin_module('forum'))
                                     @if(check_module('forum'))
                                         {{ __('Permalink forum') }}:<br>                                                                           
-                                        <a target="_blank" href="{{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/{{ $permalinks['forum'] ?? 'forum' }}">{{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['forum'] ?? 'forum' }}</b></a>
+                                        <a target="_blank" href="{{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/{{ $permalinks['forum'] ?? 'forum' }}">{{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['forum'] ?? 'forum' }}</b></a>
                                     @else
-                                        {{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['forum'] ?? 'forum' }}</b>
+                                    {{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['forum'] ?? 'forum' }}</b>
                                     @endif                       
                                     <div class="mb-2"></div>
                                     @endif 
@@ -144,9 +144,9 @@
                                     @if(check_admin_module('docs'))
                                     @if(check_module('docs'))
                                         {{ __('Permalink knowledge base') }}:<br>                                                                           
-                                        <a target="_blank" href="{{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/{{ $permalinks['docs'] ?? 'docs' }}">{{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['docs'] ?? 'docs' }}</b></a>
+                                        <a target="_blank" href="{{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/{{ $permalinks['docs'] ?? 'docs' }}">{{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['docs'] ?? 'docs' }}</b></a>
                                     @else
-                                        {{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['docs'] ?? 'docs' }}</b>
+                                    {{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['docs'] ?? 'docs' }}</b>
                                     @endif                       
                                     <div class="mb-2"></div>
                                     @endif 
@@ -154,9 +154,9 @@
                                     @if(check_admin_module('contact'))
                                     @if(check_module('docs'))
                                         {{ __('Permalink contact page') }}:<br>                                                                           
-                                        <a target="_blank" href="{{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/{{ $permalinks['contact'] ?? 'contact' }}">{{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['contact'] ?? 'contact' }}</b></a>
+                                        <a target="_blank" href="{{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/{{ $permalinks['contact'] ?? 'contact' }}">{{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['contact'] ?? 'contact' }}</b></a>
                                     @else
-                                        {{ $config->site_url }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['contact'] ?? 'contact' }}</b>
+                                    {{ config('app.url') }}@if (!$lang->is_default == 1)/{{ $lang->code }}@endif/<b>{{ $permalinks['contact'] ?? 'contact' }}</b>
                                     @endif                       
                                     <div class="mb-2"></div>
                                     @endif 

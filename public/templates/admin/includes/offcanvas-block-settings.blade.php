@@ -33,7 +33,7 @@
                             if ($block->module == 'homepage') {
                                 $block_url = route('homepage');
                             } elseif ($block->module == 'posts') {
-                                $block_url = post($block->content_id)->url;
+                                //$block_url = post($block->content_id)->url;
                             } elseif ($block->module == 'pages') {
                                 $block_url = page($block->content_id)->url;
                             } elseif ($block->module == 'docs') {

@@ -88,9 +88,21 @@
                 <h5>{{ __('Google Analytics') }}</h5>
                 <p class="form-text">{{ __('Get this code from') }} <a target="_blank" href="https://google.com/analytics"><b>{{ __('Google Analytics account') }}</b></a></p>
 
+                <div class="form-group">
+                    @if (!($config->google_analytics_enabled ?? null))
+                        <div class="alert alert-light text-danger">{{ __('Google analytics is disabled') }}</div>
+                    @endif
+
+                    <div class="form-check form-switch">
+                        <input type="hidden" name="google_analytics_enabled" value="">
+                        <input class="form-check-input" type="checkbox" id="SwitchAnalytics" name="google_analytics_enabled" @if ($config->google_analytics_enabled ?? null) checked @endif>
+                        <label class="form-check-label" for="SwitchAnalytics">{{ __('Enable Google analytics') }}</label>
+                    </div>
+                </div>
+
                 <div class="form-group col-md-4 col-12">
-                    <label>{{ __('Google Analytics parameter') }} (UA-XXXXX-Y):</label>
-                    <input type="text" class="form-control" name="google_analytics_ua" aria-describedby="analyticsHelp" value="{{ $config->google_analytics_ua ?? null }}">
+                    <label>{{ __('Google Analytics ID') }} (UA-XXXXX-Y or G-XXXXXX):</label>
+                    <input type="text" class="form-control" name="google_analytics_id" aria-describedby="analyticsHelp" value="{{ $config->google_analytics_id ?? null }}">
                 </div>
 
                 <hr>
@@ -99,7 +111,19 @@
                 <p class="form-text">{{ __('You can use AddThis to add social share buttons in your articles or pages.') }} <a target="_blank"
                         href="https://www.addthis.com/dashboard"><b>{{ __('Get the code from your AddThis dashboard') }}</b></a></p>
 
-                <div class="form-group col-md-4 col-12">
+                <div class="form-group">
+                    @if (!($config->addthis_code_enabled ?? null))
+                        <div class="alert alert-light text-danger">{{ __('AddThis share buttons disabled') }}</div>
+                    @endif
+
+                    <div class="form-check form-switch">
+                        <input type="hidden" name="addthis_code_enabled" value="">
+                        <input class="form-check-input" type="checkbox" id="SwitchAddThis" name="addthis_code_enabled" @if ($config->addthis_code_enabled ?? null) checked @endif>
+                        <label class="form-check-label" for="SwitchAddThis">{{ __('Enable AddThis share buttons') }}</label>
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
                     <label>{{ __('AddThis code') }}:</label>
                     <textarea rows="3" class="form-control" name="addthis_code">{{ $config->addthis_code ?? null }}</textarea>
                 </div>

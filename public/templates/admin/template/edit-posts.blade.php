@@ -1,8 +1,3 @@
-<!-- Color picker -->
-<script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
-
-
 <div class="page-title">
     <div class="row">
         <div class="col-12">
@@ -37,7 +32,7 @@
 
         <div class="card-body">
 
-            <div class="float-end"><a class="btn btn-secondary" target="_blank" href="{{ route('posts', ['preview_template_id' => $template->id]) }}"><i class="bi bi-box-arrow-up-right"></i> {{ __('Preview posts section') }}</a></div>
+            <div class="float-end"><a class="btn btn-secondary" target="_blank" href="{{ route('posts', ['preview_template_id' => $template->id]) }}"><i class="bi bi-box-arrow-up-right"></i> {{ __('Preview template') }}</a></div>
 
             <h4 class="mt-2 mb-3">{{ __('Edit template') }}: {{ $template->label }}</h4>
 

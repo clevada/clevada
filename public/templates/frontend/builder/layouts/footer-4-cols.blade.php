@@ -1,7 +1,7 @@
 <div class="row">
 
-    @for ($footer_col = 1; $footer_col <= 3; $footer_col++)
-        <div class="col-md-4 col-12">
+    @for ($footer_col = 1; $footer_col <= 4; $footer_col++)
+        <div class="col-md-3 col-sm-6 col-12">
             @foreach (footer_blocks($footer, $footer_col) as $block)
                 @php
                     $block_extra = unserialize($block->block_extra);

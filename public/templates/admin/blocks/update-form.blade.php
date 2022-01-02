@@ -105,7 +105,8 @@
                     <hr>
 
                     <div class="form-group col-md-4 col-lg-3 col-xl-2">
-                        <label>{{ __('Select form') }}</label>
+                        <label>{{ __('Select form') }} [<a target="_blank" href="{{ route('admin.forms.config') }}"><b>{{ __('Manage forms') }}</b></a>]</label>
+                        @if(count($forms) ==0)<div class="text-danger">{{ __("You don't have any form. Go to manage forms to create a new form") }}</div>@endif
                         <select class="form-select" name="form_id">
                             <option value="">-- {{ __('select') }} --</option>
                             @foreach ($forms as $form)

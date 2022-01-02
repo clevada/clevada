@@ -359,11 +359,17 @@ if (!function_exists('estimated_reading_time')) {
 
 		if (!$post->blocks) return 1;
 
-		$blocks = unserialize($post->blocks);
+		$blocks = unserialize($post->blocks);		
 
-		foreach ($blocks as $block) {
-			$block_content = DB::table('blocks_content')->where('block_id', $block->id)->where($lang_id, active_lang()->id)->value('content');
-			$words_block = str_word_count(strip_tags(unserialize($block_content)));
+		foreach ($blocks as $block) {			
+			$block_content = DB::table('blocks_content')->where('block_id', $block->id)->where('lang_id', active_lang()->id)->value('content');
+			if($block_content) {
+				$block_data = @unserialize($block_content);
+				if ($block_data !== false) $words_block = str_word_count(strip_tags(unserialize($block_content)));
+				else $words_block = str_word_count(strip_tags($block_content));
+			}
+			else $words_block = 0;
+
 			$words = $words + $words_block;
 		}
 

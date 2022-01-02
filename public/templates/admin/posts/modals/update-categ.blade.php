@@ -79,7 +79,7 @@ debug_backtrace() || die('Direct access not permitted');
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>{{ __('Icon code') }} {{ __('optional') }}</label>
+                                <label>{{ __('Icon code') }} ({{ __('optional') }}) <a target="_blank" href="{{ route('admin.config.icons') }}"><i class="bi bi-question-circle"></i></a></label>
                                 <input class="form-control" name="icon" type="text" value="{{ $categ->icon }}" />
                                 <div class="form-text text-muted small"><a target="_blank" href="{{ route('admin.config.icons') }}">{{ __('Manage icons') }}</a></div>
                             </div>

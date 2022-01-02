@@ -1,30 +1,35 @@
 @foreach (footer_blocks($footer, 1) as $block)
 
-    @php 
-    $block_extra = unserialize($block->block_extra);
-    @endphp 
+    @php
+        $block_extra = unserialize($block->block_extra);
+    @endphp
 
-    <div class="section" id="{{ $block->id }}">      
-        @switch($block->type)            
-            @case('ads')            
-                @include("{$template_view}.blocks.footer.ads")
+    <div class="section" id="footer-block-{{ $block->id }}">
+        @switch($block->type)
+            @case('custom')
+                @include("{$template_view}.blocks.footer.custom")
             @break
-            @case('editor')            
+            @case('editor')
                 @include("{$template_view}.blocks.footer.editor")
+            @break
+            @case('forum')
+                @include("{$template_view}.blocks.footer.forum")
             @break
             @case('image')
                 @include("{$template_view}.blocks.footer.image")
             @break
-            @case('gallery')
-                @include("{$template_view}.blocks.footer.gallery")
+            @case('links')
+                @include("{$template_view}.blocks.footer.links")
             @break
-            @case('alert')
-                @include("{$template_view}.blocks.footer.alert")                    
+            @case('map')
+                @include("{$template_view}.blocks.footer.map")
             @break
-            @case('video')
-                @include("{$template_view}.blocks.footer.video")                    
+            @case('posts')
+                @include("{$template_view}.blocks.footer.posts")
+            @break
+            @case('search')
+                @include("{$template_view}.blocks.footer.search")
             @break
         @endswitch
-
     </div>
 @endforeach

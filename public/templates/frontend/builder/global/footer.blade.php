@@ -25,38 +25,33 @@
                     @include("{$template_view}.layouts.footer-4-cols", ['footer' => 'primary'])
                 @break               
             @endswitch
-
         </div>
     </div>
 
-    @if (template('footer_rows') == 2)
+    @if (template('footer2_show'))
         <!-- ======= Secondary Footer ======= -->
         <div class="footer2">
             <div class="container-xxl">
                 @php
-                    $footer_layout = get_template_value($config->template, 'footer2_layout');
-                    $footer_content_id = 2; // footer 1
+                    $footer_columns = template('footer2_columns') ?? 1;                
                 @endphp
-
-                @switch($footer_layout)
-                    @case('12')
-                        @include("{$template_view}.layouts.footer-12")
+    
+                @switch($footer_columns)
+                    @case('1')
+                        @include("{$template_view}.layouts.footer-1-col", ['footer' => 'secondary'])
                     @break
-
-                    @case('6-6')
-                        @include("{$template_view}.layouts.footer-6-6")
+    
+                    @case('2')
+                        @include("{$template_view}.layouts.footer-2-cols", ['footer' => 'secondary'])
                     @break
-
-                    @case('4-4-4')
-                        @include("{$template_view}.layouts.footer-4-4-4")
+    
+                    @case('3')
+                        @include("{$template_view}.layouts.footer-3-cols", ['footer' => 'secondary'])
                     @break
-
-                    @case('3-3-3-3')
-                        @include("{$template_view}.layouts.footer-3-3-3-3")
-                    @break
-
-                    @default
-                        @include("{$template_view}.layouts.footer-12")
+    
+                    @case('4')
+                        @include("{$template_view}.layouts.footer-4-cols", ['footer' => 'secondary'])
+                    @break               
                 @endswitch
             </div>
         </div>
@@ -71,5 +66,8 @@
 <!-- Prism -->
 <script src="{{ asset("$template_path/assets/vendor/prism/prism.js") }}"></script>
 
-<!-- Custom footer code -->
+@if(($config->addthis_code ?? null) && ($config->addthis_code_enabled ?? null))
+<!-- Addthis tools -->
+{!! $config->addthis_code ?? null !!}
+@endif
 {!! $config->template_global_footer_code ?? null !!}
