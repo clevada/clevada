@@ -143,7 +143,7 @@ class Clevada
 
         // menu links
         $menu_lang_key = 'menu_links_' . active_lang()->id;
-        $menu_links = unserialize(($config->$menu_lang_key) ?? array());
+        if($config->$menu_lang_key ?? null) $menu_links = unserialize(($config->$menu_lang_key)); else $menu_links = array();
         $menu_links = json_decode(json_encode($menu_links));
 
         View::share('lang', $lang ?? null);

@@ -88,8 +88,7 @@ debug_backtrace() || die('Direct access not permitted');
                     </div>
 
                     @foreach ($langs as $lang)
-                        <h5 class="mb-3">{{ __('Field settings') }} @if (count(sys_langs()) > 1)- {{ $lang->name }} @if ($lang->is_default) ({{ __('default language') }})@endif @endif
-                        </h5>
+                        <h5 class="mb-3">@if (count(sys_langs()) > 1) {!! flag($lang->code) !!} {{ $lang->name }} @endif</h5>                        
 
                         <div class="form-group">
                             <label>{{ __('Label') }}</label>

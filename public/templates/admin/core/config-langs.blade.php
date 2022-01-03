@@ -52,7 +52,11 @@
 
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
-                    @if ($message == 'created') {{ __('Created') }} @endif
+                    @if ($message == 'created') 
+                    <h4 class="alert-heading">{{ __('Created') }}</h4>
+                        <i class="bi bi-exclamation-triangle"></i>
+                        {{ __('Important: Iyou MUST create menu links for new created languages.') }} <a href="{{ route('admin.template.menu') }}">{{ __('Menu links') }}</a>
+                    @endif
                     @if ($message == 'updated') {{ __('Updated') }} @endif
                     @if ($message == 'deleted') {{ __('Deleted') }} @endif
                 </div>

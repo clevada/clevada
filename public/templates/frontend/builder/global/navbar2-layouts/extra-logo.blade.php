@@ -46,7 +46,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownLangs">
                             @foreach (languages() as $nav_lang)
-                                <li><a class="dropdown-item" @if ($nav_lang->is_default == 1) href="{{ $config->site_url }}" @else href="{{ $config->site_url }}/{{ $nav_lang->code }}" @endif>{{ $nav_lang->name }}</a></li>
+                                <li><a class="dropdown-item" @if ($nav_lang->is_default == 1) href="{{ config('app.url') }}" @else href="{{ config('app.url') }}/{{ $nav_lang->code }}" @endif>{{ $nav_lang->name }}</a></li>
                             @endforeach
                         </ul>
                     </li>

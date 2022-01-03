@@ -1,11 +1,17 @@
+html,
 body {
     font-size: 1em;
     color: #212529;
     font-weight: 400;
-    min-height: 100%;
     padding: 0;
     margin: 0;
     line-height: 1.1;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
 }
 
 @media (min-width: 1400px) {
@@ -19,22 +25,12 @@ body {
     }
 }
 
-#wrapper {
-    padding: 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+.content {
+    flex: 1 0 auto;
 }
 
-#content {
-    min-height: 69%;
-}
-
-#footer {
-    margin-bottom: -50px;
-    height: auto;
+.footer {
+    flex-shrink: 0;
     padding-top: 0;
 }
 
@@ -98,8 +94,8 @@ blockquote {
 }
 
 section {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 label {
@@ -257,6 +253,10 @@ ul {
 
 .dropdown-menu {
     margin-top: 1rem !important;
+}
+
+.dropdown-menu li {
+    padding: 8px 0;
 }
 
 .img-shaddow {

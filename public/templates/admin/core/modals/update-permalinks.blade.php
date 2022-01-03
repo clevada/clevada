@@ -24,6 +24,7 @@ debug_backtrace() || die('Direct access not permitted');
                         </div>
                     </div>
 
+                    @if(check_module('cart'))
                     <div class="form-group">
                         <label for="slug" class="form-label">{{ __('eCommerce permalink') }}</label>
                         <div class="input-group mb-3">
@@ -31,6 +32,7 @@ debug_backtrace() || die('Direct access not permitted');
                             <input type="text" class="form-control" id="slug" aria-describedby="slugAddon2" name="cart" value="{{ $permalinks['cart'] ?? 'shop' }}">
                         </div>
                     </div>
+                    @endif
 
                     <div class="form-group">
                         <label for="slug" class="form-label">{{ __('Forum permalink') }}</label>
@@ -40,6 +42,7 @@ debug_backtrace() || die('Direct access not permitted');
                         </div>
                     </div>
 
+                    @if(check_module('docs'))
                     <div class="form-group">
                         <label for="slug" class="form-label">{{ __('Knowledge Base permalink') }}</label>
                         <div class="input-group mb-3">
@@ -47,15 +50,8 @@ debug_backtrace() || die('Direct access not permitted');
                             <input type="text" class="form-control" id="slug" aria-describedby="slugAddon4" name="docs" value="{{ $permalinks['docs'] ?? 'docs' }}">
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="slug" class="form-label">{{ __('Contact page permalink') }}</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="slugAddon5">{{ config('app.url') }}/</span>
-                            <input type="text" class="form-control" id="slug" aria-describedby="slugAddon5" name="contact" value="{{ $permalinks['contact'] ?? 'contact' }}">
-                        </div>
-                    </div>
-
+                    @endif
+                  
                     <hr>
 
                     <div class="row">

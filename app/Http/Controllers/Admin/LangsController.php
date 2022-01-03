@@ -112,6 +112,24 @@ class LangsController extends Controller
             'homepage_meta_description' => $inputs['homepage_meta_description'],
         ]);
 
+        $lang_id = DB::getPdo()->lastInsertId();
+
+        $permalinks = array(
+            'posts' => $posts ?? 'blog',
+            'cart' => $cart ?? 'shop',
+            'forum' => $forum ?? 'forum',
+            'docs' => $docs ?? 'docs',
+            'tag' => $tag ?? 'tag',
+            'search' => $search ?? 'search',
+            'profile' => $profile ?? 'profile'
+        );
+
+        DB::table('sys_lang')
+            ->where('id', $lang_id)
+            ->update([
+                'permalinks' => serialize($permalinks),
+            ]);
+
         return redirect($request->Url())->with('success', 'created');
     }
 
@@ -182,12 +200,12 @@ class LangsController extends Controller
 
         if (DB::table('sys_lang')->where('id', $id)->value('is_default') == 1) return redirect(route('admin.config.langs'))->with('error', 'default');
 
+        /*
         if (DB::table('posts')->where('lang_id', $id)->exists()) return redirect(route('admin.config.langs'))->with('error', 'exists_content');
         if (DB::table('blocks_content')->where('lang_id', $id)->exists()) return redirect(route('admin.config.langs'))->with('error', 'exists_content');
         if (DB::table('docs')->where('lang_id', $id)->exists()) return redirect(route('admin.config.langs'))->with('error', 'exists_content');
         if (DB::table('pages')->where('lang_id', $id)->exists()) return redirect(route('admin.config.langs'))->with('error', 'exists_content');
-        if (DB::table('faq')->where('lang_id', $id)->exists()) return redirect(route('admin.config.langs'))->with('error', 'exists_content');
-        if (DB::table('slider')->where('lang_id', $id)->exists()) return redirect(route('admin.config.langs'))->with('error', 'exists_content');
+        */      
 
         DB::table('sys_lang')->where('id', $id)->delete();
 
@@ -195,14 +213,10 @@ class LangsController extends Controller
         DB::table('posts_categ')->where('lang_id', $id)->update(['lang_id' => null]);
         DB::table('posts_tags')->where('lang_id', $id)->update(['lang_id' => null]);
         DB::table('blocks_content')->where('lang_id', $id)->update(['lang_id' => null]);
-        DB::table('custom_fields')->where('lang_id', $id)->update(['lang_id' => null]);
-        DB::table('custom_fields_sections')->where('lang_id', $id)->update(['lang_id' => null]);
-        DB::table('docs')->where('lang_id', $id)->update(['lang_id' => null]);
-        DB::table('docs_categ')->where('lang_id', $id)->update(['lang_id' => null]);
-        DB::table('pages')->where('lang_id', $id)->update(['lang_id' => null]);
-        DB::table('slider')->where('lang_id', $id)->update(['lang_id' => null]);
-        DB::table('faq')->where('lang_id', $id)->update(['lang_id' => null]);
-
+        //DB::table('docs')->where('lang_id', $id)->update(['lang_id' => null]);
+        //DB::table('docs_categ')->where('lang_id', $id)->update(['lang_id' => null]);
+        DB::table('pages_content')->where('lang_id', $id)->update(['lang_id' => null]);
+        
         return redirect(route('admin.config.langs'))->with('success', 'deleted');
     }
 
@@ -219,10 +233,9 @@ class LangsController extends Controller
         $inputs = $request->except('_token'); // retrieve all of the input data as an array 
 
         $posts = Str::slug($inputs['posts'], '-');
-        $cart = Str::slug($inputs['cart'], '-');
-        $forum = Str::slug($inputs['forum'], '-');
-        $docs = Str::slug($inputs['docs'], '-');
-        $contact = Str::slug($inputs['contact'], '-');
+        $cart = Str::slug($inputs['cart'] ?? 'shop', '-');
+        $forum = Str::slug($inputs['forum'] ?? 'forum', '-');
+        $docs = Str::slug($inputs['docs'] ?? 'docs', '-');
         $tag = Str::slug($inputs['tag'], '-');
         $search = Str::slug($inputs['search'], '-');
         $profile = Str::slug($inputs['profile'], '-');
@@ -232,12 +245,10 @@ class LangsController extends Controller
             'cart' => $cart ?? 'shop',
             'forum' => $forum ?? 'forum',
             'docs' => $docs ?? 'docs',
-            'contact' => $contact ?? 'contact',
             'tag' => $tag ?? 'tag',
             'search' => $search ?? 'search',
             'profile' => $profile ?? 'profile'
         );
-
 
         DB::table('sys_lang')
             ->where('id', $id)

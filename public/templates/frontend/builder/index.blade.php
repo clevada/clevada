@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ $lang }}">
+<html lang="{{ $lang ?? default_lang()->code }}">
 
 <head>
     <title>{{ site()->meta_title }}</title>
@@ -23,28 +23,24 @@
 
 <body>
 
-    <div id="wrapper">
+    <!-- Start Main Content -->
+    <div class="content">
 
         @include("{$template_view}.global.navigation")
 
-        <!-- Main Content -->
-        <div id="content">
-            <div class="container-xxl">
-                @if ($sidebar_id && $sidebar_position == 'left')
-                    @include("{$template_view}.layouts.layout-sidebar-left")
-                @elseif ($sidebar_id && $sidebar_position == 'right')
-                    @include("{$template_view}.layouts.layout-sidebar-right")
-                @else
-                    @include("{$template_view}.layouts.layout-content")
-                @endif
-            </div>
+        <div class="container-xxl">
+            @if ($sidebar_id && $sidebar_position == 'left')
+                @include("{$template_view}.layouts.layout-sidebar-left")
+            @elseif ($sidebar_id && $sidebar_position == 'right')
+                @include("{$template_view}.layouts.layout-sidebar-right")
+            @else
+                @include("{$template_view}.layouts.layout-content")
+            @endif
         </div>
-        <!-- End Main Content -->
-
-        @include("{$template_view}.global.footer")
-
     </div>
-    <!-- End Wrapper -->
+    <!-- End Main Content -->
+
+    @include("{$template_view}.global.footer")
 
 </body>
 

@@ -107,7 +107,7 @@
                                         @elseif($link->type == 'module')
                                             @php
                                             $permalinks = DB::table('sys_lang')->where('id', $lang->id)->value('permalinks');
-							                $permalinks = unserialize($permalinks);
+							                $permalinks = unserialize($permalinks);                                            
 
 							                $this_lang = ($lang->id == default_lang()->id) ? null : '/' . lang($lang->id)->code;
 							                $link_url = route('homepage') . $this_lang . '/' . $permalinks[$link->value];

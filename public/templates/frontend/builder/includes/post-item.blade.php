@@ -74,7 +74,9 @@
 
 
     @if ($comments->total() > 0)
-        <p class="mt-3 mb-1">{{ $comments->total() }} {{ __('comments') }}</p>
+        <div class="mb-3 mt-3 fs-5">
+            {{ $comments->total() }} {{ __('comments') }}
+        </div>
 
         <a class="anchor" name="comments" id="comments"></a>
 
@@ -104,7 +106,7 @@
 
         <ul class="comment-list">
             @foreach ($comments as $comment)
-                <li class="comment p-2 bg-light mb-3">
+                <li class="comment mb-3">
                     <div class="comment-body">
                         @if ($comment->user_id)
                             @if ($comment->author_avatar)

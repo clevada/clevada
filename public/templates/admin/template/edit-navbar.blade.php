@@ -515,7 +515,7 @@
                             <div class="row">
                                 <div class="col-12 col-xl-2 col-lg-4 col-md-6">
                                     <div class="form-group">
-                                        <input id="dropdown_bg_color" name="dropdown_bg_color" value="{{ get_template_value($template->id, 'dropdown_bg_color') ?? '#eeeeee' }}">
+                                        <input id="dropdown_bg_color" name="dropdown_bg_color" value="{{ get_template_value($template->id, 'dropdown_bg_color') ?? config('defaults.dropdown_bg_color') }}">
                                         <label>{{ __('Dropdown background color') }}</label>
                                         <script>
                                             $('#dropdown_bg_color').spectrum({
@@ -532,7 +532,7 @@
 
                                 <div class="col-12 col-xl-2 col-lg-4 col-md-6">
                                     <div class="form-group">
-                                        <input id="dropdown_font_color" name="dropdown_font_color" value="{{ get_template_value($template->id, 'dropdown_font_color') ?? config('defaults.nav_font_color') }}">
+                                        <input id="dropdown_font_color" name="dropdown_font_color" value="{{ get_template_value($template->id, 'dropdown_font_color') ?? config('defaults.dropdown_font_color') }}">
                                         <label>{{ __('Dropdown text color') }}</label>
                                         <script>
                                             $('#dropdown_font_color').spectrum({
@@ -554,7 +554,7 @@
                                 <div class="col-12 col-md-6 col-lg-3 col-xl-2">
                                     <div class="form-group">
                                         <label>{{ __('Links color') }}</label><br>
-                                        <input id="dropdown_link_color" name="dropdown_link_color" value="{{ get_template_value($template->id, 'dropdown_link_color') ?? config('defaults.nav_link_color') }}">
+                                        <input id="dropdown_link_color" name="dropdown_link_color" value="{{ get_template_value($template->id, 'dropdown_link_color') ?? config('defaults.dropdown_link_color') }}">
                                         <script>
                                             $('#dropdown_link_color').spectrum({
                                                 type: "color",
@@ -572,7 +572,7 @@
                                     <div class="form-group">
                                         <label>{{ __('Links color on hover') }}</label><br>
                                         <input id="dropdown_link_color_hover" name="dropdown_link_color_hover"
-                                            value="{{ get_template_value($template->id, 'dropdown_link_color_hover') ?? config('defaults.nav_link_color_hover') }}">
+                                            value="{{ get_template_value($template->id, 'dropdown_link_color_hover') ?? config('defaults.dropdown_link_color_hover') }}">
                                         <script>
                                             $('#dropdown_link_color_hover').spectrum({
                                                 type: "color",
@@ -590,7 +590,7 @@
                                     <div class="form-group">
                                         <label>{{ __('Links underline color') }}</label><br>
                                         <input id="dropdown_link_color_underline" name="dropdown_link_color_underline"
-                                            value="{{ get_template_value($template->id, 'dropdown_link_color_underline') ?? config('defaults.nav_link_color_hover') }}">
+                                            value="{{ get_template_value($template->id, 'dropdown_link_color_underline') ?? config('defaults.dropdown_link_color_underline') }}">
                                         <script>
                                             $('#dropdown_link_color_underline').spectrum({
                                                 type: "color",

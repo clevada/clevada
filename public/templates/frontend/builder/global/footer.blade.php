@@ -1,8 +1,8 @@
 @include("{$template_view}.layouts.bottom")
 
-<div id="footer">
+<div id="footer" class="footer">
     <!-- ======= Primary Footer ======= -->
-    <div class="footer">
+    <div class="footer1">
         <div class="container-xxl">
             @php
                 $footer_columns = template('footer_columns') ?? 1;                

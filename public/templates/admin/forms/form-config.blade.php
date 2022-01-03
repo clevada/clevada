@@ -125,6 +125,10 @@
 
                                     @foreach (sys_langs() as $lang)
 
+                                        @if (count(sys_langs()) > 1)
+                                        {!! flag($lang->code) !!} 
+                                        @endif
+
                                         @if (!(form_field_lang($field->id, $lang->id)->label ?? null)) <span class="text-danger">{{ __('Label not set') }}</span>
                                         @else {{ __('Label') }}: <b>{{ form_field_lang($field->id, $lang->id)->label }}</b> @endif
                                         @if (count(sys_langs()) > 1) ({{ $lang->name }}) @endif
@@ -139,12 +143,11 @@
                                         @endif
 
                                         @if (form_field_lang($field->id, $lang->id)->info ?? null) <br>{{ __('Info') }}: <b>{{ form_field_lang($field->id, $lang->id)->info }}</b> @endif
-                                        @if (count(sys_langs()) > 1) ({{ $lang->name }}) @endif
-
+                                       
                                         <div class="mb-2"></div>
                                     @endforeach
 
-                                    @if ($field->required)<div class="text-danger fw-bold">{{ __('Required field') }}</div>@endif
+                                    @if ($field->required)<div class="text-info fw-bold">{{ __('Required field') }}</div>@endif
                                 </td>
 
                                 <td>

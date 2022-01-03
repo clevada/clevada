@@ -289,8 +289,10 @@ class Core extends Model
 
                     $this_lang = ($lang->id == default_lang()->id) ? null : '/' . lang($lang->id)->code;
                     $url = route('homepage') . $this_lang . '/' . $permalinks[$link->value];
-                } elseif ($link->type == 'page')
-                    $url = page((int)$link->value, $lang->id)->url;
+                } elseif ($link->type == 'page') {
+                    if (page((int)$link->value, $lang->id)) $url = page((int)$link->value, $lang->id)->url;
+                    else $url = '#';
+                }
 
                 elseif ($link->type == 'dropdown') {
                     $url = '#';

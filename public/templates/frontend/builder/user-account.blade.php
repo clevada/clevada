@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ $locale }}">
+<html lang="{{ $lang ?? default_lang()->code }}">
 
 <head>
 
@@ -15,36 +15,31 @@
 
 <body>
 
-    <div id="wrapper">
+    <!-- Main Content -->
+    <div class="content">
 
         @include("{$template_view}.global.navigation")
 
-        <!-- Main Content -->
-        <div id="content">
+        <div class="container-xxl">
 
-            <div class="container-xxl mt-4">
+            <div class="row">
 
-                <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
+                    @include('frontend/builder.user.sidebar')
+                </div>
 
-                    <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                        @include('frontend/builder.user.sidebar')
-                    </div>
-
-                    <div class="col-sm-12 col-md-8 col-lg-9 col-xl-10">
-                        @include("frontend/builder.user.{$view_file}")
-                    </div>
-
+                <div class="col-sm-12 col-md-8 col-lg-9 col-xl-10">
+                    @include("frontend/builder.user.{$view_file}")
                 </div>
 
             </div>
 
         </div>
-        <!-- End Main Content -->
-
-        @include("{$template_view}.global.footer")
 
     </div>
-    <!-- End Wrapper -->
+    <!-- End Main Content -->
+
+    @include("{$template_view}.global.footer")
 
     <!-- Tags -->
     <script src="{{ asset('assets/vendors/tags-input-autocomplete/dist/jquery.tagsinput.min.js') }}"></script>
