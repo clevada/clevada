@@ -4,7 +4,7 @@
         <div class="col-md-6 col-12">
             @foreach (footer_blocks($footer, $footer_col) as $block)
                 @php
-                    $block_extra = unserialize($block->block_extra);
+                    $block_extra = unserialize($block->block_extra);                    
                 @endphp
 
                 <div class="section" id="footer-block-{{ $block->id }}">

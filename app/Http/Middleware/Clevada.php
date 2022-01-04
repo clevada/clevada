@@ -47,7 +47,6 @@ class Clevada
      */
     public function handle($request, Closure $next)
     {
-
         // config
         $config = Core::config();
 

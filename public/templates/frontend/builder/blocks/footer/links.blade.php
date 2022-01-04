@@ -26,11 +26,11 @@ $block_data = footer_block($block->id);
 
         @if (count($block_items) > 0)
 
-            @if ($block_extra['display_style'] == 'list') <ul>@endif
+            @if (($block_extra['display_style'] ?? null) != 'multiple') <ul>@endif
 
             @foreach ($block_items as $item)
 
-                @if ($block_extra['display_style'] == 'list')
+                @if (($block_extra['display_style'] ?? null) != 'multiple')
                     <li class="mb-2">@if ($item['icon']) {!! $item['icon'] !!} @endif <a href="{{ $item['url'] }}" title="{{ $item['title'] }}">{{ $item['title'] }}</a> </li>
 
                 @else

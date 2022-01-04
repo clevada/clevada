@@ -50,7 +50,7 @@
                 <h5 class="mb-3">{{ __('Block content') }}:</h5>
 
                 @foreach ($langs as $lang)
-                    @if (count(sys_langs()) > 1 && $block_module != 'posts')
+                    @if (count(sys_langs()) > 1)
                         <h5 class="mb-3">{!! flag($lang->code) !!} {{ $lang->name }}</h5>
                     @endif
 

@@ -25,6 +25,7 @@ use DB;
 use Artisan;
 use App\Models\User;
 use App\Models\Core;
+use App\Models\Template;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -55,6 +56,7 @@ class Install extends Command
     public function handle(Request $request)
     {
 
+        dd(getcwd());
         $this->line('Setup database tables');
         Artisan::call('migrate');
 
@@ -74,7 +76,7 @@ class Install extends Command
 
         // language
         if (!DB::table('sys_lang')->where('is_default', 1)->where('status', 'active')->exists())
-            DB::table('sys_lang')->updateOrInsert(['code' => 'en'], ['name' => 'English', 'locale' => 'en_US', 'is_default' => 1, 'status' => 'active', 'timezone' => 'Europe/London', 'site_short_title' => 'Clevada website', 'homepage_meta_title' => 'Clevada website', 'homepage_meta_description' => 'Clevada website']);
+            DB::table('sys_lang')->updateOrInsert(['code' => 'en'], ['name' => 'English', 'locale' => 'en_US', 'is_default' => 1, 'status' => 'active', 'timezone' => 'Europe/London', 'site_short_title' => 'Clevada website', 'homepage_meta_title' => 'Clevada website', 'homepage_meta_description' => 'Clevada website', 'permalinks' => 'a:8:{s:5:"posts";s:4:"blog";s:4:"cart";s:4:"shop";s:5:"forum";s:5:"forum";s:4:"docs";s:4:"docs";s:7:"contact";s:7:"contact";s:3:"tag";s:3:"tag";s:6:"search";s:6:"search";s:7:"profile";s:7:"profile";}']);
 
         // Modules
         DB::table('sys_modules')->updateOrInsert(['module' => 'accounts'], ['label' => 'Accounts', 'status' => 'active', 'route_web' => null, 'route_admin' => 'admin.accounts', 'hidden' => 1]);
@@ -160,15 +162,17 @@ class Install extends Command
         DB::table('sys_templates_config')->updateOrInsert(['template_id' => $template_id, 'name' => 'footer2_show'], ['value' => 'on']);
         DB::table('sys_templates_config')->updateOrInsert(['template_id' => $template_id, 'name' => 'footer2_columns'], ['value' => 1]);
 
-        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'primary'], ['type_id' => $block_type_id_editor, 'layout' => 2, 'col' => 1, 'position' => 1, 'created_at' => now()]);
+        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'primary', 'type_id' => $block_type_id_editor], ['layout' => 2, 'col' => 1, 'position' => 1, 'created_at' => now()]);
         $block_id_footer_primary_col1 = DB::getPdo()->lastInsertId();
-        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'primary'], ['type_id' => $block_type_id_links, 'layout' => 2, 'col' => 2, 'position' => 1, 'created_at' => now()]);
+        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'primary', 'type_id' => $block_type_id_links], ['layout' => 2, 'col' => 2, 'position' => 1, 'created_at' => now()]);
         $block_id_footer_primary_col2 = DB::getPdo()->lastInsertId();
-        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'secondary'], ['type_id' => $block_type_id_editor, 'layout' => 1, 'col' => 1, 'position' => 1, 'created_at' => now()]);
+        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'secondary', 'type_id' => $block_type_id_editor], ['layout' => 1, 'col' => 1, 'position' => 1, 'created_at' => now()]);
         $block_id_footer_secondary_col1 = DB::getPdo()->lastInsertId();
 
+        $url_homepage = config('app.url');
+        
         DB::table('sys_footer_blocks_content')->insert(['block_id' => $block_id_footer_primary_col1, 'lang_id' => $default_lang_id, 'content' => '<p><a href="https://clevada.com/">Clevada</a> is a free suite for businesses, communities, teams, collaboration or personal websites. Create a free and professional website in minutes.</p>', 'header' => 'a:3:{s:10:"add_header";s:2:"on";s:5:"title";s:15:"About This Site";s:7:"content";N;}']);
-        DB::table('sys_footer_blocks_content')->insert(['block_id' => $block_id_footer_primary_col2, 'lang_id' => $default_lang_id, 'content' => 'a:3:{i:0;a:3:{s:5:"title";s:4:"Home";s:3:"url";s:19:"https://clevada.com";s:4:"icon";N;}i:1;a:3:{s:5:"title";s:4:"Blog";s:3:"url";s:24:"https://clevada.com/blog";s:4:"icon";N;}i:2;a:3:{s:5:"title";s:5:"About";s:3:"url";s:25:"https://clevada.com/about";s:4:"icon";N;}}', 'header' => 'a:3:{s:10:"add_header";s:2:"on";s:5:"title";s:10:"Navigation";s:7:"content";N;}']);
+        DB::table('sys_footer_blocks_content')->insert(['block_id' => $block_id_footer_primary_col2, 'lang_id' => $default_lang_id, 'content' => 'a:3:{i:0;a:3:{s:5:"title";s:4:"Home";s:3:"url";s:19:"'.$url_homepage.'";s:4:"icon";N;}i:1;a:3:{s:5:"title";s:4:"Blog";s:3:"url";s:24:"'.$url_homepage.'/blog";s:4:"icon";N;}i:2;a:3:{s:5:"title";s:5:"About";s:3:"url";s:25:"'.$url_homepage.'/about";s:4:"icon";N;}}', 'header' => 'a:3:{s:10:"add_header";s:2:"on";s:5:"title";s:10:"Navigation";s:7:"content";N;}']);
         DB::table('sys_footer_blocks_content')->insert(['block_id' => $block_id_footer_secondary_col1, 'lang_id' => $default_lang_id, 'content' => '<p>© 2022 Powered by <strong><a target="_blank" href="https://clevada.com">Clevada</a></strong>: #1 Free Business Suite and Website Builder</p>']);
 
 
@@ -225,6 +229,9 @@ class Install extends Command
 
         // regenerate menu links for each language and store in cache config
         Core::generate_langs_menu_links();
+
+        // generate custom CSS file for default template
+        Template::generate_global_css($template_id);
 
         $this->info('The install was successful!');
     }

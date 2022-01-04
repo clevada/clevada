@@ -40,7 +40,7 @@ class Template extends Model
      */
     public static function generate_global_css($template_id)
     {
-        $css_destination = 'custom' . DIRECTORY_SEPARATOR . 'styles' . DIRECTORY_SEPARATOR . $template_id . '.css';
+        $css_destination = public_path(). DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'styles' . DIRECTORY_SEPARATOR . $template_id . '.css';        
 
         $css_file = fopen($css_destination, "w");
 
