@@ -56,7 +56,6 @@ class Install extends Command
     public function handle(Request $request)
     {
 
-        dd(getcwd());
         $this->line('Setup database tables');
         Artisan::call('migrate');
 
@@ -162,23 +161,25 @@ class Install extends Command
         DB::table('sys_templates_config')->updateOrInsert(['template_id' => $template_id, 'name' => 'footer2_show'], ['value' => 'on']);
         DB::table('sys_templates_config')->updateOrInsert(['template_id' => $template_id, 'name' => 'footer2_columns'], ['value' => 1]);
 
-        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'primary', 'type_id' => $block_type_id_editor], ['layout' => 2, 'col' => 1, 'position' => 1, 'created_at' => now()]);
+        DB::table('sys_footer_blocks')->insert(['template_id' => $template_id, 'footer' => 'primary', 'type_id' => $block_type_id_editor, 'layout' => 2, 'col' => 1, 'position' => 1, 'created_at' => now()]);
         $block_id_footer_primary_col1 = DB::getPdo()->lastInsertId();
-        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'primary', 'type_id' => $block_type_id_links], ['layout' => 2, 'col' => 2, 'position' => 1, 'created_at' => now()]);
+        DB::table('sys_footer_blocks')->insert(['template_id' => $template_id, 'footer' => 'primary', 'type_id' => $block_type_id_links, 'layout' => 2, 'col' => 2, 'position' => 1, 'created_at' => now()]);
         $block_id_footer_primary_col2 = DB::getPdo()->lastInsertId();
-        DB::table('sys_footer_blocks')->updateOrInsert(['template_id' => $template_id, 'footer' => 'secondary', 'type_id' => $block_type_id_editor], ['layout' => 1, 'col' => 1, 'position' => 1, 'created_at' => now()]);
+        DB::table('sys_footer_blocks')->insert(['template_id' => $template_id, 'footer' => 'secondary', 'type_id' => $block_type_id_editor, 'layout' => 1, 'col' => 1, 'position' => 1, 'created_at' => now()]);
         $block_id_footer_secondary_col1 = DB::getPdo()->lastInsertId();
 
         $url_homepage = config('app.url');
         
+        $s_homepage = strlen($url_homepage);
+        $s_blog = strlen($url_homepage.'/blog');
+        $s_about = strlen($url_homepage.'/about');
         DB::table('sys_footer_blocks_content')->insert(['block_id' => $block_id_footer_primary_col1, 'lang_id' => $default_lang_id, 'content' => '<p><a href="https://clevada.com/">Clevada</a> is a free suite for businesses, communities, teams, collaboration or personal websites. Create a free and professional website in minutes.</p>', 'header' => 'a:3:{s:10:"add_header";s:2:"on";s:5:"title";s:15:"About This Site";s:7:"content";N;}']);
-        DB::table('sys_footer_blocks_content')->insert(['block_id' => $block_id_footer_primary_col2, 'lang_id' => $default_lang_id, 'content' => 'a:3:{i:0;a:3:{s:5:"title";s:4:"Home";s:3:"url";s:19:"'.$url_homepage.'";s:4:"icon";N;}i:1;a:3:{s:5:"title";s:4:"Blog";s:3:"url";s:24:"'.$url_homepage.'/blog";s:4:"icon";N;}i:2;a:3:{s:5:"title";s:5:"About";s:3:"url";s:25:"'.$url_homepage.'/about";s:4:"icon";N;}}', 'header' => 'a:3:{s:10:"add_header";s:2:"on";s:5:"title";s:10:"Navigation";s:7:"content";N;}']);
+        DB::table('sys_footer_blocks_content')->insert(['block_id' => $block_id_footer_primary_col2, 'lang_id' => $default_lang_id, 'content' => 'a:3:{i:0;a:3:{s:5:"title";s:4:"Home";s:3:"url";s:'.$s_homepage.':"'.$url_homepage.'";s:4:"icon";N;}i:1;a:3:{s:5:"title";s:4:"Blog";s:3:"url";s:'.$s_blog.':"'.$url_homepage.'/blog";s:4:"icon";N;}i:2;a:3:{s:5:"title";s:5:"About";s:3:"url";s:'.$s_about.':"'.$url_homepage.'/about";s:4:"icon";N;}}', 'header' => 'a:3:{s:10:"add_header";s:2:"on";s:5:"title";s:10:"Navigation";s:7:"content";N;}']);
         DB::table('sys_footer_blocks_content')->insert(['block_id' => $block_id_footer_secondary_col1, 'lang_id' => $default_lang_id, 'content' => '<p>© 2022 Powered by <strong><a target="_blank" href="https://clevada.com">Clevada</a></strong>: #1 Free Business Suite and Website Builder</p>']);
-
 
         // add a sample homepage block with text
         $this->line('Adding sample homepage block content');
-        DB::table('blocks')->insert(['type_id' => $block_type_id_editor, 'module' => 'homepage', 'position' => 1, 'created_by_user_id' => $admin_user_id, 'created_at' => now()]);
+        DB::table('blocks')->insert(['type_id' => $block_type_id_editor, 'template_id' => $template_id, 'module' => 'homepage', 'position' => 1, 'created_by_user_id' => $admin_user_id, 'created_at' => now()]);
         $block_id_homepage = DB::getPdo()->lastInsertId();
         DB::table('blocks_content')->insert(['block_id' => $block_id_homepage, 'lang_id' => $default_lang_id, 'content' => '<h1>What is Lorem Ipsum?</h1><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>']);
 
@@ -231,7 +232,8 @@ class Install extends Command
         Core::generate_langs_menu_links();
 
         // generate custom CSS file for default template
-        Template::generate_global_css($template_id);
+        $css_destination = base_path() . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'styles' . DIRECTORY_SEPARATOR . $template_id . '.css';
+        Template::generate_global_css($template_id, $css_destination);
 
         $this->info('The install was successful!');
     }
