@@ -25,45 +25,51 @@
                     </a>
                 </li>
 
-                @if(check_access('accounts'))
-                <li class="sidebar-item @if (($active_menu ?? null) == 'accounts') active @endif">
-                    <a href="{{ route('admin.accounts') }}" class='sidebar-link'>
-                        <i class="bi-person-bounding-box"></i>
-                        <span>{{ __('Accounts') }}</span>
-                    </a>
-                </li>
+                @if (check_access('accounts'))
+                    <li class="sidebar-item @if (($active_menu ?? null) == 'accounts') active @endif">
+                        <a href="{{ route('admin.accounts') }}" class='sidebar-link'>
+                            <i class="bi-person-bounding-box"></i>
+                            <span>{{ __('Accounts') }}</span>
+                        </a>
+                    </li>
                 @endif
 
-                @if(check_access('pages') || check_access('posts') || check_access('developer'))
-                <li class="sidebar-item has-sub @if (($active_menu ?? null) == 'website') active @endif">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-card-text"></i>
-                        <span>{{ __('Content Management') }}</span>
-                    </a>
-                    <ul class="submenu @if (($active_menu ?? null) == 'website') active @endif">
+                @if (check_access('pages') || check_access('posts') || check_access('developer'))
+                    <li class="sidebar-item has-sub @if (($active_menu ?? null) == 'website') active @endif">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-card-text"></i>
+                            <span>{{ __('Content Management') }}</span>
+                        </a>
+                        <ul class="submenu @if (($active_menu ?? null) == 'website') active @endif">
 
-                        @if (check_access('posts'))
-                            <li class="submenu-item @if (($active_submenu ?? null) == 'posts') active @endif">
-                                <a href="{{ route('admin.posts') }}">{{ __('Posts') }}</a>
-                            </li>
-                        @endif 
+                            @if (check_access('posts'))
+                                <li class="submenu-item @if (($active_submenu ?? null) == 'posts') active @endif">
+                                    <a href="{{ route('admin.posts') }}">{{ __('Posts') }}</a>
+                                </li>
+                            @endif
 
-                        @if(check_access('pages'))
-                            <li class="submenu-item @if (($active_submenu ?? null) == 'pages') active @endif">
-                                <a href="{{ route('admin.pages') }}">{{ __('Pages') }}</a>
-                            </li>
-                        @endif  
+                            @if (check_access('pages'))
+                                <li class="submenu-item @if (($active_submenu ?? null) == 'pages') active @endif">
+                                    <a href="{{ route('admin.pages') }}">{{ __('Pages') }}</a>
+                                </li>
+                            @endif
 
-                        @if (check_access('posts') || check_access('pages') || check_access('developer'))
-                            <li class="submenu-item @if (($active_submenu ?? null) == 'media') active @endif">
-                                <a href="{{ route('admin.media') }}">{{ __('Media') }}</a>
-                            </li>
-                        @endif                      
-                    </ul>
-                </li>
+                            @if (check_admin_module('docs'))
+                                <li class="submenu-item @if (($active_submenu ?? null) == 'docs') active @endif">
+                                    <a href="{{ route('admin.docs') }}">{{ __('Knowledge Base') }}</a>
+                                </li>
+                            @endif
+
+                            @if (check_access('posts') || check_access('pages') || check_access('developer'))
+                                <li class="submenu-item @if (($active_submenu ?? null) == 'media') active @endif">
+                                    <a href="{{ route('admin.media') }}">{{ __('Media') }}</a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
                 @endif
-                
-                @if(check_access('forum'))
+
+                @if (check_access('forum'))
                     <li class="sidebar-item has-sub @if (($active_menu ?? null) == 'forum') active @endif">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-chat-square-quote"></i>
@@ -80,82 +86,82 @@
                                 <a href="{{ route('admin.forum.reports') }}">{{ __('Reports') }}</a>
                             </li>
 
-                            @if(logged_user()->role == 'admin')
-                            <li class="submenu-item @if (($active_submenu ?? null) == 'forum.categ') active @endif">
-                                <a href="{{ route('admin.forum.categ') }}">{{ __('Forum structure') }}</a>
-                            </li>
-                            <li class="submenu-item @if (($active_submenu ?? null) == 'forum.config') active @endif">
-                                <a href="{{ route('admin.forum.config') }}">{{ __('Forum config') }}</a>
-                            </li>
+                            @if (logged_user()->role == 'admin')
+                                <li class="submenu-item @if (($active_submenu ?? null) == 'forum.categ') active @endif">
+                                    <a href="{{ route('admin.forum.categ') }}">{{ __('Forum structure') }}</a>
+                                </li>
+                                <li class="submenu-item @if (($active_submenu ?? null) == 'forum.config') active @endif">
+                                    <a href="{{ route('admin.forum.config') }}">{{ __('Forum config') }}</a>
+                                </li>
                             @endif
                         </ul>
                     </li>
                 @endif
 
-                @if(check_access('forms'))
-                <li class="sidebar-item @if (($active_menu ?? null) == 'forms') active @endif">
-                    <a href="{{ route('admin.forms') }}" class='sidebar-link'>
-                        <i class="bi bi-file-text"></i>
-                        <span>{{ __('Forms') }}</span>
-                    </a>
-                </li>
-                @endif           
-
-                @if(check_access('tasks'))
-                <li class="sidebar-item has-sub @if (($active_menu ?? null) == 'productivity') active @endif">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-clipboard-check"></i>
-                        <span>{{ __('Productivity') }}</span>
-                    </a>
-                    <ul class="submenu @if (($active_menu ?? null) == 'productivity') active @endif">
-                        <li class="submenu-item @if (($active_submenu ?? null) == 'tasks') active @endif">
-                            <a href="{{ route('admin.tasks') }}">{{ __('Tasks') }}</a>
-                        </li>
-                    </ul>
-                </li>
+                @if (check_access('forms'))
+                    <li class="sidebar-item @if (($active_menu ?? null) == 'forms') active @endif">
+                        <a href="{{ route('admin.forms') }}" class='sidebar-link'>
+                            <i class="bi bi-file-text"></i>
+                            <span>{{ __('Forms') }}</span>
+                        </a>
+                    </li>
                 @endif
 
-                @if(check_access('developer'))
-                <li class="sidebar-item @if (($active_menu ?? null) == 'template') active @endif">
-                    <a href="{{ route('admin.templates') }}" class='sidebar-link'>
-                        <i class="bi bi-laptop"></i>
-                        <span>{{ __('Template') }}</span>
-                    </a>
-                </li>
+                @if (check_access('tasks'))
+                    <li class="sidebar-item has-sub @if (($active_menu ?? null) == 'productivity') active @endif">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-clipboard-check"></i>
+                            <span>{{ __('Productivity') }}</span>
+                        </a>
+                        <ul class="submenu @if (($active_menu ?? null) == 'productivity') active @endif">
+                            <li class="submenu-item @if (($active_submenu ?? null) == 'tasks') active @endif">
+                                <a href="{{ route('admin.tasks') }}">{{ __('Tasks') }}</a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
 
-                @if(check_access('translates'))
-                <li class="sidebar-item has-sub @if (($active_menu ?? null) == 'config') active @endif">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-gear-fill"></i>
-                        <span>{{ __('Configuration') }}</span>
-                    </a>                    
-                    <ul class="submenu @if (($active_menu ?? null) == 'config') active @endif">
+                @if (check_access('developer'))
+                    <li class="sidebar-item @if (($active_menu ?? null) == 'template') active @endif">
+                        <a href="{{ route('admin.templates') }}" class='sidebar-link'>
+                            <i class="bi bi-laptop"></i>
+                            <span>{{ __('Template') }}</span>
+                        </a>
+                    </li>
+                @endif
 
-                        @if(logged_user()->role == 'admin')       
-                        <li class="submenu-item @if (($active_submenu ?? null) == 'config.general') active @endif">
-                            <a href="{{ route('admin.config.general') }}">{{ __('General') }}</a>
-                        </li>
-                        
-                        <li class="submenu-item @if (($active_submenu ?? null) == 'config.permissions') active @endif">
-                            <a href="{{ route('admin.accounts.permissions') }}">{{ __('Internal permissions') }}</a>
-                        </li>
-                        @endif
+                @if (check_access('translates'))
+                    <li class="sidebar-item has-sub @if (($active_menu ?? null) == 'config') active @endif">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-gear-fill"></i>
+                            <span>{{ __('Configuration') }}</span>
+                        </a>
+                        <ul class="submenu @if (($active_menu ?? null) == 'config') active @endif">
 
-                        @if(check_access('translates'))
-                        <li class="submenu-item @if (($active_submenu ?? null) == 'config.langs') active @endif">
-                            <a href="{{ route('admin.config.langs') }}">{{ __('Languages & Locale') }}</a>
-                        </li>
-                        @endif
+                            @if (logged_user()->role == 'admin')
+                                <li class="submenu-item @if (($active_submenu ?? null) == 'config.general') active @endif">
+                                    <a href="{{ route('admin.config.general') }}">{{ __('General') }}</a>
+                                </li>
 
-                        @if(logged_user()->role == 'admin')       
-                        <li class="submenu-item @if (($active_submenu ?? null) == 'config.tools') active @endif">
-                            <a href="{{ route('admin.tools.update') }}">{{ __('Tools') }}</a>
-                        </li>
-                        @endif
+                                <li class="submenu-item @if (($active_submenu ?? null) == 'config.permissions') active @endif">
+                                    <a href="{{ route('admin.accounts.permissions') }}">{{ __('Internal permissions') }}</a>
+                                </li>
+                            @endif
 
-                    </ul>
-                </li>
+                            @if (check_access('translates'))
+                                <li class="submenu-item @if (($active_submenu ?? null) == 'config.langs') active @endif">
+                                    <a href="{{ route('admin.config.langs') }}">{{ __('Languages & Locale') }}</a>
+                                </li>
+                            @endif
+
+                            @if (logged_user()->role == 'admin')
+                                <li class="submenu-item @if (($active_submenu ?? null) == 'config.tools') active @endif">
+                                    <a href="{{ route('admin.tools.update') }}">{{ __('Tools') }}</a>
+                                </li>
+                            @endif
+
+                        </ul>
+                    </li>
                 @endif
 
                 @include('admin.custom-sidebar')

@@ -125,7 +125,7 @@ class BlocksController extends Controller
 
         // Extra content HERO            
         if ($type == 'hero') {
-            $block_extra = array('bg_color' => null, 'image_position' => $request['image_position'], 'image' => $request['existing_image'] ?? null, 'cover_fixed' => null, 'cover_dark' => null, 'img_container_width' => $inputs['img_container_width'] ?? null, 'img_click' => null, 'title_font_size' => $inputs['title_font_size'] ?? null, 'text_font_size' => $inputs['text_font_size'] ?? null, 'font_color' => $inputs['font_color'] ?? null);
+            $block_extra = array('bg_color' => null, 'image_position' => $request['image_position'], 'image' => $request['existing_image'] ?? null, 'cover_fixed' => null, 'cover_dark' => null, 'img_container_width' => $inputs['img_container_width'] ?? null, 'img_click' => null, 'title_font_size' => $inputs['title_font_size'] ?? null, 'text_font_size' => $inputs['text_font_size'] ?? null, 'font_color' => $inputs['font_color'] ?? null, 'text_align' => $inputs['text_align'] ?? 'left');
 
             if ($inputs['use_image'] ?? null) $block_extra['use_image'] = $inputs['use_image'];
             if ($inputs['use_custom_bg'] ?? null) $block_extra['bg_color'] = $inputs['bg_color'];
@@ -202,8 +202,8 @@ class BlocksController extends Controller
             DB::table('blocks')->where('id', $id)->update(['extra' => serialize($block_extra)]);
         }
 
-         // Extra content VIDEO               
-         if ($type == 'video') {
+        // Extra content VIDEO               
+        if ($type == 'video') {
             $block_extra = array('bg_color' => null, 'full_width_responsive' => null);
             if ($inputs['use_custom_bg'] ?? null) $block_extra = array('bg_color' => $inputs['bg_color']);
             if ($inputs['full_width_responsive'] ?? null) $block_extra['full_width_responsive'] = $inputs['full_width_responsive'];
@@ -211,8 +211,16 @@ class BlocksController extends Controller
         }
 
 
-        // Extra content IMAGE / GALLERY        
-        if ($type == 'image' || $type == 'gallery') {
+        // Extra content IMAGE      
+        if ($type == 'image') {
+            $block_extra = array('bg_color' => null, 'shaddow' => null);
+            if ($inputs['shaddow'] ?? null) $block_extra['shaddow'] = $inputs['shaddow'];
+            if ($inputs['use_custom_bg'] ?? null) $block_extra['bg_color'] = $inputs['bg_color'];
+            DB::table('blocks')->where('id', $id)->update(['extra' => serialize($block_extra)]);
+        }
+
+        // Extra content GALLERY        
+        if ($type == 'gallery') {
             $block_extra = array('bg_color' => null, 'shaddow' => null, 'cols' => null);
             if ($inputs['shaddow'] ?? null) $block_extra['shaddow'] = $inputs['shaddow'];
             if ($inputs['use_custom_bg'] ?? null) $block_extra['bg_color'] = $inputs['bg_color'];
@@ -315,6 +323,14 @@ class BlocksController extends Controller
             if ($type == 'editor') {
                 $content = $request['content_' . $lang->id];
                 DB::table('blocks_content')->updateOrInsert(['block_id' => $id, 'lang_id' => $lang->id], ['content' => $content]);
+
+                // header data
+                $header_array = array();
+                if ($inputs['add_header_' . $lang->id] ?? null) {
+                    $header_array = array('add_header' => 'on', 'title' =>  $inputs["header_title_$lang->id"], 'content' =>  $inputs["header_content_$lang->id"]);
+                    $header_content = serialize($header_array);
+                    DB::table('blocks_content')->where(['block_id' => $id, 'lang_id' => $lang->id])->update(['header' => $header_content]);
+                }
             }
 
             // CUSTOM
@@ -375,7 +391,7 @@ class BlocksController extends Controller
 
             // HERO
             if ($type == 'hero') {
-                $content = array('title' => $request['title_' . $lang->id], 'content' => $request['content_' . $lang->id], 'btn1_label' => $request['btn1_label_' . $lang->id], 'btn1_style' => $request['btn1_style_' . $lang->id], 'btn1_info' => $request['btn1_info_' . $lang->id], 'btn2_label' => $request['btn2_label_' . $lang->id], 'btn2_style' => $request['btn2_style_' . $lang->id], 'btn1_url' => $request['btn1_url_' . $lang->id], 'btn2_url' => $request['btn2_url_' . $lang->id], 'btn2_info' => $request['btn2_info_' . $lang->id]);
+                $content = array('title' => $request['title_' . $lang->id], 'content' => $request['content_' . $lang->id], 'btn1_label' => $request['btn1_label_' . $lang->id], 'btn1_url' => $request['btn1_url_' . $lang->id], 'btn1_style' => $request['btn1_style_' . $lang->id], 'btn1_icon' => $request['btn1_icon_' . $lang->id], 'btn1_info' => $request['btn1_info_' . $lang->id], 'btn2_label' => $request['btn2_label_' . $lang->id], 'btn2_style' => $request['btn2_style_' . $lang->id], 'btn2_url' => $request['btn2_url_' . $lang->id], 'btn2_icon' => $request['btn2_icon_' . $lang->id], 'btn2_info' => $request['btn2_info_' . $lang->id]);
                 $content = serialize($content);
                 DB::table('blocks_content')->updateOrInsert(['block_id' => $id, 'lang_id' => $lang->id], ['content' => $content]);
             }
@@ -647,7 +663,7 @@ class BlocksController extends Controller
         DB::table('blocks')->where('id', $id)->update(['label' =>  $inputs['label'] ?? null, 'custom_css' =>  $inputs['custom_css'] ?? null, 'updated_at' => now(), 'updated_by_user_id' =>  Auth::user()->id, 'hide' => $hide ?? 0]);
 
         // regenerate content blocks and add blocks in module table (for database performance)
-        if ($block_module == 'posts' || $block_module == 'pages') {
+        if ($block_module == 'posts' || $block_module == 'pages' || $block_module == 'docs') {
             $content_id = DB::table('blocks')->where('id', $id)->value('content_id');
             Core::regenerate_content_blocks($block_module, $content_id);
 

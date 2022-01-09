@@ -9,7 +9,6 @@ debug_backtrace() || die('Direct access not permitted');
             @php
             if(($module ?? null) == 'pages') $action = route('admin.pages.content.new', ['id' => $page->id]);
             else if(($module ?? null) == 'posts') $action = route('admin.posts.content.new', ['id' => $post->id]);
-            else if(($module ?? null) == 'docs') $action = route('admin.docs.content.new', ['id' => $doc->id]);
             else if(($module ?? null) == 'sidebar') $action = route('admin.template.sidebars.content.new', ['id' => $sidebar->id]);
             else if(($module ?? null) == 'global') $action = route('admin.template.global_sections.content.new', ['id' => $section->id]);
             else if(($module ?? null) == 'footer') $action = route('admin.template.footer.content.new', ['template_id' => $template->id, 'footer' => $footer, 'pos' => $pos]);

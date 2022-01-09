@@ -200,11 +200,12 @@ class TemplateFooterController extends Controller
 
 
         return view('admin/account', [
-            'view_file' => 'template.blocks.' . $block->type,
+            'view_file' => 'blocks.simple-blocks.' . $block->type,
             'active_menu' => 'template',
             'menu_section' => 'footers',
             'block' => $block,
             'langs' => $langs,
+            'is_footer_block' => 1,
             'referer' => request()->headers->get('referer'),
         ]);
     }

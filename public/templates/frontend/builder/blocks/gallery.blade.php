@@ -7,7 +7,7 @@ $block_data = block($block->id);
         $block_items = unserialize($block_data->content);
         $block_header = unserialize($block_data->header ?? null);
         
-        if (!$block_extra['cols'] ?? null) {
+        if (!($block_extra['cols'] ?? null)) {
             $cols = 4;
         } else {
             $cols = $block_extra['cols'];

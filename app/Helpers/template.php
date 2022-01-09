@@ -498,8 +498,6 @@ if (!function_exists('content_blocks')) {
 	function content_blocks($module, $content_id, $template_id = null, $show_hidden = null)
 	{		
 
-		if(! $template_id) $template_id = Core::get_active_template_id();
-
 		if($module == 'posts' && !$show_hidden) {		
 			$blocks = DB::table('posts')->where('id', $content_id)->value('blocks');
 			if(! $blocks) return array();
@@ -529,11 +527,11 @@ if (!function_exists('content_blocks')) {
 				'blocks.updated_at as block_updated_at',
 				'blocks.extra as block_extra',				
 			)
-			->where('blocks.template_id', $template_id)
 			->where('blocks.module', $module)
 			->where('blocks.content_id', $content_id);
 
 			if(! $show_hidden) $blocks = $blocks->where('blocks.hide', 0);			
+			if($template_id) $blocks = $blocks->where('blocks.template_id', $template_id);			
 
 			$blocks = $blocks->orderBy('position', 'asc')->get();
 			if(! $blocks) return array();
@@ -754,3 +752,136 @@ if (!function_exists('check_page_recaptcha')) {
 	}
 }
 
+
+
+/********************************************************************** */
+/*  DOCS FUNCTIONS
+/********************************************************************** */
+
+
+// Doc article details.
+if (!function_exists('doc')) {
+	function doc($id, $lang_id = null)
+	{
+
+		if (!$lang_id) $lang_id = default_lang()->id;
+
+		$doc = DB::table('docs')
+			->leftJoin('docs_content', 'docs_content.doc_id', '=', 'docs.id')
+			->select('docs.*', 'docs.categ_id as parent_categ_id', DB::raw("(SELECT slug FROM docs_content WHERE doc_id = docs.categ_id AND lang_id = $lang_id) as parent_slug"))
+			->where('active', 1)
+			->where('docs.id', $id)
+			->first();
+		if (!$doc) return null;
+
+		$content = DB::table('docs_content')
+			->where('docs_content.doc_id', $id)
+			->where('lang_id', $lang_id)
+			->first();
+		if (!$content) return null;
+	
+		$doc->url = route('docs', ['lang' => (default_lang()->id != $content->lang_id) ? lang($content->lang_id)->code : null, 'slug' => $content->slug]);			
+
+		return $doc;
+	}
+}
+
+
+if (!function_exists('doc_contents')) {
+	function doc_contents($id)
+	{
+
+		$doc = DB::table('docs')->where('id', $id)->first();
+		if (!$doc) return null;
+
+		$contents = DB::table('docs_content')
+			->leftJoin('sys_lang', 'docs_content.lang_id', '=', 'sys_lang.id')
+			->select('docs_content.*', 'sys_lang.name as lang_name', 'sys_lang.code as lang_code')
+			->where('docs_content.doc_id', $doc->id)
+			->orderBy('docs_content.lang_id', 'asc')
+			->get();
+
+		return $contents;
+	}
+}
+
+
+
+if (!function_exists('docs_categ_contents')) {
+	function docs_categ_contents($id)
+	{
+		$categ = DB::table('docs_categ')->where('id', $id)->first();
+		if (!$categ) return null;
+
+		$contents = DB::table('docs_categ_content')
+			->leftJoin('sys_lang', 'docs_categ_content.lang_id', '=', 'sys_lang.id')
+			->select('docs_categ_content.*', 'sys_lang.name as lang_name', 'sys_lang.code as lang_code')
+			->where('docs_categ_content.categ_id', $categ->id)
+			->orderBy('docs_categ_content.lang_id', 'asc')
+			->get();
+
+		return $contents;
+	}
+}
+
+
+
+// docs category details
+if (!function_exists('docs_categ')) {
+	function docs_categ($id, $lang_id = null) {      	
+		
+		if (!$lang_id) $lang_id = default_lang()->id;
+
+		$categ = DB::table('docs_categ')
+			->leftJoin('docs_categ_content', 'docs_categ_content.categ_id', '=', 'docs_categ.id')
+			->select('docs_categ.*')
+			->where('active', 1)
+			->where('docs_categ.id', $id)
+			->first();
+		if (!$categ) return null;
+
+		$content = DB::table('docs_categ_content')
+			->where('docs_categ_content.categ_id', $id)
+			->where('lang_id', $lang_id)
+			->first();
+		if (!$content) return null;
+
+		$categ->url = route('docs.categ', ['lang' => (default_lang()->id != $content->lang_id) ? lang($content->lang_id)->code : null, 'slug' => $content->slug]);
+		
+		return $categ;
+	}	
+}
+
+
+
+// generate URL for docs category, using category ID
+// generate URL for docs area, inf no category ID is passed
+if (!function_exists('docs_url')) {
+	function docs_url($categ_id = null, $lang_id = null)
+	{		
+		if (!$lang_id) $lang_id = active_lang()->id;
+
+		if (!$categ_id)
+			return route('docs', ['lang' => (default_lang()->id != $lang_id) ? lang($lang_id)->code : null]);
+		else {
+			$categ = DB::table('docs_categ')
+				->leftJoin('docs_categ_content', 'docs_categ.id', '=', 'docs_categ_content.categ_id')		
+				->select('docs_categ_content.slug as slug', 'docs_categ_content.lang_id as lang_id')
+				->where('docs_categ.id', $categ_id)
+				->where('lang_id', $lang_id)
+				->first();
+			if (!$categ) return;
+
+			return route('docs.categ', ['lang' => (default_lang()->id != $categ->lang_id) ? lang($categ->lang_id)->code : null, 'slug' => $categ->slug]);
+		}
+	}
+}
+
+
+// generate URL for docs search results
+if (!function_exists('search_docs_url')) {
+	function search_docs_url()
+	{
+		return route('docs.search');
+	}
+}

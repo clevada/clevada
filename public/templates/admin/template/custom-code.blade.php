@@ -83,8 +83,10 @@
             <h4>{{ __('Custom files') }}:</h4>
           
             @foreach($custom_files as $file) 
+            @if (pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js')
             <b>{{ $file }}</b> [<a target="_blank" href="/custom/files/{{ $file }}">{{ __('View') }}</a>] [<a class="text-danger" href="{{ route('admin.template.custom_code.delete_file', ['file' => $file]) }}">{{ __('Delete') }}</a>]
             <div class="mb-1"></div>
+            @endif
             @endforeach
          
         </div>

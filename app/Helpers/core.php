@@ -126,15 +126,15 @@ if (!function_exists('module')) {
 
 		if (!is_int($identificator))
 			$module = DB::table('sys_modules')
-			->leftJoin('sys_modules_meta', 'sys_modules.id', '=', 'sys_modules_meta.module_id')
-			->select('sys_modules.*', 'sys_modules_meta.meta_title as meta_title', 'sys_modules_meta.meta_description as meta_description')
-			->where('module', $identificator)->first();
-			
+				->leftJoin('sys_modules_meta', 'sys_modules.id', '=', 'sys_modules_meta.module_id')
+				->select('sys_modules.*', 'sys_modules_meta.meta_title as meta_title', 'sys_modules_meta.meta_description as meta_description')
+				->where('module', $identificator)->first();
+
 		else
 			$module = DB::table('sys_modules')
-			->leftJoin('sys_modules_meta', 'sys_modules.id', '=', 'sys_modules_meta.module_id')
-			->select('sys_modules.*', 'sys_modules_meta.meta_title as meta_title', 'sys_modules_meta.meta_description as meta_description')
-			->where('id', $identificator)->first();
+				->leftJoin('sys_modules_meta', 'sys_modules.id', '=', 'sys_modules_meta.module_id')
+				->select('sys_modules.*', 'sys_modules_meta.meta_title as meta_title', 'sys_modules_meta.meta_description as meta_description')
+				->where('id', $identificator)->first();
 
 		if (!$module) return (object)array('status' => null, 'url' => '#');
 
@@ -266,7 +266,7 @@ if (!function_exists('check_access')) {
 	function check_access($module, $permission = null)
 	{
 		$UserModel = new User();
-		if(! Auth::check()) return false;
+		if (!Auth::check()) return false;
 		$logged_user_role = $UserModel->get_role_from_id(Auth::user()->role_id);
 		if ($logged_user_role == 'admin') return true;
 
@@ -359,16 +359,15 @@ if (!function_exists('estimated_reading_time')) {
 
 		if (!$post->blocks) return 1;
 
-		$blocks = unserialize($post->blocks);		
+		$blocks = unserialize($post->blocks);
 
-		foreach ($blocks as $block) {			
+		foreach ($blocks as $block) {
 			$block_content = DB::table('blocks_content')->where('block_id', $block->id)->where('lang_id', active_lang()->id)->value('content');
-			if($block_content) {
+			if ($block_content) {
 				$block_data = @unserialize($block_content);
 				if ($block_data !== false) $words_block = str_word_count(strip_tags(unserialize($block_content)));
 				else $words_block = str_word_count(strip_tags($block_content));
-			}
-			else $words_block = 0;
+			} else $words_block = 0;
 
 			$words = $words + $words_block;
 		}
@@ -457,9 +456,9 @@ if (!function_exists('breadcrumb_items')) {
 		if (!$section) $section = 'posts';
 
 		if ($section == 'posts') $categ = DB::table('posts_categ')->where('posts_categ.id', $categ_id)->first();
-		elseif ($section == 'forum') $categ = DB::table('forum_categ')->where('forum_categ.id', $categ_id)->first();	
+		elseif ($section == 'forum') $categ = DB::table('forum_categ')->where('forum_categ.id', $categ_id)->first();
 		else return array();
-	
+
 		if (!$categ) return array();
 
 		$items[] = array('id' => $categ->id, 'title' => $categ->title, 'slug' => $categ->slug, 'active' => $categ->active, 'icon' => $categ->icon, 'count_tree_items' => $categ->count_tree_items ?? null, 'count_tree_topics' => $categ->count_tree_topics ?? null, 'count_tree_posts' => $categ->count_tree_posts ?? null);
@@ -728,13 +727,16 @@ if (!function_exists('template_font_sizes')) {
 		$array[12] = (object)array('name' => '160%', 'value' => '1.6em');
 		$array[13] = (object)array('name' => '175%', 'value' => '1.75em');
 		$array[14] = (object)array('name' => '200%', 'value' => '2em');
-		$array[15] = (object)array('name' => '250%', 'value' => '2.5em');
-		$array[16] = (object)array('name' => '300%', 'value' => '3em');
-		$array[17] = (object)array('name' => '350%', 'value' => '3.5em');
-		$array[18] = (object)array('name' => '400%', 'value' => '4em');
-		$array[19] = (object)array('name' => '450%', 'value' => '4.5em');
-		$array[20] = (object)array('name' => '500%', 'value' => '5em');
-		$array[21] = (object)array('name' => '600%', 'value' => '6em');
+		$array[15] = (object)array('name' => '225%', 'value' => '2.25em');
+		$array[16] = (object)array('name' => '250%', 'value' => '2.5em');
+		$array[17] = (object)array('name' => '275%', 'value' => '2.75em');
+		$array[18] = (object)array('name' => '300%', 'value' => '3em');
+		$array[19] = (object)array('name' => '350%', 'value' => '3.5em');
+		$array[20] = (object)array('name' => '400%', 'value' => '4em');
+		$array[21] = (object)array('name' => '450%', 'value' => '4.5em');
+		$array[22] = (object)array('name' => '500%', 'value' => '5em');
+		$array[23] = (object)array('name' => '600%', 'value' => '6em');
+		$array[24] = (object)array('name' => '800%', 'value' => '8em');
 
 		return (object)$array;
 	}
@@ -820,57 +822,82 @@ if (!function_exists('get_default_template_id')) {
 if (!function_exists('get_block_css_style')) {
 	function get_block_css_style($type)
 	{
-		$start = '/* start-'.$type.' */';
-		$end = '/* end-'.$type.' */';
+		$start = '/* start-' . $type . ' */';
+		$end = '/* end-' . $type . ' */';
 
-		$string = file_get_contents(public_path().'/templates/frontend/builder/assets/css/blocks.css');
+		$string = file_get_contents(public_path() . '/templates/frontend/builder/assets/css/blocks.css');
 
 		$string = ' ' . $string;
-    	$ini = strpos($string, $start);
-    	if ($ini == 0) return '';
-    	$ini += strlen($start);
-    	$len = strpos($string, $end, $ini) - $ini;
-    	return substr($string, $ini, $len);
-
+		$ini = strpos($string, $start);
+		if ($ini == 0) return '';
+		$ini += strlen($start);
+		$len = strpos($string, $end, $ini) - $ini;
+		return substr($string, $ini, $len);
 	}
-	
 }
 
 
 
 if (!function_exists('recurseCopy')) {
 
-	function recurseCopy($src,$dst, $childFolder='') { 
+	function recurseCopy($src, $dst, $childFolder = '')
+	{
 
-		$dir = opendir($src); 
-		if(! is_dir($dst)) mkdir($dst);
-		if ($childFolder!='') {
-			if(! is_dir($dst.'/'.$childFolder)) mkdir($dst.'/'.$childFolder);
+		$dir = opendir($src);
+		if (!is_dir($dst)) mkdir($dst);
+		if ($childFolder != '') {
+			if (!is_dir($dst . '/' . $childFolder)) mkdir($dst . '/' . $childFolder);
 
-			while(false !== ( $file = readdir($dir)) ) { 
-				if (( $file != '.' ) && ( $file != '..' )) { 
-					if ( is_dir($src . '/' . $file) ) { 
-						recurseCopy($src . '/' . $file,$dst.'/'.$childFolder . '/' . $file); 
-					} 
-					else { 
-						copy($src . '/' . $file, $dst.'/'.$childFolder . '/' . $file); 
-					}  
-				} 
+			while (false !== ($file = readdir($dir))) {
+				if (($file != '.') && ($file != '..')) {
+					if (is_dir($src . '/' . $file)) {
+						recurseCopy($src . '/' . $file, $dst . '/' . $childFolder . '/' . $file);
+					} else {
+						copy($src . '/' . $file, $dst . '/' . $childFolder . '/' . $file);
+					}
+				}
 			}
-		}else{
-				// return $cc; 
-			while(false !== ( $file = readdir($dir)) ) { 
-				if (( $file != '.' ) && ( $file != '..' )) { 
-					if ( is_dir($src . '/' . $file) ) { 
-						recurseCopy($src . '/' . $file,$dst . '/' . $file); 
-					} 
-					else { 
-						copy($src . '/' . $file, $dst . '/' . $file); 
-					}  
-				} 
-			} 
+		} else {
+			// return $cc; 
+			while (false !== ($file = readdir($dir))) {
+				if (($file != '.') && ($file != '..')) {
+					if (is_dir($src . '/' . $file)) {
+						recurseCopy($src . '/' . $file, $dst . '/' . $file);
+					} else {
+						copy($src . '/' . $file, $dst . '/' . $file);
+					}
+				}
+			}
 		}
-    
-    	closedir($dir); 
+
+		closedir($dir);
+	}
+}
+
+
+
+
+// create categ tree of the given category for docs 
+if (!function_exists('docs_categ_tree')) {
+	function docs_categ_tree($categ_id = null)
+	{
+		$active_lang_id = active_lang()->id ?? null;
+
+		$items = array();
+
+		$q = DB::table('docs_categ')
+			->leftJoin('docs_categ_content', 'docs_categ.id', '=', 'docs_categ_content.categ_id')
+			->select('docs_categ.*', 'docs_categ_content.title as title', 'docs_categ_content.description as description', 'docs_categ_content.slug as slug')
+			->where('parent_id', $categ_id)
+			->where('lang_id', $active_lang_id)
+			->where('active', 1)
+			->orderBy('position', 'asc')
+			->get();
+
+		foreach ($q as $categ) {
+			$items[] = array('id' => $categ->id, 'title' => $categ->title, 'description' => $categ->description, 'icon' => $categ->icon, 'slug' => $categ->slug, 'count_items' => $categ->count_items, 'count_tree_items' => $categ->count_tree_items, 'tree_ids' => explode(',', $categ->tree_ids), 'children' => docs_categ_tree($categ->id));
+		}
+
+		return json_decode(json_encode($items)); // array to object;
 	}
 }

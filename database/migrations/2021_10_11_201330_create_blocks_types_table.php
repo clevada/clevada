@@ -22,6 +22,7 @@ class CreateBlocksTypesTable extends Migration
                 $table->string('icon', 200)->nullable();
                 $table->smallInteger('position')->default(0);
                 $table->tinyInteger('allow_footer')->default(0);
+                $table->tinyInteger('allow_docs')->default(0);
                 $table->tinyInteger('allow_to_users')->default(0);
             });
         } else {
@@ -45,6 +46,9 @@ class CreateBlocksTypesTable extends Migration
 
                 if (!Schema::hasColumn('blocks_types', 'allow_footer'))
                     $table->tinyInteger('allow_footer')->default(0);
+
+                if (!Schema::hasColumn('blocks_types', 'allow_docs'))
+                    $table->tinyInteger('allow_docs')->default(0);
 
                 if (!Schema::hasColumn('blocks_types', 'allow_to_users'))
                     $table->tinyInteger('allow_to_users')->default(0);

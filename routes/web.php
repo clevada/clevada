@@ -13,10 +13,8 @@
  *    
  * @copyright   Copyright (c) 2021, Chimilevschi Iosif Gabriel, https://clevada.com.
  * @license     https://opensource.org/licenses/GPL-3.0  GPL-3.0 License.
- * @version     2.1.1
  * @author      Chimilevschi Iosif Gabriel <office@clevada.com>
  */
-
 
 
 /*
@@ -42,17 +40,23 @@ if (file_exists(resource_path() . '/clevada/routes/routes.xml')) {
 
         if ($route_name == 'posts') $slug_posts[$route_lang] = $route_value;
         if ($route_name == 'forum') $slug_forum[$route_lang] = $route_value;
+        if ($route_name == 'cart') $slug_cart[$route_lang] = $route_value;
+        if ($route_name == 'docs') $slug_docs[$route_lang] = $route_value;
         if ($route_name == 'posts_tag') $slug_posts_tag[$route_lang] = $route_value;
     }
 
     if (array_key_exists('default', $slug_posts)) $slug_posts['default'] = (string)$slug_posts['default'];
     if (array_key_exists($lang, $slug_posts)) $slug_posts[$lang] = (string)$slug_posts[$lang];
     if (array_key_exists($lang, $slug_forum)) $slug_forum[$lang] = (string)$slug_forum[$lang];
+    if (array_key_exists($lang, $slug_cart)) $slug_cart[$lang] = (string)$slug_cart[$lang];
+    if (array_key_exists($lang, $slug_docs)) $slug_docs[$lang] = (string)$slug_docs[$lang];
 }
 
 if ($lang && strlen($lang) == 2) {
     $posts_permalink = $slug_posts[$lang] ?? 'blog';
     $forum_permalink = $slug_forum[$lang] ?? 'forum';
+    $cart_permalink = $slug_cart[$lang] ?? 'shop';
+    $docs_permalink = $slug_docs[$lang] ?? 'docs';
     $profile_permalink = $slug_profile[$lang] ?? 'profile';
     $search_permalink = $slug_search[$lang] ?? 'search';
     $tag_permalink = $slug_tag[$lang] ?? 'tag';
@@ -60,6 +64,8 @@ if ($lang && strlen($lang) == 2) {
     $posts_permalink = $slug_posts['default'] ?? 'blog';
     $posts_tag_permalink = $slug_posts_tag['default'] ?? 'tag';
     $forum_permalink = $slug_forum['default'] ?? 'forum';
+    $cart_permalink = $slug_cart['default'] ?? 'shop';
+    $docs_permalink = $slug_docs['default'] ?? 'docs';
     $profile_permalink = $slug_profile['default']  ?? 'profile';
     $search_permalink = $slug_search['default'] ?? 'search';
     $tag_permalink = $slug_tag['default'] ?? 'tag';
@@ -110,6 +116,13 @@ Route::get('/' . $forum_permalink . '/like/{type}/{id}', 'Web\ForumController@li
 Route::get('/' . $forum_permalink . '/best-answer/{id}', 'Web\ForumController@best_answer')->name('forum.best_answer')->where(['id' => '[0-9]+']);
 Route::get('/' . $forum_permalink . '/quote/{type}/{id}', 'Web\ForumController@quote')->name('forum.quote')->where(['type' => '[a-z0-9_-]+', 'id' => '[0-9]+']);
 
+// Docs
+Route::get('/' . $docs_permalink, 'Web\DocsController@index')->name('docs');
+Route::get('/' . $docs_permalink . '/' . $search_permalink, 'Web\DocsController@search')->name('docs.search');
+Route::get('/' . $docs_permalink . '/{slug}', 'Web\DocsController@categ')->where(['slug' => '[a-z0-9_-]+'])->name('docs.categ');
+Route::get('/search-docs-autocomplete', 'Web\DocsController@search_autocomplete')->name('search_docs_autocomplete');
+
+
 // static page
 Route::get('/{parent_slug}/{slug}', 'Web\PageController@index')->name('child_page')->where(['parent_slug' => '[a-z0-9_-]{3,}+', 'slug' => '[a-z0-9_-]+']); // if page is a child of a parent page
 Route::get('/{slug}', 'Web\PageController@index')->name('page')->where(['slug' => '[a-z0-9_-]+']);
@@ -127,7 +140,7 @@ Route::get('/file-download/{id}/{hash}', 'Web\ToolsController@block_download')->
 Route::group([
     'prefix' => '{lang?}',
     'where' => ['lang' => '[a-zA-Z]{2}']
-], function ($lang) use ($posts_permalink, $forum_permalink, $profile_permalink, $search_permalink, $tag_permalink) {
+], function ($lang) use ($posts_permalink, $forum_permalink, $docs_permalink, $profile_permalink, $search_permalink, $tag_permalink) {
 
     Auth::routes(['verify' => true, 'lang' => $lang]);
 
@@ -138,7 +151,7 @@ Route::group([
 
     // Submit form
     Route::put('/form-submit/{id}', 'Web\FormController@submit')->name('form.submit')->where(['id' => '[0-9]+']);
-   
+
     // Profile
     Route::get('/' . $profile_permalink . '/{id}/{slug}', 'Web\ProfileController@index')->name('profile')->where(['id' => '[0-9]+', 'slug' => '[a-z0-9_-]+']);
 
@@ -167,6 +180,12 @@ Route::group([
     Route::get('/' . $forum_permalink . '/like/{type}/{id}', 'Web\ForumController@like')->name('forum.like')->where(['type' => '[a-z0-9_-]+', 'id' => '[0-9]+']);
     Route::get('/' . $forum_permalink . '/best-answer/{id}', 'Web\ForumController@best_answer')->name('forum.best_answer')->where(['id' => '[0-9]+']);
     Route::get('/' . $forum_permalink . '/quote/{type}/{id}', 'Web\ForumController@quote')->name('forum.quote')->where(['type' => '[a-z0-9_-]+', 'id' => '[0-9]+']);
+
+    // Docs
+    Route::get('/' . $docs_permalink, 'Web\DocsController@index')->name('docs');
+    Route::get('/' . $docs_permalink . '/' . $search_permalink, 'Web\DocsController@search')->name('docs.search');
+    Route::get('/' . $docs_permalink . '/{slug}', 'Web\DocsController@categ')->where(['slug' => '[a-z0-9_-]+'])->name('docs.categ');
+    Route::get('/search-docs-autocomplete', 'Web\DocsController@search_autocomplete')->name('search_docs_autocomplete');
 
     // static page
     Route::get('/{parent_slug}/{slug}', 'Web\PageController@index')->name('child_page')->where(['parent_slug' => '[a-z0-9_-]{3,}+', 'slug' => '[a-z0-9_-]+']); // if page is a child of a parent page

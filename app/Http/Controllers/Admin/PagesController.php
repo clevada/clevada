@@ -401,6 +401,9 @@ class PagesController extends Controller
             }
         }
 
+        // regenerate menu links for each language and store in cache config
+        Core::generate_langs_menu_links();
+
         return redirect(route('admin.pages'))->with('success', 'updated');
     }
 

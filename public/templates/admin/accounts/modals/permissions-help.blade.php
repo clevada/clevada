@@ -1,11 +1,11 @@
 <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-labelledby="permissionsHelp" aria-hidden="true" id="permissionsHelp">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 
 
 			<div class="modal-header">
 				<h5 class="modal-title" id="permissionsHelp">{{ __('Staff permissions help') }}</h5>
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{ __('Close') }}</span></button>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 
 			<div class="modal-body">

@@ -53,7 +53,7 @@
         @endif
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"><i class="bi bi-list" style="font-size: 2rem; color: {{ template('navbar', 'font_color') ?? config('defaults.nav_font_color') }}"></i></span>
+            <span class="navbar-toggler-icon"><i class="bi bi-list" style="font-size: 2rem; color: {{ template('navbar_font_color') ?? config('defaults.nav_font_color') }}"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav {{ template('menu_links_align') ?? 'ms-auto' }}">

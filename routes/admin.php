@@ -216,12 +216,7 @@ Route::group([
     Route::post('/templates/{template_id}', 'Admin\TemplateController@add_block')->where('template_id', '[0-9]+');
 
     Route::post('/templates/{template_id}/{module}/sortable/', 'Admin\TemplateController@sortable')->name('admin.templates.sortable')->where('template_id', '[0-9]+')->where('module', '[a-z0-9_-]+')->where('layout', '[a-z0-9_-]+');
-    Route::post('/templates/{template_id}/{module}/update-layout', 'Admin\TemplateController@update_layout')->name('admin.templates.update-layout')->where('template_id', '[0-9]+')->where('module', '[a-z0-9_-]+');
-
-    Route::resource('/template/styles', 'Admin\TemplateStylesController')
-        ->names(['index' => 'admin.template.styles', 'create' => 'admin.template.styles.create', 'show' => 'admin.template.styles.show'])
-        ->parameters(['styles' => 'id']);
-
+    
     Route::resource('/template/sidebars', 'Admin\TemplateSidebarsController')
         ->names(['index' => 'admin.template.sidebars', 'create' => 'admin.template.sidebars.create', 'show' => 'admin.template.sidebars.show'])
         ->parameters(['sidebars' => 'id']);
@@ -324,7 +319,32 @@ Route::group([
 
 
     Route::post('/tasks/{id}/activity/important/{activity_id}/{action}', 'Admin\TasksController@reply')->name('admin.tasks.activity.important')->where('id', '[0-9]+')->where('activity_id', '[0-9]+')->where('action', '[a-z0-9_-]+');
-   
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Docs routes
+    |--------------------------------------------------------------------------
+    */
+    Route::resource('/docs/categ', 'Admin\DocsCategoriesController')
+        ->names(['index' => 'admin.docs.categ', 'create' => 'admin.docs.categ.create', 'show' => 'admin.docs.categ.show'])
+        ->parameters(['categ' => 'id']);
+
+    Route::post('/docs/{id}/sortable', 'Admin\DocsController@sortable')->name('admin.docs.sortable')->where('id', '[0-9]+');
+    Route::get('/docs/{id}/content', 'Admin\DocsController@content')->name('admin.docs.content')->where('id', '[0-9]+');
+    Route::post('/docs/{id}/content', 'Admin\DocsController@update_content')->name('admin.docs.content.new')->where('id', '[0-9]+');
+    Route::delete('/docs/{id}/content/delete/{block_id}', 'Admin\DocsController@delete_content')->name('admin.docs.content.delete')->where('id', '[0-9]+')->where('block_id', '[0-9]+');
+
+    Route::get('/docs/{id}/content/block', 'Admin\DocsController@block')->name('admin.docs.content.block')->where('id', '[0-9]+');
+    Route::put('/docs/{id}/content/block', 'Admin\DocsController@block_update')->where('id', '[0-9]+');
+
+    Route::get('/docs/seo', 'Admin\DocsController@seo')->name('admin.docs.seo');
+    Route::post('/docs/seo', 'Admin\DocsController@update_seo');
+
+    Route::resource('/docs', 'Admin\DocsController')
+        ->names(['index' => 'admin.docs', 'create' => 'admin.docs.create', 'show' => 'admin.docs.show'])
+        ->parameters(['docs' => 'id']);
+
 
     /*
     |--------------------------------------------------------------------------

@@ -292,7 +292,17 @@ class TemplateController extends Controller
 
         $template_id = $request->id;
         $module = $request->module;
-        $inputs = $request->except(['_token', 'template_id', 'module', '_method']);
+        $inputs = $request->except(['_token', 'template_id', 'module', '_method', 'docs_search_bar_cover_img']);
+
+        // uploads files inputs
+        // !!! You MUST add field name to inputs exclude list above
+        if ($request->hasFile('docs_search_bar_cover_img')) {            
+            $validator = Validator::make($request->all(), ['docs_search_bar_cover_img' => 'mimes:jpeg,bmp,png,gif,webp']);            
+            if (! $validator->fails()) {                
+                $file_db = $this->UploadModel->upload_file($request, 'docs_search_bar_cover_img');      
+                Core::update_template_config($template_id, 'docs_search_bar_cover_img', $file_db);          
+            }
+        }
 
         if (!$template_id) return redirect(route('admin.templates'));
         if (!$module) $module = 'global';
@@ -451,27 +461,6 @@ class TemplateController extends Controller
         return redirect(route('admin.template.custom_code'))->with('success', 'updated');
     }
 
-
-    public function update_layout(Request $request)
-    {
-
-        if (!(check_access('developer'))) return redirect(route('admin'));
-
-        $module = $request->module;
-        $template_id = $request->template_id;
-
-        if (!$template_id) return redirect(route('admin.config.templates'));
-        if (!$module) return redirect(route('admin.templates'));
-
-        $inputs = $request->except('_token');
-
-        $key = 'layout_' . $module;
-        if (!isset($inputs['layout'])) return redirect(route('admin.templates.show', ['id' => $template_id, 'module' => $module]))->with('error', 'select_layout');
-
-        Core::update_template_config($template_id, $key, $inputs['layout']);
-
-        return redirect(route('admin.templates.show', ['id' => $template_id, 'module' => $module]))->with('success', 'layout_updated');
-    }
 
 
     public function add_block(Request $request)

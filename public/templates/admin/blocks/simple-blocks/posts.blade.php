@@ -1,14 +1,10 @@
-<!-- Color picker -->
-<script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
-
 <div class="page-title">
     <div class="row">
         <div class="col-12">
             <nav aria-label="breadcrumb" class="breadcrumb-header">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('Manage content block') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('Manage block content') }}</li>
                 </ol>
             </nav>
         </div>
@@ -25,7 +21,7 @@
             <div class="row">
 
                 <div class="col-12">
-                    <h4 class="card-title">{{ __('Edit block') }} ({{ $block->type_label }})</h4>
+                    <h4 class="card-title">{{ __('Manage block content') }} ({{ $block->type_label }})</h4>
                 </div>
 
             </div>
@@ -35,7 +31,14 @@
 
         <div class="card-body">
 
-            <form method="post" enctype="multipart/form-data">
+            @php 
+            if(($is_footer_block ?? null) == 1) 
+            $action = route('admin.template.footer.block', ['id' => $block->id]);            
+            else
+            $action = route('admin.blocks.show', ['id' => $block->id]);
+            @endphp 
+
+            <form method="post" enctype="multipart/form-data" action="{{ $action }}">
                 @csrf
                 @method('PUT')
 
@@ -312,7 +315,7 @@
                     <input type="hidden" name="existing_image" value="{{ $block_extra['image'] ?? null }}">
                     <input type="hidden" name="type_id" value="{{ $block->type_id }}">
                     <input type="hidden" name="referer" value="{{ $referer }}">
-                    <button type="submit" class="btn btn-primary">{{ __('Update block') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
                 </div>
 
             </form>

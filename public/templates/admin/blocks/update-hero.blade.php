@@ -6,7 +6,7 @@
             <nav aria-label="breadcrumb" class="breadcrumb-header">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('Manage content block') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('Manage block content') }}</li>
                 </ol>
             </nav>
         </div>
@@ -23,7 +23,7 @@
             <div class="row">
 
                 <div class="col-12">
-                    <h4 class="card-title">{{ __('Edit block') }} ({{ $block->type_label }})</h4>
+                    <h4 class="card-title">{{ __('Manage block content') }} ({{ $block->type_label }})</h4>
                 </div>
 
             </div>
@@ -219,6 +219,15 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="col-md-4 col-lg-3 col-xl-2 col-12 form-group mt-2">                           
+                            <label>{{ __('Text align') }}</label>
+                            <select class="form-select" name="text_align">                                
+                                <option @if (($block_extra['text_align'] ?? null) == 'left') selected @endif value="left">{{ __('Left') }}</option>
+                                <option @if (($block_extra['text_align'] ?? null) == 'center') selected @endif value="center">{{ __('Center') }}</option>
+                                <option @if (($block_extra['text_align'] ?? null) == 'right') selected @endif value="right">{{ __('Right') }}</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-group col-xl-2 col-lg-3 col-sm-12 mt-2">
@@ -290,6 +299,13 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4 col-lg-3 col-xl-2">
+                            <div class="form-group">
+                                <label>{{ __('Button 1 icon') }} ({{ __('optional') }}) <a target="_blank" href="{{ route('admin.config.icons') }}"><i class="bi bi-question-circle"></i></a></label>
+                                <input type="text" class="form-control" name="btn1_icon_{{ $lang->id }}" value="{{ $content_array['btn1_icon'] ?? null }}">
+                            </div>
+                        </div>
+
                          <div class="col-md-4 col-lg-3 col-xl-4">
                             <div class="form-group">
                                 <label>{{ __('Button 1 info text') }} ({{ __('optional') }})</label>
@@ -327,6 +343,13 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4 col-lg-3 col-xl-2">
+                            <div class="form-group">
+                                <label>{{ __('Button 2 icon') }} ({{ __('optional') }}) <a target="_blank" href="{{ route('admin.config.icons') }}"><i class="bi bi-question-circle"></i></a></label>
+                                <input type="text" class="form-control" name="btn2_icon_{{ $lang->id }}" value="{{ $content_array['btn2_icon'] ?? null }}">
+                            </div>
+                        </div>
+
                         <div class="col-md-4 col-lg-3 col-xl-4">
                             <div class="form-group">
                                 <label>{{ __('Button 2 info text') }} ({{ __('optional') }})</label>
@@ -353,7 +376,7 @@
                     <input type="hidden" name="existing_image" value="{{ $block_extra['image'] ?? null }}">
                     <input type="hidden" name="type_id" value="{{ $block->type_id }}">
                     <input type="hidden" name="referer" value="{{ $referer }}">
-                    <button type="submit" class="btn btn-primary">{{ __('Update block') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
                 </div>
 
             </form>

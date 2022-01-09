@@ -66,7 +66,7 @@
                                 {{ __('Add content block') }}</a>
                         </div>
 
-                        @foreach (content_blocks('sidebar', $sidebar->id, $show_hidden = 1) as $block)
+                        @foreach (content_blocks('sidebar', $sidebar->id, $template_id = null, $show_hidden = 1) as $block)
                             <div class="builder-block movable" id="item-{{ $block->id }}">
                                 <div class="float-end ms-2">
 

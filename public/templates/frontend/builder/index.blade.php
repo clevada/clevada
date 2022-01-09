@@ -27,16 +27,13 @@
     <div class="content">
 
         @include("{$template_view}.global.navigation")
-
-        <div class="container-xxl">
-            @if ($sidebar_id && $sidebar_position == 'left')
-                @include("{$template_view}.layouts.layout-sidebar-left")
-            @elseif ($sidebar_id && $sidebar_position == 'right')
-                @include("{$template_view}.layouts.layout-sidebar-right")
-            @else
-                @include("{$template_view}.layouts.layout-content")
-            @endif
-        </div>
+        @if ($sidebar_id && $sidebar_position == 'left')
+            @include("{$template_view}.layouts.layout-sidebar-left")
+        @elseif ($sidebar_id && $sidebar_position == 'right')
+            @include("{$template_view}.layouts.layout-sidebar-right")
+        @else
+            @include("{$template_view}.layouts.layout-content")
+        @endif
     </div>
     <!-- End Main Content -->
 

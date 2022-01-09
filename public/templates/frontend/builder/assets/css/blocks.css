@@ -291,7 +291,7 @@
 
 .block-gallery-image-box img {
     width: 100vw;
-    height: 20vh;
+    height: 22vh;
     object-fit: cover;
     overflow: hidden;
     margin-bottom: 10px;
@@ -310,7 +310,8 @@
 
 .block-hero-title {
     font-weight: bold;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    line-height: 1.3em;
 }
 
 @media (max-width: 576px) {

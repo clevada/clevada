@@ -13,7 +13,6 @@
  *    
  * @copyright   Copyright (c) 2021, Chimilevschi Iosif Gabriel, https://clevada.com.
  * @license     https://opensource.org/licenses/GPL-3.0  GPL-3.0 License.
- * @version     2.1.1
  * @author      Chimilevschi Iosif Gabriel <office@clevada.com>
  */
 

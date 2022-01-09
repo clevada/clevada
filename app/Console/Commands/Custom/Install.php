@@ -79,7 +79,9 @@ class Install extends Command
 
         // Modules
         DB::table('sys_modules')->updateOrInsert(['module' => 'accounts'], ['label' => 'Accounts', 'status' => 'active', 'route_web' => null, 'route_admin' => 'admin.accounts', 'hidden' => 1]);
+        DB::table('sys_modules')->updateOrInsert(['module' => 'cart'], ['label' => 'eCommerce', 'status' => 'active', 'route_web' => 'cart', 'route_admin' => 'admin.cart.products', 'hidden' => 0]);
         DB::table('sys_modules')->updateOrInsert(['module' => 'developer'], ['label' => 'Template developer', 'status' => 'active', 'route_web' => null, 'route_admin' => null, 'hidden' => 1]);
+        DB::table('sys_modules')->updateOrInsert(['module' => 'docs'], ['label' => 'Knowledge Base', 'status' => 'active', 'route_web' => 'docs', 'route_admin' => 'admin.docs', 'hidden' => 0]);
         DB::table('sys_modules')->updateOrInsert(['module' => 'forms'], ['label' => 'Forms', 'status' => 'active', 'route_web' => null, 'route_admin' => 'admin.forms', 'hidden' => 0]);
         DB::table('sys_modules')->updateOrInsert(['module' => 'forum'], ['label' => 'Community', 'status' => 'active', 'route_web' => 'forum', 'route_admin' => 'admin.forum.topics', 'hidden' => 0]);
         DB::table('sys_modules')->updateOrInsert(['module' => 'pages'], ['label' => 'Pages', 'status' => 'active', 'route_web' => null, 'route_admin' => 'admin.pages', 'hidden' => 0]);
@@ -90,7 +92,9 @@ class Install extends Command
         // Permissions
         DB::table('sys_permissions')->updateOrInsert(['module' => 'accounts', 'permission' => 'manager'], ['label' => 'Manager', 'position' => 1, 'description' => 'Manage any account']);
         DB::table('sys_permissions')->updateOrInsert(['module' => 'accounts', 'permission' => 'operator'], ['label' => 'Operator', 'position' => 2, 'description' => 'View accounts details. Can add internal info and assign account tags']);
+        DB::table('sys_permissions')->updateOrInsert(['module' => 'cart', 'permission' => 'manager'], ['label' => 'Manager', 'position' => 1, 'description' => 'Have full access to eCommerce content (products, stock, discounts, orders)']);
         DB::table('sys_permissions')->updateOrInsert(['module' => 'developer', 'permission' => 'developer'], ['label' => 'Developer', 'position' => 1, 'description' => 'Developers have access to manage and edit template']);
+        DB::table('sys_permissions')->updateOrInsert(['module' => 'docs', 'permission' => 'author'], ['label' => 'Author', 'position' => 1, 'description' => 'Manage knowledge base articles']);
         DB::table('sys_permissions')->updateOrInsert(['module' => 'forms', 'permission' => 'manager'], ['label' => 'Manager', 'position' => 1, 'description' => 'Manage forms content']);
         DB::table('sys_permissions')->updateOrInsert(['module' => 'forum', 'permission' => 'moderator'], ['label' => 'Moderator', 'position' => 1, 'description' => 'Moderate forum content (edit or delete posts and topics, restrict or ban users)']);
         DB::table('sys_permissions')->updateOrInsert(['module' => 'pages', 'permission' => 'manager'], ['label' => 'Manager', 'position' => 1, 'description' => 'Manage static pages (create, update and delete pages)']);
@@ -117,10 +121,11 @@ class Install extends Command
         DB::table('blocks_types')->updateOrInsert(['type' => 'blockquote'], ['label' => 'Blockquote', 'icon' => '<i class="bi bi-chat-left-quote"></i>', 'position' => 130, 'allow_footer' => 1, 'allow_to_users' => 1]);
         DB::table('blocks_types')->updateOrInsert(['type' => 'download'], ['label' => 'Download', 'icon' => '<i class="bi bi-download"></i>', 'position' => 140, 'allow_footer' => 0, 'allow_to_users' => 0]);
         DB::table('blocks_types')->updateOrInsert(['type' => 'posts'], ['label' => 'Posts content', 'icon' => '<i class="bi bi-justify"></i>', 'position' => 150, 'allow_footer' => 1, 'allow_to_users' => 0]);
-        DB::table('blocks_types')->updateOrInsert(['type' => 'forum'], ['label' => 'Forum content', 'icon' => '<i class="bi bi-chat-right-quote"></i>', 'position' => 160, 'allow_footer' => 1, 'allow_to_users' => 0]);
-        DB::table('blocks_types')->updateOrInsert(['type' => 'form'], ['label' => 'Form', 'icon' => '<i class="bi bi-file-text"></i>', 'position' => 170, 'allow_footer' => 0, 'allow_to_users' => 0]);
-        DB::table('blocks_types')->updateOrInsert(['type' => 'search'], ['label' => 'Search', 'icon' => '<i class="bi bi-search"></i>', 'position' => 180, 'allow_footer' => 0, 'allow_to_users' => 0]);
-        DB::table('blocks_types')->updateOrInsert(['type' => 'include'], ['label' => 'Include file', 'icon' => '<i class="bi bi-file-code"></i>', 'position' => 190, 'allow_footer' => 1, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'cart'], ['label' => 'Shop content', 'icon' => '<i class="bi bi-cart-check"></i>', 'position' => 160, 'allow_footer' => 0, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'forum'], ['label' => 'Forum content', 'icon' => '<i class="bi bi-chat-right-quote"></i>', 'position' => 170, 'allow_footer' => 1, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'form'], ['label' => 'Form', 'icon' => '<i class="bi bi-file-text"></i>', 'position' => 180, 'allow_footer' => 0, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'search'], ['label' => 'Search', 'icon' => '<i class="bi bi-search"></i>', 'position' => 190, 'allow_footer' => 0, 'allow_to_users' => 0]);
+        DB::table('blocks_types')->updateOrInsert(['type' => 'include'], ['label' => 'Include file', 'icon' => '<i class="bi bi-file-code"></i>', 'position' => 200, 'allow_footer' => 1, 'allow_to_users' => 0]);
 
         // Accounts roles
         DB::table('users_roles')->updateOrInsert(['role' => 'admin'], ['active' => 1, 'registration_enabled' => 0]);

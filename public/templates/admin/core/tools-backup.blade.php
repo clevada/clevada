@@ -63,7 +63,7 @@
             <hr>
 
             @php
-                $path = storage_path() . '/backups/clevada';
+                $path = storage_path() . '/backups/Clevada';
                 $files = glob($path . '/*.zip');
             @endphp
 

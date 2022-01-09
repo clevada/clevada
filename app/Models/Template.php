@@ -114,13 +114,13 @@ class Template extends Model
         $write = "#footer { font-family: $font_family_footer !important;} ";
         fwrite($css_file, $write);
 
-        $write = "h1 { font-size: $h1_size !important; line-height: 1.5em; margin-bottom: 20px; } ";
+        $write = "h1 { font-size: $h1_size !important; } ";
         fwrite($css_file, $write);
 
-        $write = "h2 { font-size: $h2_size !important; line-height: 1.2em;} ";
+        $write = "h2 { font-size: $h2_size !important;} ";
         fwrite($css_file, $write);
 
-        $write = "h3 { font-size: $h3_size !important; line-height: 1em;} ";
+        $write = "h3 { font-size: $h3_size !important;} ";
         fwrite($css_file, $write);
 
         $write = "h4 { font-size: $h4_size !important;} ";
@@ -130,13 +130,14 @@ class Template extends Model
         // 2. LINKS
         $link_color = get_template_value($template_id, 'link_color') ?? config('defaults.link_color');
         $link_color_hover = get_template_value($template_id, 'link_color_hover') ?? config('defaults.link_color_hover');
+        $link_color_underline = get_template_value($template_id, 'link_color_underline') ?? config('defaults.link_color');
         $link_decoration = get_template_value($template_id, 'link_decoration') ?? config('defaults.link_decoration');
         $link_hover_decoration = get_template_value($template_id, 'link_hover_decoration') ?? config('defaults.link_hover_decoration');
 
-        //$write = "a { color: $link_color !important; text-decoration: $link_decoration !important; text-underline-offset: 0.25em;} ";
+        $write = "a { color: $link_color !important; text-decoration: $link_decoration !important; text-underline-offset: 0.25em; -webkit-text-decoration-color: $link_color_underline; text-decoration-color: $link_color_underline !important;} ";
 
-        //$write .= "a:hover { color: $link_color_hover !important; text-decoration: $link_hover_decoration !important; text-underline-offset: 0.25em;} ";
-        //fwrite($css_file, $write);
+        $write .= "a:hover { color: $link_color_hover !important; text-decoration: $link_hover_decoration !important; text-underline-offset: 0.25em; -webkit-text-decoration-color: $link_color_underline; text-decoration-color: $link_color_underline !important;} ";
+        fwrite($css_file, $write);
 
         // 3. BUTTONS
         $button1_bg_color = get_template_value($template_id, 'button1_bg_color') ?? config('defaults.button_bg_color');
@@ -442,6 +443,41 @@ class Template extends Model
         $write .= ".user-nav ul li a { color: $users_nav_font_color !important; } ";
         $write .= ".user-nav ul li a:hover { color: $users_nav_font_color_hover !important; background-color: $users_nav_bg_color_hover !important; } ";
         $write .= ".user-nav ul .active, .user-nav ul li .active:hover { color: $users_nav_active_font_color !important; background-color: $users_nav_active_bg_color !important; } ";
+
+        fwrite($css_file, $write);
+
+
+        // 13. DOCS
+        $docs_cards_icon_size = get_template_value($template_id, 'docs_cards_icon_size') ?? config('defaults.h1_size');
+        $docs_cards_font_color = get_template_value($template_id, 'docs_cards_font_color') ?? config('defaults.font_color');
+        $docs_cards_bg_color = get_template_value($template_id, 'docs_cards_bg_color') ?? '#fbf7f0';
+        $docs_cards_font_color_hover = get_template_value($template_id, 'docs_cards_font_color_hover') ?? config('defaults.font_color');
+        $docs_cards_bg_color_hover = get_template_value($template_id, 'docs_cards_bg_color_hover') ?? '#fbf7f0';
+        $docs_cards_shaddow = get_template_value($template_id, 'docs_cards_shaddow') ?? null;
+
+        $docs_home_link_color = get_template_value($template_id, 'docs_home_link_color') ?? config('defaults.link_color');
+        $docs_home_link_color_hover = get_template_value($template_id, 'docs_home_link_color_hover') ?? config('defaults.link_color_hover');
+        $docs_home_link_color_underline = get_template_value($template_id, 'docs_home_link_color_underline') ?? config('defaults.link_color_hover');
+        $docs_home_link_decoration = get_template_value($template_id, 'docs_home_link_decoration') ?? 'none';
+        $docs_home_link_hover_decoration = get_template_value($template_id, 'docs_home_link_hover_decoration') ?? 'none';
+
+        if ($docs_cards_shaddow == 'on') {
+            $docs_shaddow_css = "box-shadow: 0 0 11px rgba(33,33,33,0.2);";            
+        }
+
+        $write = ".docs-card { color: $docs_cards_font_color !important; background-color: $docs_cards_bg_color !important; text-decoration: $docs_home_link_decoration !important; -webkit-text-decoration-color: $docs_home_link_color_underline; text-decoration-color: $docs_home_link_color_underline !important;} ";
+
+        $write .= ".docs-card:hover { color: $docs_cards_font_color_hover !important; background-color: $docs_cards_bg_color_hover !important; text-decoration: $docs_home_link_decoration !important; -webkit-text-decoration-color: $docs_home_link_color_underline; text-decoration-color: $docs_home_link_color_underline !important; $docs_shaddow_css } ";
+
+        $write .= ".docs-card .card-categ-icon { font-size: $docs_cards_icon_size !important; color: $docs_cards_font_color !important;} ";
+                
+        $write .= ".docs-card .card-categ-title { color: $docs_home_link_color !important; text-decoration: $docs_home_link_decoration !important; -webkit-text-decoration-color: $docs_home_link_color_underline; text-decoration-color: $docs_home_link_color_underline !important;} ";
+        
+        $write .= ".docs-card:hover .card-categ-icon { color: $docs_cards_font_color_hover !important;} ";        
+        $write .= ".docs-card:hover .card-categ-title { color: $docs_home_link_color_hover !important; } ";
+        $write .= ".docs-card:hover .card-categ-description { color: $docs_cards_font_color_hover !important; } ";
+
+        $write .= ".docs-card .card-categ-title:hover { color: $docs_home_link_color_hover !important; text-decoration: $docs_home_link_hover_decoration !important; -webkit-text-decoration-color: $docs_home_link_color_underline; text-decoration-color: $docs_home_link_color_underline !important;} ";
 
         fwrite($css_file, $write);
 
