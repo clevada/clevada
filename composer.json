@@ -2,8 +2,20 @@
     "name": "clevada/clevada",
     "type": "project",
     "description": "Clevada Content Management System",
-    "keywords": ["Clevada", "CMS", "blog", "website builder"],
-    "license": "MIT",
+    "keywords": [
+        "Clevada",
+        "CMS",
+        "blog",
+        "website builder"
+    ],
+    "author": [
+        {
+            "name": "Chimilevschi Iosif-Gabriel",
+            "email": "gabriel@clevada.com",
+            "role": "Founder and developer"
+        }
+    ],
+    "license": "GPL-3.0",
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.0",
@@ -23,7 +35,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/functions.php"            
+        ]
     },
     "autoload-dev": {
         "psr-4": {
