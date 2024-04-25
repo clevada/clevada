@@ -1,0 +1,151 @@
+.forum-link {
+    color: #557da0;
+}
+
+.forum-link:hover {
+    color: #476d8f;
+}
+
+.table-forum {
+    margin-bottom: 0;
+}
+
+.table-forum>tbody>tr:last-child>td {
+    border: none;
+}
+
+.card-forum {
+    border: 1px solid #e7eef1;
+}
+
+.card-body-forum {
+    padding: 0.3rem;
+    background-color: #fafafa;
+}
+
+.forum-card-header {
+    padding: 0.8rem;
+    margin-bottom: 0;
+    background-color: #425e89;
+    color: #fff;
+    border-bottom: none;
+    letter-spacing: 0.06em;
+}
+
+.forum-categ-card-body {
+    padding: 0 0.5em;
+    background-color: #fafafa;
+}
+
+.forum-card-header a,
+.forum-card-header a:hover,
+.forum-card-header a:focus {
+    color: #fff;
+}
+
+.forum-categ-link {
+    font-weight: bold;
+}
+
+.forum-card-header .section-title {
+    font-size: 0.9em;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.forum-topic-header {
+    font-size: 0.95rem;
+    background-color: #557da0;
+    color: #fff;
+}
+
+.forum-topic-header a {
+    color: #fff;
+}
+
+.forum-topic-header-info {
+    font-size: 0.95rem;
+    background-color: #dfeaef;
+}
+
+.forum_signature {
+    font-size: 0.95em;
+    border-top: 1px solid rgb(245, 245, 245);
+    padding-top: 15px;
+}
+
+.forum-avatar {
+    max-height: 20px;
+    max-width: 20px;
+}
+
+.forum_content,
+.forum_content p {
+    font-size: 1em;
+}
+
+.forum-blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+.forum-blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+}
+
+.forum-blockquote p {
+    display: inline;
+}
+
+.forum-post-best-answer {
+    background-color: #F3F9E9;
+}
+
+.forum-btn-best-answer {
+    background-color: rgb(139, 196, 48);
+    color: #fff;
+}
+
+.form-select-lg {
+    font-size: 1em;
+}
+
+.forum-blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+.forum-blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+}
+
+.forum-blockquote p {
+    display: inline;
+}
+
+.forum-last-content,
+.forum-last-content a {
+    font-size: 0.95em;
+}
+
+.forum-subcateg-link,
+.forum-link {
+    font-size: 0.9em;
+}

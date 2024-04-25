@@ -18,6 +18,8 @@
     "license": "GPL-3.0",
     "require": {
         "php": "^8.2",
+        "intervention/image-laravel": "^1.2",
+        "laravel/fortify": "^1.21",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9"
     },

@@ -1,0 +1,48 @@
+<?php
+debug_backtrace() || die('Direct access not permitted');
+?>
+<div class="modal fade custom-modal" tabindex="-1" role="dialog" 
+    aria-hidden="true" aria-labelledby="addBlockLabel{{ $col ?? null }}" id="addBlock{{ $col ?? null }}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+         
+            <form method="post" action="{{ route('admin.docs.content.new', ['id' => $doc->id]) }}">
+                @csrf
+
+                <div class="modal-header">
+                    <h5 class="modal-title" aria-labelledby="addBlockLabel{{ $col ?? null }}">{{ __('Add block') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">                   
+                    <p><b>{{ __('Click to add a block') }}</b>. {{ __('You can manage block content and settings at the next step') }}</p>
+
+                    <div class="row">
+                        @foreach (config('nura.docs_blocks') as $key => $type)
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 mb-4">
+                                <input type="radio" name="type" class="radio input-hidden" id="block_{{ $key }}_{{ $col ?? null }}" value="{{ $key }}" required />
+                                <label for="block_{{ $key }}_{{ $col ?? null }}">
+                                    <div class='text-center'>
+                                        <div class="fs-1">{!! $type['icon'] !!}</div>
+                                        <div class="mb-2">
+                                            {{ $type['label'] }}
+                                        </div>                                       
+                                    </div>
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">{{ __('Add block') }}</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
